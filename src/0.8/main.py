@@ -2,7 +2,7 @@
 
 from flask import Flask
 
-default_blueprints = []
+default_blueprints = []  # each as (blueprint_instance, url_preffix)
 
 def app_factory(config, app_name=None, blueprints=None):
     app_name = app_name or __name__
@@ -104,5 +104,5 @@ def configure_before_request(app):
 
 
 def configure_views(app):
-    "Add some simple views here"
+    "Add some simple views here like index_view"
     pass
