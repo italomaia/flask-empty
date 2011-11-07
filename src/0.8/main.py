@@ -2,10 +2,6 @@
 
 from flask import Flask
 
-# uncomment for sqlalchemy support
-# from flask.ext import SQLAlchemy
-# db = SQLAlchemy()
-
 default_blueprints = []
 
 def app_factory(config, app_name=None, blueprints=None):
@@ -82,7 +78,10 @@ def configure_error_handlers(app):
 
 def configure_database(app):
     "Database configuration should be set here"
-    pass
+    # uncomment for sqlalchemy support
+    # from database import db
+    # db.app = app
+    # db.init_app(app)
 
 
 def configure_context_processors(app):
