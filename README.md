@@ -1,7 +1,7 @@
 Flask Empty
 ===========
-Flask-Empty is a simple project that aims to give a simple empty project example for faster
-flask prototype. Just clone de project and copy the example you would like the most.
+Flask-Empty is a simple **flask skeleton** project for fast flask prototype. Just 
+clone de project and copy the example you would like the most.
 
 Usage
 =====
