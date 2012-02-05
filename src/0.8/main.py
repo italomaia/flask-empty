@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from flask import Flask
+from flask import Flask, render_template
 
 default_blueprints = []  # each as (blueprint_instance, url_preffix)
 
