@@ -6,6 +6,8 @@ import os
 import config
 
 class Test(Command):
+    "Run tests."
+
     start_discovery_dir = "tests"
 
     def get_options(self):
