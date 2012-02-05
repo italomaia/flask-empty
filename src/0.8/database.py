@@ -3,7 +3,7 @@
 #--- SQLALCHEMY SUPPORT
 
 # uncomment for sqlalchemy support
-# from flask.ext import SQLAlchemy
+# from flaskext.sqlalchemy import SQLAlchemy
 # db = SQLAlchemy()
 
 #def drop_all():
