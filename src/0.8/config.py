@@ -1,4 +1,5 @@
 # -*- config:utf-8 -*-
+
 from datetime import timedelta
 
 project_name = "yourprojectname"
@@ -15,7 +16,7 @@ class Config(object):
 
     CSRF_ENABLED = True
     SECRET_KEY = "secret"
-    LOGGER_NAME = "%s_lg" % project_name
+    LOGGER_NAME = "%s_log" % project_name
     PERMANENT_SESSION_LIFETIME = timedelta(days=1)
 
     # EMAIL CONFIGURATION
