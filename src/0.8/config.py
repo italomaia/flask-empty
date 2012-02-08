@@ -15,7 +15,7 @@ class Config(object):
     SQLALCHEMY_ECHO = False
 
     CSRF_ENABLED = True
-    SECRET_KEY = "secret"
+    SECRET_KEY = "secret"  # import os; os.urandom(24)
     LOGGER_NAME = "%s_log" % project_name
     PERMANENT_SESSION_LIFETIME = timedelta(days=1)
 
