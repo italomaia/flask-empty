@@ -122,4 +122,6 @@ def configure_before_request(app):
 
 def configure_views(app):
     "Add some simple views here like index_view"
-    pass
+    @app.route("/")
+    def index_view():
+        return render_template("index.html")
