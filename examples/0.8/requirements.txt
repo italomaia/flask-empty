@@ -1,0 +1,8 @@
+Flask==0.8
+Flask-SQLAlchemy==0.16
+Flask-Script==0.3.3
+Jinja2==2.6
+SQLAlchemy==0.7.7
+Werkzeug==0.8.3
+argparse==1.2.1
+wsgiref==0.1.2
