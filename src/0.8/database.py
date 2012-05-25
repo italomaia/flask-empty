@@ -2,7 +2,6 @@
 
 #--- SQLALCHEMY SUPPORT
 
-# helpful: http://docs.sqlalchemy.org/en/rel_0_7/core/types.html#generic-types
 # uncomment for sqlalchemy support
 # from flask.ext.sqlalchemy import SQLAlchemy
 # db = SQLAlchemy()
