@@ -2,14 +2,13 @@
 
 from flask import Flask, render_template
 
-default_blueprints = []  # each as (blueprint_instance, url_preffix)
 
 def app_factory(config, app_name=None, blueprints=None):
     app_name = app_name or __name__
     app = Flask(app_name)
 
     configure_app(app, config)
-    configure_blueprints(app, blueprints)
+    configure_blueprints(app, blueprints or config.BLUEPRINTS)
     configure_error_handlers(app)
     configure_database(app)
     configure_context_processors(app)
@@ -27,7 +26,7 @@ def configure_app(app, config):
 
 
 def configure_blueprints(app, blueprints):
-    for blueprint, url_prefix in (blueprints or default_blueprints):
+    for blueprint, url_prefix in blueprints:
         app.register_blueprint(blueprint, url_prefix=url_prefix)
 
 
