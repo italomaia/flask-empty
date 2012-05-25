@@ -29,13 +29,15 @@ class Config(object):
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
+    BLUEPRINTS = []  # each as (blueprint_instance, url_preffix)
 
-class Dev(object):
+
+class Dev(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = True
 
 
-class Testing(object):
+class Testing(Config):
     TESTING = True
     CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_test.sqlite" % project_name
