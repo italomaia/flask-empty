@@ -5,6 +5,23 @@ from flask.ext.script import Command, Option, prompt_bool
 import os
 import config
 
+
+class CreateDB(Command):
+	"Creates sqlalchemy database"
+	
+	def run(self):
+		from database import create_all
+		create_all()
+		
+		
+class DropDB(Command):
+	"Drops sqlalchemy database"
+	
+	def run(self):
+		from database import drop_all
+		drop_all()
+
+
 class Test(Command):
     "Run tests."
 
