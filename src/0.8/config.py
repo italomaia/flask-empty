@@ -6,8 +6,13 @@ project_name = "yourprojectname"
 
 
 class Config(object):
+    # use DEBUG mode?
     DEBUG = False
+
+    # use TESTING mode?
     TESTING = False
+
+    # use server x-sendfile?
     USE_X_SENDFILE = False
 
     # DATABASE CONFIGURATION
@@ -29,7 +34,9 @@ class Config(object):
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
-    BLUEPRINTS = []  # each as (blueprint_instance, url_preffix)
+    # ex: BLUEPRINTS = ['blog.views.app']  # where app is a Blueprint instance
+    # ex: BLUEPRINTS = [('blog.views.app', {'url_prefix': '/myblog'})]  # where app is a Blueprint instance
+    BLUEPRINTS = []
 
 
 class Dev(Config):

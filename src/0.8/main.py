@@ -3,6 +3,14 @@
 from flask import Flask, render_template
 
 
+def __import_blueprint(blueprint_str):
+    split = blueprint_str.split('.')
+    module_path = '.'.join(split[0: len(split) - 1])
+    variable_name = split[-1]
+    mod = __import__(module_path, fromlist=[variable_name])
+    return getattr(mod, variable_name)
+
+
 def app_factory(config, app_name=None, blueprints=None):
     app_name = app_name or __name__
     app = Flask(app_name)
@@ -26,8 +34,17 @@ def configure_app(app, config):
 
 
 def configure_blueprints(app, blueprints):
-    for blueprint, url_prefix in blueprints:
-        app.register_blueprint(blueprint, url_prefix=url_prefix)
+    for blueprint_config in blueprints:
+        blueprint, kw = None, {}
+
+        if (isinstance(blueprint_config, basestring)):
+            blueprint = blueprint_config
+        elif (isinstance(blueprint_config, dict)):
+            blueprint = blueprint_config[0]
+            kw = blueprint_config[1]
+
+        blueprint = __import_blueprint(blueprint)
+        app.register_blueprint(blueprint, **kw)
 
 
 def configure_error_handlers(app):
