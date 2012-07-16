@@ -18,9 +18,11 @@ other special configuration.
 Note that the Flask-Script option, -d (disable debug) does not work as expected in Flask-Empty. If you want
 to start a non-debug internal server instance, use the **config.Config** configuration or write your own. Example:
 
-   # loads config.Config configuration, which has DEBUG=False
-   # -r is the Flask-Script option for internal server no-reload
-   python manage.py -r -c Config
+```python
+# loads config.Config configuration, which has DEBUG=False
+# -r is the Flask-Script option for internal server no-reload
+python manage.py -r -c Config
+```
 
 Templates
 =========
