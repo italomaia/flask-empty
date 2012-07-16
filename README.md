@@ -24,6 +24,9 @@ to start a non-debug internal server instance, use the **config.Config** configu
 python manage.py -r -c Config
 ```
 
+If environment config named APP_CONFIG is set (as explained here http://flask.pocoo.org/docs/config/#configuring-from-files),
+it is used and overwrites any other set configuration.
+
 Templates
 =========
 There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for
