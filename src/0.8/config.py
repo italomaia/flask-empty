@@ -29,7 +29,7 @@ class Config(object):
     MAIL_PORT = 25
     MAIL_USE_TLS = False
     MAIL_USE_SSL = False
-    MAIL_DEBUG = DEBUG
+    MAIL_DEBUG = False
     MAIL_USERNAME = None
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
@@ -41,6 +41,7 @@ class Config(object):
 
 class Dev(Config):
     DEBUG = True
+    MAIL_DEBUG = True
     SQLALCHEMY_ECHO = True
 
 
