@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 
+import logging
 from flask import Flask, render_template
 
 
@@ -24,6 +25,7 @@ def app_factory(config, app_name=None, blueprints=None):
 
     config = config_str_to_obj(config)
     configure_app(app, config)
+    configure_logger(app, config)
     configure_blueprints(app, blueprints or config.BLUEPRINTS)
     configure_error_handlers(app)
     configure_database(app)
@@ -40,7 +42,18 @@ def configure_app(app, config):
     app.config.from_object(config)
     app.config.from_envvar("APP_CONFIG", silent=True)  # avaiable in the server
 
+def configure_logger(app, config):
+    logfile = config.LOG_FILENAME
 
+    # Create a file logger since we got a logdir
+    lfile = logging.FileHandler(filename=logfile)
+    formatter = logging.Formatter(config.LOG_FORMAT)
+    lfile.setFormatter(formatter)
+    lfile.setLevel(config.LOG_LEVEL)
+    app.logger.addHandler(lfile)
+    app.logger.info("Logger started")
+
+    
 def configure_blueprints(app, blueprints):
     for blueprint_config in blueprints:
         blueprint, kw = None, {}
