@@ -1,5 +1,6 @@
 # -*- config:utf-8 -*-
 
+import logging
 from datetime import timedelta
 
 project_name = "yourprojectname"
@@ -21,7 +22,13 @@ class Config(object):
 
     CSRF_ENABLED = True
     SECRET_KEY = "secret"  # import os; os.urandom(24)
+
+    # LOGGING
     LOGGER_NAME = "%s_log" % project_name
+    LOG_FILENAME = "%s.log" % project_name
+    LOG_LEVEL = logging.INFO
+    LOG_FORMAT = "%(asctime)s %(levelname)s\t: %(message)s" # used by logging.Formatter
+    
     PERMANENT_SESSION_LIFETIME = timedelta(days=1)
 
     # EMAIL CONFIGURATION
