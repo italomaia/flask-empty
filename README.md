@@ -10,7 +10,7 @@ to work with. Rename the folder to your project name. Change configurations to y
 
 Configuring
 ===========
-**src/config.py** has some pre-configured flask configuration classes for you. They're are all self explanatory.
+**src/config.py** has some pre-set flask configuration classes for you. They're are all self explanatory.
 **Dev** is used by default with the runserver command, while **Testing** is used only when running tests. **Config**
 is a more general configuration. You can extend any of these classes to create your production config or some
 other special configuration.
