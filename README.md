@@ -6,10 +6,18 @@ clone the project and copy the example you like the most.
 Usage
 =====
 Clone the repository. In **src/** folder, copy somewhere else the flask-version example that you want
-to work with. Rename the folder to your project name. Change configurations to your needs and have fun! = ]
+to work with. Rename the folder to your project name. Change configurations from _config.py_ to your needs and have fun! = ]
 
 Configuring
 ===========
+
+First, install the requirement file that you need from the **requirements/** folder. Right now, dev.txt and prod.txt
+do the same thing, so you can install either. Change them, and common.txt, to your needs.
+
+```
+pip install -r requirements/dev.txt # install dev environment
+```
+
 **src/config.py** has some pre-set flask configuration classes for you. They're are all self explanatory.
 **Dev** is used by default with the runserver command, while **Testing** is used only when running tests. **Config**
 is a more general configuration. You can extend any of these classes to create your production config or some
