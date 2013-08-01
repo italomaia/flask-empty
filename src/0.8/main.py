@@ -53,7 +53,7 @@ def configure_logger(app, config):
     app.logger.addHandler(lfile)
     app.logger.info("Logger started")
 
-    
+
 def configure_blueprints(app, blueprints):
     for blueprint_config in blueprints:
         blueprint, kw = None, {}
@@ -63,6 +63,10 @@ def configure_blueprints(app, blueprints):
         elif (isinstance(blueprint_config, tuple)):
             blueprint = blueprint_config[0]
             kw = blueprint_config[1]
+        else:
+            print "Error in BLUEPRINTS setup in config.py"
+            print "Please, verify if each blueprint setup is either a string or a tuple."
+            exit(1)
 
         blueprint = __import_blueprint(blueprint)
         app.register_blueprint(blueprint, **kw)
