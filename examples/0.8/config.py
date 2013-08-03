@@ -30,7 +30,7 @@ class Config(object):
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
     BLUEPRINTS = [
-        'blog.views.app' # or ('blog.views.app', {'url_prefix':'/blog'})
+        'blog.app' # or ('blog.views.app', {'url_prefix':'/blog'})
     ]  # each as (blueprint_instance, url_preffix)
 
 

@@ -28,7 +28,7 @@ class Config(object):
     LOG_FILENAME = "%s.log" % project_name
     LOG_LEVEL = logging.INFO
     LOG_FORMAT = "%(asctime)s %(levelname)s\t: %(message)s" # used by logging.Formatter
-    
+
     PERMANENT_SESSION_LIFETIME = timedelta(days=1)
 
     # EMAIL CONFIGURATION
@@ -41,8 +41,9 @@ class Config(object):
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
-    # ex: BLUEPRINTS = ['blog.views.app']  # where app is a Blueprint instance
-    # ex: BLUEPRINTS = [('blog.views.app', {'url_prefix': '/myblog'})]  # where app is a Blueprint instance
+    # see example/ for reference
+    # ex: BLUEPRINTS = ['blog.app']  # where app is a Blueprint instance
+    # ex: BLUEPRINTS = [('blog.app', {'url_prefix': '/myblog'})]  # where app is a Blueprint instance
     BLUEPRINTS = []
 
 
