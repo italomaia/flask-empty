@@ -42,9 +42,9 @@ your project.
 
 Blueprints
 ==========
-Add your blueprints through the src/config.ConfigClass.BLUEPRINTS. A blueprint can be added using the path to the
-associated Blueprint instance like **blog.views.app** where blog.views are the module path and app is the
-variable name.
+Add your blueprints through the src/config.ConfigClass.BLUEPRINTS. A blueprint can be add using the path to the
+associated Blueprint instance like **blog.app** where **blog** is a blueprint module and **app** is a
+blueprint instance. See **examples/blog_example** for a "full example".
 
 SQLAlchemy
 ==========
@@ -57,4 +57,5 @@ _same module where your Blueprint instance is defined._
 Examples
 ========
 If my explanation above is as crappy as I think it is, you're gonna want/need to take a look at **examples/**. They
-are a very nice starting point to learn how to configure your project.
+are a very nice starting point to learn how to configure your project. Wort-case-scenario, just copy it, rename it,
+configure it and be happy!
