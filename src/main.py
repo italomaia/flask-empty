@@ -39,8 +39,10 @@ def app_factory(config, app_name=None, blueprints=None):
 
 
 def configure_app(app, config):
+    """Loads configuration class into flask app"""
     app.config.from_object(config)
-    app.config.from_envvar("APP_CONFIG", silent=True)  # avaiable in the server
+    app.config.from_envvar("APP_CONFIG", silent=True)  # available in the server
+
 
 def configure_logger(app, config):
     logfile = config.LOG_FILENAME
@@ -55,6 +57,7 @@ def configure_logger(app, config):
 
 
 def configure_blueprints(app, blueprints):
+    """Registers all blueprints set up in config.py"""
     for blueprint_config in blueprints:
         blueprint, kw = None, {}
 
@@ -73,7 +76,6 @@ def configure_blueprints(app, blueprints):
 
 
 def configure_error_handlers(app):
-
     @app.errorhandler(403)
     def forbidden_page(error):
         """
@@ -118,7 +120,7 @@ def configure_error_handlers(app):
 
 
 def configure_database(app):
-    "Database configuration should be set here"
+    """Database configuration should be set here"""
     # uncomment for sqlalchemy support
     # from database import db
     # db.app = app
@@ -126,17 +128,17 @@ def configure_database(app):
 
 
 def configure_context_processors(app):
-    "Modify templates context here"
+    """Modify templates context here"""
     pass
 
 
 def configure_template_filters(app):
-    "Configure filters and tags for jinja"
+    """Configure filters and tags for jinja"""
     pass
 
 
 def configure_extensions(app):
-    "Configure extensions like mail and login here"
+    """Configure extensions like mail and login here"""
     pass
 
 
@@ -145,5 +147,5 @@ def configure_before_request(app):
 
 
 def configure_views(app):
-    "Add some simple views here like index_view"
+    """Add some simple views here like index_view"""
     pass
