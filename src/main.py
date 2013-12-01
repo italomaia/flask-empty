@@ -45,14 +45,14 @@ def configure_app(app, config):
 
 
 def configure_logger(app, config):
-    logfile = config.LOG_FILENAME
+    log_filename = config.LOG_FILENAME
 
     # Create a file logger since we got a logdir
-    lfile = logging.FileHandler(filename=logfile)
+    log_file = logging.FileHandler(filename=log_filename)
     formatter = logging.Formatter(config.LOG_FORMAT)
-    lfile.setFormatter(formatter)
-    lfile.setLevel(config.LOG_LEVEL)
-    app.logger.addHandler(lfile)
+    log_file.setFormatter(formatter)
+    log_file.setLevel(config.LOG_LEVEL)
+    app.logger.addHandler(log_file)
     app.logger.info("Logger started")
 
 
@@ -61,9 +61,9 @@ def configure_blueprints(app, blueprints):
     for blueprint_config in blueprints:
         blueprint, kw = None, {}
 
-        if (isinstance(blueprint_config, basestring)):
+        if isinstance(blueprint_config, basestring):
             blueprint = blueprint_config
-        elif (isinstance(blueprint_config, tuple)):
+        elif isinstance(blueprint_config, tuple):
             blueprint = blueprint_config[0]
             kw = blueprint_config[1]
         else:
@@ -89,7 +89,6 @@ def configure_error_handlers(app):
         """
         return render_template("access_forbidden.html"), 403
 
-
     @app.errorhandler(404)
     def page_not_found(error):
         """
@@ -103,7 +102,6 @@ def configure_error_handlers(app):
         """
         return render_template("page_not_found.html"), 404
 
-
     @app.errorhandler(405)
     def method_not_allowed_page(error):
         """
@@ -113,14 +111,15 @@ def configure_error_handlers(app):
         """
         return render_template("method_not_allowed.html"), 405
 
-
     @app.errorhandler(500)
     def server_error_page(error):
         return render_template("server_error.html"), 500
 
 
 def configure_database(app):
-    """Database configuration should be set here"""
+    """
+    Database configuration should be set here
+    """
     # uncomment for sqlalchemy support
     # from database import db
     # db.app = app
