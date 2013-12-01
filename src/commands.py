@@ -7,7 +7,9 @@ import config
 
 
 class CreateDB(Command):
-    """Creates sqlalchemy database"""
+    """
+    Creates database using SQLAlchemy
+    """
 
     def run(self):
         from database import create_all
@@ -16,7 +18,9 @@ class CreateDB(Command):
 
 
 class DropDB(Command):
-    """Drops sqlalchemy database"""
+    """
+    Drops database using SQLAlchemy
+    """
 
     def run(self):
         from database import drop_all
