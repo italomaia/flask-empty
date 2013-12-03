@@ -122,7 +122,6 @@ def configure_database(app):
     """
     # uncomment for sqlalchemy support
     # from database import db
-    # db.app = app
     # db.init_app(app)
 
 
