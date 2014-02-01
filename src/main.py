@@ -1,7 +1,13 @@
 # -*- coding:utf-8 -*-
 
+import os
+import sys
 import logging
 from flask import Flask, render_template
+
+
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(PROJECT_PATH, "apps"))
 
 
 def __import_blueprint(blueprint_str):
