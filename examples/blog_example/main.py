@@ -3,11 +3,9 @@
 from flask import Flask, render_template
 
 
-def __import_blueprint(blueprint_str):
-    split = blueprint_str.split('.')
-    module_path = '.'.join(split[0: len(split) - 1])
-    variable_name = split[-1]
-    mod = __import__(module_path, fromlist=[variable_name])
+def __import_variable(blueprint_path, module, variable_name):
+    path = '.'.join(blueprint_path.split('.') + [module])
+    mod = __import__(path, fromlist=[variable_name])
     return getattr(mod, variable_name)
 
 
@@ -52,7 +50,7 @@ def configure_blueprints(app, blueprints):
             blueprint = blueprint_config[0]
             kw = blueprint_config[1]
 
-        blueprint = __import_blueprint(blueprint)
+        blueprint = __import_variable(blueprint, 'views', 'app')
         app.register_blueprint(blueprint, **kw)
 
 

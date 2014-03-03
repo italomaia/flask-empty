@@ -50,9 +50,9 @@ your project.
 
 Blueprints
 ==========
-Add your blueprints through the src/config.ConfigClass.BLUEPRINTS. A blueprint can be add using the path to the
-associated Blueprint instance like **blog.app** where **blog** is a blueprint module and **app** is a
-blueprint instance. See **examples/blog_example** for a "full example".
+Add your blueprints through the src/config.Config.BLUEPRINTS. A blueprint can be add using the path to the
+Blueprint. See **examples/blog_example** for a example. Just make sure your blueprint has a views.py and 
+it has a 'app' Blueprint instance.
 
 SQLAlchemy
 ==========

@@ -6,15 +6,14 @@ import logging
 from flask import Flask, render_template
 
 
+# apps is a special folder where you can place your blueprints
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_PATH, "apps"))
 
 
-def __import_blueprint(blueprint_str):
-    split = blueprint_str.split('.')
-    module_path = '.'.join(split[0: len(split) - 1])
-    variable_name = split[-1]
-    mod = __import__(module_path, fromlist=[variable_name])
+def __import_variable(blueprint_path, module, variable_name):
+    path = '.'.join(blueprint_path.split('.') + [module])
+    mod = __import__(path, fromlist=[variable_name])
     return getattr(mod, variable_name)
 
 
@@ -77,7 +76,7 @@ def configure_blueprints(app, blueprints):
             print "Please, verify if each blueprint setup is either a string or a tuple."
             exit(1)
 
-        blueprint = __import_blueprint(blueprint)
+        blueprint = __import_variable(blueprint, 'views', 'app')
         app.register_blueprint(blueprint, **kw)
 
 

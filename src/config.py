@@ -42,8 +42,8 @@ class Config(object):
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
     # see example/ for reference
-    # ex: BLUEPRINTS = ['blog.app']  # where app is a Blueprint instance
-    # ex: BLUEPRINTS = [('blog.app', {'url_prefix': '/myblog'})]  # where app is a Blueprint instance
+    # ex: BLUEPRINTS = ['blog']  # where app is a Blueprint instance
+    # ex: BLUEPRINTS = [('blog', {'url_prefix': '/myblog'})]  # where app is a Blueprint instance
     BLUEPRINTS = []
 
 
