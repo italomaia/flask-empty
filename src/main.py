@@ -25,7 +25,7 @@ def config_str_to_obj(cfg):
 
 
 def app_factory(config, app_name=None, blueprints=None):
-    app_name = app_name or __name__
+    app_name = app_name or __name__.split('.')[0]
     app = Flask(app_name)
 
     config = config_str_to_obj(config)
