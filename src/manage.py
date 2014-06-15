@@ -9,6 +9,7 @@ if __name__ == "__main__":
     import config
 
     manager = script.Manager(app_factory)
+    manager.add_option("-n", "--name", dest="app_name", required=False, default=config.project_name)
     manager.add_option("-c", "--config", dest="config", required=False, default=config.Dev)
     manager.add_command("test", commands.Test())
     # uncomment for sqlalchemy commands support
