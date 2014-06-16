@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 Flask-Empty is a simple **flask boilerplate** project for fast flask prototyping. Just
-clone the project, copy the **src/** with your project name and star.
+clone the project, copy the **src/** with your project name and start.
 
 ```shell
 # in linux/Mac
@@ -10,11 +10,6 @@ cp -r flask-empty/src <my project name>
 vim <my project name>/config.py # set your project configuration
 # and you're done
 ```
-
-Usage
-=====
-Clone the repository. In **src/** folder, copy somewhere else the flask-version example that you want
-to work with. Rename the folder to your project name. Change configurations from _config.py_ to your needs and have fun! = ]
 
 Configuring
 ===========
@@ -48,20 +43,29 @@ Templates
 There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for
 your project.
 
+Manage.py
+=========
+**manage.py** is a utility file, like the one found 
+in [django](https://docs.djangoproject.com/en/1.6/ref/django-admin/ "django manage.py"), 
+but much simpler (for now). It uses flask-script to give you to commands like **runserver** 
+or **create_db/drop_db** (which is disabled by default). If you wish to have new commands
+available to you, just edit manage.py to your needs.
+
 Blueprints
 ==========
 Add your blueprints through the src/config.Config.BLUEPRINTS. A blueprint can be add using the path to the
 Blueprint. See **examples/blog_example** for a example. Just make sure your blueprint has a views.py and 
-it has a 'app' Blueprint instance.
+it has a 'app' Blueprint instance. If unsure, 
+check out **flask-empty/blueprint/** folder for an empty blueprint example.
 
 SQLAlchemy
 ==========
 Flask-Empty comes with some Flask-SQLAlchemy configurations ready for you. Just uncomment the lines in your **main.py**
-and **database.py** files for support. There are some helpful commands in **commands.py** for handling your database.
-Take a look in the blog example to see how to add them.
+and **database.py** files for support. For further integration, uncomment the lines in **manage.py** as instructed.
+If you want to create your own command, see **commands.py** for examples. 
 
-_ps: your models will only be created if they are imported somewhere in your application. By **somewhere**, try the_
-_same module where your Blueprint instance is defined._
+_ps: currently, create_db will only create your models will if they are imported somewhere in your application. By **somewhere**, try the
+*same module where your Blueprint instance is defined*.
 
 Examples
 ========
