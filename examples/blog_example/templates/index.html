@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% from "macros/_flashing.html" import flash_messages %}
 <html>
 <head>
     <title>My Blog</title>
@@ -6,11 +7,17 @@
 <body>
     <h1><a href="/">Flask devs, unite!</a></h1>
 
+    <div>
+        <a href="{{ url_for('blog.add_post_view') }}">Add post</a>
+    </div>
+
+    {{ flash_messages() }}
+
     {% block content %}
     <ol>
     {% for post in posts %}
         <li>
-            <a href="{{ url_for('blog.post_view', post_slug=post.slug) }}">{{ post.title }}</a>
+            <a href="{{ post.absolute_url() }}">{{ post.title }}</a>
         </li>
     {% endfor %}
     </ol>

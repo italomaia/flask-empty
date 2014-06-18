@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% from "macros/_formhelpers.html" import render_field %}
+
+{% block content %}
+    <form method="post">{{ form.csrf_token }}
+        <ul>
+            <li>
+                {{ render_field(form.title) }}
+            </li>
+            <li>
+                {{ render_field(form.text) }}
+            </li>
+        </ul>
+        <input type="submit" value="Save" />
+    </form>
+{% endblock %}
