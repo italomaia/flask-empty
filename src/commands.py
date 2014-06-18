@@ -29,7 +29,9 @@ class DropDB(Command):
 
 
 class Test(Command):
-    """Run tests."""
+    """
+    Run tests
+    """
 
     start_discovery_dir = "tests"
 
@@ -50,5 +52,3 @@ class Test(Command):
             unittest.main(argv=argv)
         else:
             print("Directory '%s' was not found in project root." % start_discovery)
-
-
