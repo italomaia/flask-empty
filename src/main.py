@@ -34,6 +34,7 @@ def app_factory(config, app_name, blueprints=None):
     configure_error_handlers(app)
     configure_database(app)
     configure_context_processors(app)
+    configure_template_extensions(app)
     configure_template_filters(app)
     configure_extensions(app)
     configure_before_request(app)
@@ -133,6 +134,14 @@ def configure_database(app):
 def configure_context_processors(app):
     """Modify templates context here"""
     pass
+
+
+def configure_template_extensions(app):
+    """
+    Add jinja2 extensions here
+    """
+    # 'do' extension. see: http://jinja.pocoo.org/docs/extensions/#expression-statement
+    app.jinja_env.add_extension('jinja2.ext.do')
 
 
 def configure_template_filters(app):
