@@ -38,11 +38,6 @@ python manage.py -r -c Config
 If environment config named APP_CONFIG is set (as explained here http://flask.pocoo.org/docs/config/#configuring-from-files),
 it is used and overwrites any other set configuration.
 
-Templates
-=========
-There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for
-your project.
-
 Manage.py
 =========
 **manage.py** is a utility file, like the one found 
@@ -50,6 +45,16 @@ in [django](https://docs.djangoproject.com/en/1.6/ref/django-admin/ "django mana
 but much simpler (for now). It uses flask-script to give you to commands like **runserver** 
 or **create_db/drop_db** (which is disabled by default). If you wish to have new commands
 available to you, just edit manage.py to your needs.
+
+Templates
+=========
+There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for
+your project.
+
+Macros
+======
+You can use the macros available in **templates/macros** to easily integrate your jinja templates with
+flask extensions like wtforms and commons tasks like showing flash messages. 
 
 Blueprints
 ==========
