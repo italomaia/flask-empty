@@ -1,0 +1,24 @@
+{# WTFORMS #}
+
+{% macro render_field(field) %}
+    <label for="{{ field.id }}">{{ field.label }}</label>
+
+    {% if field.flags.required and kwargs.get('required') == None %}
+        {% do kwargs.update({'required': 'required'}) %}
+    {% endif %}
+
+    {{ field(**kwargs) }}
+    {% if field.errors %}
+        {% for error in field.errors %}
+            <div class="field_error">{{ error }}</div>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro render_form(form) %}
+    {{ form.csrf_token }}
+
+    {% for field in form %}
+        {{ render_field(field) }}
+    {% endfor %}
+{% endmacro %}
