@@ -17,7 +17,8 @@ class Config(object):
     USE_X_SENDFILE = False
 
     # DATABASE CONFIGURATION
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_dev.sqlite" % project_name
+    # see http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
+    SQLALCHEMY_DATABASE_URI = ""
     SQLALCHEMY_ECHO = False
 
     CSRF_ENABLED = True
@@ -51,10 +52,11 @@ class Dev(Config):
     DEBUG = True
     MAIL_DEBUG = True
     SQLALCHEMY_ECHO = True
+    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_dev.sqlite" % project_name
 
 
 class Testing(Config):
     TESTING = True
     CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_test.sqlite" % project_name
     SQLALCHEMY_ECHO = False
+    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_test.sqlite" % project_name
