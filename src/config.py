@@ -52,7 +52,7 @@ class Dev(Config):
     DEBUG = True
     MAIL_DEBUG = True
     SQLALCHEMY_ECHO = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_dev.sqlite" % project_name
+    SQLALCHEMY_DATABASE_URI = "sqlite:////var/tmp/%s_dev.sqlite" % project_name
 
 
 class Testing(Config):
