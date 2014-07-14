@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Flask-empty by italomaia</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Flask-empty</h1>
+        <p class="header">An empty project skeleton / boilerplate for flask projects</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/italomaia/flask-empty/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/italomaia/flask-empty/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/italomaia/flask-empty">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/italomaia">italomaia</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="flask-empty" class="anchor" href="#flask-empty"><span class="octicon octicon-link"></span></a>Flask Empty</h1>
+
+<p>Flask-Empty is a simple <strong>flask boilerplate</strong> project for fast flask prototyping. Just
+clone the project, copy the <strong>src/</strong> with your project name and start.</p>
+
+<pre lang="shell"><code># in linux/Mac
+git clone https://github.com/italomaia/flask-empty flask-empty
+cp -r flask-empty/src &lt;my project name&gt;
+vim &lt;my project name&gt;/config.py # set your project configuration
+# and you're done
+</code></pre>
+
+<h1>
+<a name="configuring" class="anchor" href="#configuring"><span class="octicon octicon-link"></span></a>Configuring</h1>
+
+<p>First, install the requirement file that you need from the <strong>requirements/</strong> folder. Right now, dev.txt and prod.txt
+do the same thing, so you can install either. Change them, and common.txt, to your needs.</p>
+
+<pre><code>pip install -r requirements/dev.txt # install dev environment
+</code></pre>
+
+<p><strong>src/config.py</strong> has some pre-set flask configuration classes for you. They're are all self explanatory.
+<strong>Dev</strong> is used by default with the runserver command, while <strong>Testing</strong> is used only when running tests. <strong>Config</strong>
+is a more general configuration. You can extend any of these classes to create your production config or some
+other special configuration.</p>
+
+<p>Note that the Flask-Script option, -d (disable debug) does not work as expected in Flask-Empty. If you want
+to start a non-debug internal server instance, use the <strong>config.Config</strong> configuration or write your own. Example:</p>
+
+<div class="highlight highlight-python"><pre><span class="c"># loads config.Config configuration, which has DEBUG=False</span>
+<span class="c"># -r is the Flask-Script option for internal server no-reload</span>
+<span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">c</span> <span class="n">Config</span>
+</pre></div>
+
+<p>If environment config named APP_CONFIG is set (as explained here <a href="http://flask.pocoo.org/docs/config/#configuring-from-files">http://flask.pocoo.org/docs/config/#configuring-from-files</a>),
+it is used and overwrites any other set configuration.</p>
+
+<h1>
+<a name="managepy" class="anchor" href="#managepy"><span class="octicon octicon-link"></span></a>Manage.py</h1>
+
+<p><strong>manage.py</strong> is a utility file, like the one found 
+in <a href="https://docs.djangoproject.com/en/1.6/ref/django-admin/" title="django manage.py">django</a>, 
+but much simpler (for now). It uses flask-script to give you to commands like <strong>runserver</strong> 
+or <strong>create_db/drop_db</strong> (which is disabled by default). If you wish to have new commands
+available to you, just edit manage.py to your needs.</p>
+
+<h1>
+<a name="templates" class="anchor" href="#templates"><span class="octicon octicon-link"></span></a>Templates</h1>
+
+<p>There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for
+your project.</p>
+
+<h1>
+<a name="macros" class="anchor" href="#macros"><span class="octicon octicon-link"></span></a>Macros</h1>
+
+<p>You can use the macros available in <strong>templates/macros</strong> to easily integrate your jinja templates with
+flask extensions like wtforms and commons tasks like showing flash messages. </p>
+
+<h1>
+<a name="blueprints" class="anchor" href="#blueprints"><span class="octicon octicon-link"></span></a>Blueprints</h1>
+
+<p>Add your blueprints through the src/config.Config.BLUEPRINTS. A blueprint can be add using the path to the
+Blueprint. See <strong>examples/blog_example</strong> for a example. Just make sure your blueprint has a views.py and 
+it has a 'app' Blueprint instance. If unsure, 
+check out <strong>flask-empty/blueprint/</strong> folder for an empty blueprint example.</p>
+
+<h1>
+<a name="sqlalchemy" class="anchor" href="#sqlalchemy"><span class="octicon octicon-link"></span></a>SQLAlchemy</h1>
+
+<p>Flask-Empty comes with some Flask-SQLAlchemy configurations ready for you. Just uncomment the lines in your <strong>main.py</strong>
+and <strong>database.py</strong> files for support. For further integration, uncomment the lines in <strong>manage.py</strong> as instructed.
+If you want to create your own command, see <strong>commands.py</strong> for examples. </p>
+
+<p>_ps: currently, create_db will only create your models will if they are imported somewhere in your application. By <strong>somewhere</strong>, try the
+<em>same module where your Blueprint instance is defined</em>.</p>
+
+<h1>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h1>
+
+<p>If my explanation above is as crappy as I think it is, you're gonna want/need to take a look at <strong>examples/</strong>. They
+are a very nice starting point to learn how to configure your project. Wort-case-scenario, just copy it, rename it,
+configure it and be happy!</p>
+
+<h1>
+<a name="faq" class="anchor" href="#faq"><span class="octicon octicon-link"></span></a>FAQ</h1>
+
+<p><strong>Is flask-empty <em>boilerplate</em> compatible with flask 0.x? Cuz' that's what my app uses.</strong>
+Right now, flask-empty is a very simple project where many good practices and code examples were glued together.
+Until recently I was focused in keeping backward compatibility with flask 0.8. Well, that goal is no more.
+ Flask-empty will be compatible with the latest version of Flask and, by chance, with previous versions in case
+ there is no backward incompatibility from any supported plugin or flask itself. Things will be easier this way.</p>
+
+<p><strong>So, which is the oldest version where flask-empty works?</strong>
+In my last test, version 0.8 but no guarantees here.</p>
+
+<p><strong>I think flask-empty should have <em>this</em> and <em>that</em> configured by default. Will you add support?</strong>
+Right now, my goals are:</p>
+
+<ul>
+<li>Make flask-empty real easy to start a project with</li>
+<li>Keep things simple and robust</li>
+</ul><p>If your suggestion is simple, <strong>VERY</strong> useful and with little overhead, I'll probably consider adding it to the
+project. If you make the code and send a pull request, then I'll consider it real hard. Now, if your suggestion is
+ rejected or advised in a different approach, don't ge sad (you're awesome ;).</p>
+
+<p><strong>I just made a cool example with flask-empty and want to add it to examples.</strong>
+Pull request it for evaluation ;)
+Just keep in mind that good examples should be short (not really...) and focused in it's showcase.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
