@@ -1,7 +1,7 @@
 {# WTFORMS #}
 
 {% macro render_field(field) %}
-    <label for="{{ field.id }}">{{ field.label }}</label>
+    {{ field.label }}
 
     {% if field.flags.required and kwargs.get('required') == None %}
         {% do kwargs.update({'required': 'required'}) %}
