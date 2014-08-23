@@ -1,30 +1,35 @@
 Flask Empty
 ===========
-Flask-Empty is a simple **flask boilerplate** project for fast flask prototyping. Just
-clone the project, copy the **src/** with your project name and start.
+Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
+clone the project, copy the **src/** with your project name and begin.
 
 ```shell
-# in linux/Mac
+# local copy the project // linux/Mac
 git clone https://github.com/italomaia/flask-empty flask-empty
-cp -r flask-empty/src <my project name>
-vim <my project name>/config.py # set your project configuration
-# and you're done
+cp -r flask-empty/src /path/to/project/name
+vim /path/to/project/name/config.py  # setup your project configuration
+# you're done!
 ```
 
 Configuring
 ===========
 
-First, install the requirement file that you need from the **requirements/** folder. Right now, dev.txt and prod.txt
-do the same thing, so you can install either. Change them, and common.txt, to your needs.
+First, install the requirements file inside **requirements/** folder 
+according to your needs. 
+Right now, dev.txt and prod.txt do the same thing, so you can install 
+either. Change them, and common.txt, to your needs.
 
 ```
-pip install -r requirements/dev.txt # install dev environment
+pip install -r requirements/dev.txt  # install dev environment
+pip install -r requirements/prod.txt  # install prod environment
 ```
 
-**src/config.py** has some pre-set flask configuration classes for you. They're are all self explanatory.
-**Dev** is used by default with the runserver command, while **Testing** is used only when running tests. **Config**
-is a more general configuration. You can extend any of these classes to create your production config or some
-other special configuration.
+**src/config.py** has some pre-set configuration classes for you. They're are all self explanatory.
+
+**config.Dev** is used by default with the runserver command;
+**config.Testing** is used only when running tests. 
+**config.Config** is a more generic configuration. You can extend any of these classes to create
+your production config or some other special app environment.
 
 Note that the Flask-Script option, -d (disable debug) does not work as expected in Flask-Empty. If you want
 to start a non-debug internal server instance, use the **config.Config** configuration or write your own. Example:
@@ -43,8 +48,8 @@ Manage.py
 **manage.py** is a utility file, like the one found 
 in [django](https://docs.djangoproject.com/en/1.6/ref/django-admin/ "django manage.py"), 
 but much simpler (for now). It uses flask-script to give you to commands like **runserver** 
-or **create_db/drop_db** (which is disabled by default). If you wish to have new commands
-available to you, just edit manage.py to your needs.
+or **create_db** and **drop_db** (which are disabled by default). If you wish to have new commands
+available, just edit commands.py and manage.py to your needs.
 
 Templates
 =========
@@ -53,15 +58,17 @@ your project.
 
 Macros
 ======
-You can use the macros available in **templates/macros** to easily integrate your jinja templates with
+You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja templates with
 flask extensions like wtforms and commons tasks like showing flash messages. 
 
 Blueprints
 ==========
-Add your blueprints through the src/config.Config.BLUEPRINTS. A blueprint can be add using the path to the
-Blueprint. See **examples/blog_example** for a example. Just make sure your blueprint has a views.py and 
-it has a 'app' Blueprint instance. If unsure, 
-check out **flask-empty/blueprint/** folder for an empty blueprint example.
+Add your blueprints using **src/config.Config.BLUEPRINTS**. A blueprint can be add using the path to the
+Blueprint or a tuple. See **examples/blog_example** for a example. Just make sure your blueprint has a views.py and 
+it has a 'app' Blueprint instance. If unsure, check out **flask-empty/blueprint/** folder for an empty blueprint example.
+You can also copy **flask-empty/blueprint/** to create blueprints.
+
+Flask-empty blueprints can be placed in the project root or in a folder called apps inside the project root.
 
 SQLAlchemy
 ==========
