@@ -55,7 +55,7 @@ class Dev(Config):
     SQLALCHEMY_DATABASE_URI = "sqlite:////var/tmp/%s_dev.sqlite" % project_name
 
 
-class Testing(Config):
+class Test(Config):
     TESTING = True
     CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False

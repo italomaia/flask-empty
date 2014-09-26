@@ -33,22 +33,41 @@ class Test(Command):
     Run tests
     """
 
-    start_discovery_dir = "tests"
+    use_coverage = False
+    no_capture = False
+    verbose = False
 
     def get_options(self):
         return [
-            Option('--start_discover', '-s', dest='start_discovery',
-                   help='Pattern to search for features',
-                   default=self.start_discovery_dir),
+            Option('--with-coverage', '-c', dest='use_coverage', action='store_true',
+                    help='Use coverage?', default=self.use_coverage),
+            Option('--no-capture', '-s', dest='no_capture', action='store_true',
+                    default=self.no_capture),
+            Option('--verbose', '-v', dest='verbose', action='store_true',
+                    default=self.verbose)
         ]
 
-    def run(self, start_discovery):
-        import unittest
+    def run(self, use_coverage, no_capture, verbose):
+        import sys
+        import nose
 
-        if os.path.exists(start_discovery):
-            argv = [config.project_name, "discover"]
-            argv += ["-s", start_discovery]
+        project_path = os.path.abspath(os.path.dirname('.'))
+        sys.path.insert(0, project_path)
 
-            unittest.main(argv=argv)
-        else:
-            print("Directory '%s' was not found in project root." % start_discovery)
+        argv = []
+
+        if verbose:
+            argv += ['-v']
+
+        if no_capture:
+            argv += ['-s']
+
+        if use_coverage:
+            argv += ['--with-coverage']
+
+        if os.path.exists('apps'):
+            argv += ['-w', 'apps']
+        elif os.path.exists('tests'):
+            argv += ['-w', 'tests']
+
+        nose.main(argv=argv)
