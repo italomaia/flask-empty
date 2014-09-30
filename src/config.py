@@ -21,7 +21,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = ""
     SQLALCHEMY_ECHO = False
 
-    CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = True
     SECRET_KEY = "secret"  # import os; os.urandom(24)
 
     # LOGGING
@@ -57,6 +57,6 @@ class Dev(Config):
 
 class Test(Config):
     TESTING = True
-    CSRF_ENABLED = False
+    WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_test.sqlite" % project_name
