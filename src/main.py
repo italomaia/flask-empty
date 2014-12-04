@@ -10,6 +10,8 @@ from flask import Flask, render_template
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(PROJECT_PATH, "apps"))
 
+basestring = getattr(__builtins__, 'basestring', str)
+
 
 def __import_variable(blueprint_path, module, variable_name):
     path = '.'.join(blueprint_path.split('.') + [module])
@@ -62,7 +64,9 @@ def configure_logger(app, config):
 
 
 def configure_blueprints(app, blueprints):
-    """Registers all blueprints set up in config.py"""
+    """
+    Registers all blueprints set up in config.py
+    """
     for blueprint_config in blueprints:
         blueprint, kw = None, {}
 
@@ -132,7 +136,9 @@ def configure_database(app):
 
 
 def configure_context_processors(app):
-    """Modify templates context here"""
+    """
+    Modify templates context here
+    """
     pass
 
 
@@ -145,12 +151,16 @@ def configure_template_extensions(app):
 
 
 def configure_template_filters(app):
-    """Configure filters and tags for jinja"""
+    """
+    Configure filters and tags for jinja
+    """
     pass
 
 
 def configure_extensions(app):
-    """Configure extensions like mail and login here"""
+    """
+    Configure extensions like mail and login here
+    """
     pass
 
 
@@ -159,5 +169,7 @@ def configure_before_request(app):
 
 
 def configure_views(app):
-    """Add some simple views here like index_view"""
+    """
+    Add some simple views here like index_view
+    """
     pass
