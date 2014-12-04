@@ -46,7 +46,9 @@ def app_factory(config, app_name, blueprints=None):
 
 
 def configure_app(app, config):
-    """Loads configuration class into flask app"""
+    """
+    Loads configuration class into flask app
+    """
     app.config.from_object(config)
     app.config.from_envvar("APP_CONFIG", silent=True)  # available in the server
 
@@ -161,7 +163,12 @@ def configure_extensions(app):
     """
     Configure extensions like mail and login here
     """
-    pass
+    try:
+        # only works in debug mode
+        from flask_debugtoolbar import DebugToolbarExtension
+        DebugToolbarExtension(app)
+    except ImportError, e:
+        print 'debugtoolbar extension not available.'
 
 
 def configure_before_request(app):
