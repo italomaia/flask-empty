@@ -3,7 +3,6 @@
 from flask.ext.script import Command, Option, prompt_bool
 
 import os
-import config
 
 
 class CreateDB(Command):
@@ -12,9 +11,12 @@ class CreateDB(Command):
     """
 
     def run(self):
-        from database import create_all
+        try:
+            from database import create_all
 
-        create_all()
+            create_all()
+        except ImportError, e:
+            print "Please, make sure database.create_all exists in order to create a db."
 
 
 class DropDB(Command):
@@ -23,9 +25,12 @@ class DropDB(Command):
     """
 
     def run(self):
-        from database import drop_all
+        try:
+            from database import drop_all
 
-        drop_all()
+            drop_all()
+        except ImportError, e:
+            print "Please, make sure database.drop_all exists in order to drop a db."
 
 
 class Test(Command):
@@ -33,41 +38,51 @@ class Test(Command):
     Run tests
     """
 
-    use_coverage = False
-    no_capture = False
-    verbose = False
+    verbosity = 2
+    failfast = False
 
     def get_options(self):
         return [
-            Option('--with-coverage', '-c', dest='use_coverage', action='store_true',
-                    help='Use coverage?', default=self.use_coverage),
-            Option('--no-capture', '-s', dest='no_capture', action='store_true',
-                    default=self.no_capture),
-            Option('--verbose', '-v', dest='verbose', action='store_true',
-                    default=self.verbose)
+            Option('--verbosity', '-v', dest='verbose',
+                    type=int, default=self.verbosity),
+            Option('--failfast', dest='failfast',
+                    default=self.failfast, action='store_false')
         ]
 
-    def run(self, use_coverage, no_capture, verbose):
+    def run(self, verbosity, failfast):
         import sys
-        import nose
+        import glob
+        import unittest
+
+        exists = os.path.exists
+        isdir = os.path.isdir
+        join = os.path.join
 
         project_path = os.path.abspath(os.path.dirname('.'))
         sys.path.insert(0, project_path)
 
-        argv = []
+        # our special folder for blueprints
+        if exists('apps'):
+            sys.path.insert(0, join('apps'))
 
-        if verbose:
-            argv += ['-v']
+        loader = unittest.TestLoader()
+        all_tests = []
 
-        if no_capture:
-            argv += ['-s']
+        if exists('apps'):
+            for path in glob.glob('apps/*'):
+                if isdir(path):
+                    tests_dir = join(path, 'tests')
 
-        if use_coverage:
-            argv += ['--with-coverage']
+                    if exists(join(path, 'tests.py')):
+                        all_tests.append(loader.discover(path, 'tests.py'))
+                    elif exists(tests_dir):
+                        all_tests.append(loader.discover(tests_dir, pattern='test*.py'))
 
-        if os.path.exists('apps'):
-            argv += ['-w', 'apps']
-        elif os.path.exists('tests'):
-            argv += ['-w', 'tests']
+        if exists('tests') and isdir('tests'):
+            all_tests.append(loader.discover('tests', pattern='test*.py'))
+        elif exists('tests.py'):
+            all_tests.append(loader.discover('.', pattern='tests.py'))
 
-        nose.main(argv=argv)
+        test_suite = unittest.TestSuite(all_tests)
+        unittest.TextTestRunner(
+            verbosity=verbosity, failfast=failfast).run(test_suite)
