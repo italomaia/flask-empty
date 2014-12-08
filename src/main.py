@@ -177,6 +177,6 @@ def configure_before_request(app):
 
 def configure_views(app):
     """
-    Add some simple views here like index_view
+    You can add some simple views here for fast prototyping
     """
     pass
