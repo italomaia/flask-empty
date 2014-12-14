@@ -46,7 +46,7 @@ def configure_blueprints(app, blueprints):
 
         if (isinstance(blueprint_config, basestring)):
             blueprint = blueprint_config
-        elif (isinstance(blueprint_config, dict)):
+        elif (isinstance(blueprint_config, (tuple, list))):
             blueprint = blueprint_config[0]
             kw = blueprint_config[1]
 
