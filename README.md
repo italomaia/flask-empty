@@ -77,8 +77,9 @@ your project.
 
 ## Macros
 
-You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja templates with
-flask extensions like wtforms and commons tasks like showing flash messages. 
+You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with
+flask extensions like wtforms and commons tasks like showing flash messages. Available macros, **formhelpers**
+and **flashing** are very useful. 
 
 ## Blueprints
 
