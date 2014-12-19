@@ -2,8 +2,6 @@
 
 import os
 import sys
-import logging
-from flask import Flask, render_template
 from empty import Empty
 
 
