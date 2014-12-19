@@ -113,10 +113,7 @@ class Empty(Flask):
         """
         Database configuration should be set here
         """
-        # uncomment for sqlalchemy support
-        # from database import db
-        # db.app = self
-        # db.init_app(self)
+        pass
 
     def configure_context_processors(self):
         """

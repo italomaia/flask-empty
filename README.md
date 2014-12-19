@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
-clone the project, copy the **src/** with your project name and begin.
+clone the project, copy **src/** with your project name and get started.
 
 ```shell
 # local copy the project // linux/Mac
@@ -11,25 +11,49 @@ vim /path/to/project/name/config.py  # setup your project configuration
 # you're done!
 ```
 
-Configuring
-===========
+Setup
+=====
 
-First, install the requirements file inside **requirements/** folder 
-according to your needs. 
-Right now, dev.txt and prod.txt do the same thing, so you can install 
-either. Change them, and common.txt, to your needs.
+You're advised to use virtualenvwrapper from here on. Install it like this:
 
 ```
-pip install -r requirements/dev.txt  # install dev environment
-pip install -r requirements/prod.txt  # install prod environment
+pip install virtualenvwrapper
 ```
 
-**src/config.py** has some pre-set configuration classes for you. They're are all self explanatory.
+Create a virtual environment for you project and install the adequate requirements.
 
-**config.Dev** is used by default with the runserver command;
-**config.Testing** is used only when running tests. 
-**config.Config** is a more generic configuration. You can extend any of these classes to create
-your production config or some other special app environment.
+```
+mkvirtualenv my_project
+pip install -r requirements/dev.txt  # dev environment if local
+pip install -r requirements/prod.txt  # prod environment if server
+```
+
+You're advised to change the requirements files according to your needs.
+
+Important files to be aware of
+==============================
+
+### src/config.py
+
+**config.py** has some pre-set configuration classes for you to meddle with. They're are all self explanatory 
+and commented.  
+ 
+**main.py** extend flask application behavior through Empty class, which inherit from Flask class. Need to setup
+extensions, index view, context processors? (see also **empty.py**)
+
+**database.py** setup your database library there. There is some commented code for sqlalchemy support out of the box.
+
+**rename_me.ini** rename it to your project name. It is the configuration file to use 
+with [uwsgi](https://github.com/unbit/uwsgi). Use it like this:
+
+```
+uwsgi --ini your_project.ini
+```
+
+**manage.py** and **commands.py** add to manage.py all the commands from commands.py that you want available using
+ commandline. See available commands with **python manage.py**
+
+## Observations
 
 Note that the Flask-Script option, -d (disable debug) does not work as expected in Flask-Empty. If you want
 to start a non-debug internal server instance, use the **config.Config** configuration or write your own. Example:
@@ -40,44 +64,49 @@ to start a non-debug internal server instance, use the **config.Config** configu
 python manage.py -r -c Config
 ```
 
-If environment config named APP_CONFIG is set (as explained here http://flask.pocoo.org/docs/config/#configuring-from-files),
-it is used and overwrites any other set configuration.
+If [environment config named APP_CONFIG is set](http://flask.pocoo.org/docs/config/#configuring-from-files),
+it will be used, overwriting any other set configuration.
 
-Manage.py
-=========
-**manage.py** is a utility file, like the one found 
-in [django](https://docs.djangoproject.com/en/1.6/ref/django-admin/ "django manage.py"), 
-but much simpler (for now). It uses flask-script to give you to commands like **runserver** 
-or **create_db** and **drop_db** (which are disabled by default). If you wish to have new commands
-available, just edit commands.py and manage.py to your needs.
+Other topics
+============
 
-Templates
-=========
+## Templates
+
 There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for
 your project.
 
-Macros
-======
+## Macros
+
 You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja templates with
 flask extensions like wtforms and commons tasks like showing flash messages. 
 
-Blueprints
-==========
-Add your blueprints using **src/config.Config.BLUEPRINTS**. A blueprint can be add using the path to the
-Blueprint or a tuple. See **examples/blog_example** for a example. Just make sure your blueprint has a views.py and 
-it has a 'app' Blueprint instance. If unsure, check out **flask-empty/blueprint/** folder for an empty blueprint example.
-You can also copy **flask-empty/blueprint/** to create blueprints.
+## Blueprints
 
-Flask-empty blueprints can be placed in the project root or in a folder called apps inside the project root.
+Add your blueprints using **src/config.Config.BLUEPRINTS** as documented in the file itself. A blueprint can be add 
+using the path to the Blueprint or a tuple. Make sure your blueprint has a views.py and 
+it has a **app** Blueprint instance and you're ready to go. If unsure, check out **flask-empty/blueprint/** 
+for an empty blueprint example. You can also copy **flask-empty/blueprint/** to create blueprints.
 
-SQLAlchemy
-==========
-Flask-Empty comes with some Flask-SQLAlchemy configurations ready for you. Just uncomment the lines in your **main.py**
-and **database.py** files for support. For further integration, uncomment the lines in **manage.py** as instructed.
-If you want to create your own command, see **commands.py** for examples. 
+With flask-empty, blueprints can live in the project root or in a special folder called **apps** in the project root.
 
-_ps: currently, create_db will only create your models will if they are imported somewhere in your application. By **somewhere**, try the
-*same module where your Blueprint instance is defined*.
+## SQLAlchemy
+
+Flask-Empty comes with some Flask-SQLAlchemy configurations ready for you. Just extend 
+your **main.App.configure_database** like this:
+
+```
+class App(Empty):
+    def configure_database(self):
+        super(App, self).configure_database()
+        from database import db
+        db.app = self
+        db.init_app(self)
+```
+ 
+and uncomment **database.py**. 
+
+_ps: currently, create_db will only create your models will if they are imported somewhere in your application. 
+By **somewhere**, try the *same module where your Blueprint instance is defined*.
 
 Examples
 ========

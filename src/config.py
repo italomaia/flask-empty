@@ -6,6 +6,7 @@ from datetime import timedelta
 project_name = "yourprojectname"
 
 
+# base config class; extend it to your needs.
 class Config(object):
     # use DEBUG mode?
     DEBUG = False
@@ -48,13 +49,15 @@ class Config(object):
     BLUEPRINTS = []
 
 
+# config class for development environment
 class Dev(Config):
-    DEBUG = True
+    DEBUG = True  # we want debug level output
     MAIL_DEBUG = True
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = True  # we want to see sqlalchemy output
     SQLALCHEMY_DATABASE_URI = "sqlite:////var/tmp/%s_dev.sqlite" % project_name
 
 
+# config class used during tests
 class Test(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
