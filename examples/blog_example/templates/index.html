@@ -3,25 +3,35 @@
 <html>
 <head>
     <title>My Blog</title>
+    <link rel="stylesheet" href="http://cdn.foundation5.zurb.com/foundation.css" />
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.7.2.js"></script>
+    {% block styles %}{% endblock %}
 </head>
 <body>
-    <h1><a href="/">Flask devs, unite!</a></h1>
+    <div class="row">
+        <h1><a href="/">Flask devs, unite!</a></h1>
 
-    <div>
-        <a href="{{ url_for('blog.add_post_view') }}">Add post</a>
+
+        {{ flash_messages() }}
+
+        {% block content %}
+        <a class="button tiny" href="{{ url_for('blog.add_post_view') }}">Add post</a>
+
+        <ol>
+        {% for post in posts %}
+            <li>
+                <a href="{{ post.absolute_url() }}">{{ post.title }}</a>
+            </li>
+        {% endfor %}
+        </ol>
+        {% endblock %}
     </div>
 
-    {{ flash_messages() }}
-
-    {% block content %}
-    <ol>
-    {% for post in posts %}
-        <li>
-            <a href="{{ post.absolute_url() }}">{{ post.title }}</a>
-        </li>
-    {% endfor %}
-    </ol>
-    {% endblock %}
+    <script src="http://cdn.foundation5.zurb.com/foundation.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+    {% block scripts %}{% endblock %}
 </body>
 
 </html>
