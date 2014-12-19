@@ -31,7 +31,7 @@ class Config(object):
     LOG_LEVEL = logging.INFO
     LOG_FORMAT = "%(asctime)s %(levelname)s\t: %(message)s" # used by logging.Formatter
 
-    PERMANENT_SESSION_LIFETIME = timedelta(days=1)
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
     # EMAIL CONFIGURATION
     MAIL_SERVER = "localhost"
