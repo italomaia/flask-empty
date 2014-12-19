@@ -36,6 +36,8 @@ class Config(object):
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
+
     BLUEPRINTS = [
         'blog'  # or ('blog', {'url_prefix':'/blog'})
     ]
