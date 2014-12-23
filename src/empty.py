@@ -48,7 +48,6 @@ class Empty(Flask):
 
     def setup(self):
         self.configure_logger()
-        self.configure_logger()
         self.configure_error_handlers()
         self.configure_database()
         self.configure_context_processors()
