@@ -1,14 +1,16 @@
 Flask Empty
 ===========
 Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
-clone the project, copy **src/** with your project name and get started.
+use cookiecutter and create a new project in no time.
 
 ```shell
-# local copy the project // linux/Mac
-git clone https://github.com/italomaia/flask-empty flask-empty
-cp -r flask-empty/src /path/to/project/name
-vim /path/to/project/name/config.py  # setup your project configuration
-# you're done!
+# if cookiecutter is not installed
+sudo pip install cookiecutter
+
+# using cookiecutter // linux/Mac
+cookiecutter https://github.com/italomaia/flask-empty
+
+# answer the prompt and you're done!
 ```
 
 Setup
@@ -33,17 +35,17 @@ You're advised to change the requirements files according to your needs.
 Important files to be aware of
 ==============================
 
-### src/config.py
+### project/config.py
 
-**config.py** has some pre-set configuration classes for you to meddle with. They're are all self explanatory 
+**config.py** has some pre-set configuration classes for you to meddle with. They're are all self explanatory
 and commented.  
- 
+
 **main.py** extend flask application behavior through Empty class, which inherit from Flask class. Need to setup
 extensions, index view, context processors? (see also **empty.py**)
 
 **database.py** setup your database library there. There is some commented code for sqlalchemy support out of the box.
 
-**rename_me.ini** rename it to your project name. It is the configuration file to use 
+**rename_me.ini** rename it to your project name. It is the configuration file to use
 with [uwsgi](https://github.com/unbit/uwsgi). Use it like this:
 
 ```
@@ -79,20 +81,20 @@ your project.
 
 You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with
 flask extensions like wtforms and commons tasks like showing flash messages. Available macros, **formhelpers**
-and **flashing** are very useful. 
+and **flashing** are very useful.
 
 ## Blueprints
 
-Add your blueprints using **src/config.Config.BLUEPRINTS** as documented in the file itself. A blueprint can be add 
-using the path to the Blueprint or a tuple. Make sure your blueprint has a views.py and 
-it has a **app** Blueprint instance and you're ready to go. If unsure, check out **flask-empty/blueprint/** 
+Add your blueprints using **src/config.Config.BLUEPRINTS** as documented in the file itself. A blueprint can be add
+using the path to the Blueprint or a tuple. Make sure your blueprint has a views.py and
+it has a **app** Blueprint instance and you're ready to go. If unsure, check out **flask-empty/blueprint/**
 for an empty blueprint example. You can also copy **flask-empty/blueprint/** to create blueprints.
 
 With flask-empty, blueprints can live in the project root or in a special folder called **apps** in the project root.
 
 ## SQLAlchemy
 
-Flask-Empty comes with some Flask-SQLAlchemy configurations ready for you. Just extend 
+Flask-Empty comes with some Flask-SQLAlchemy configurations ready for you. Just extend
 your **main.App.configure_database** like this:
 
 ```
@@ -103,10 +105,10 @@ class App(Empty):
         db.app = self
         db.init_app(self)
 ```
- 
-and uncomment **database.py**. 
 
-_ps: currently, create_db will only create your models will if they are imported somewhere in your application. 
+and uncomment **database.py**.
+
+_ps: currently, create_db will only create your models will if they are imported somewhere in your application.
 By **somewhere**, try the *same module where your Blueprint instance is defined*.
 
 Examples
