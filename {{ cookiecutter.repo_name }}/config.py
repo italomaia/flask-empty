@@ -3,7 +3,7 @@
 import logging
 from datetime import timedelta
 
-project_name = "yourprojectname"
+project_name = "{{ cookiecutter.repo_name }}"
 
 
 # base config class; extend it to your needs.
