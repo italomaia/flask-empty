@@ -1,5 +1,8 @@
 Flask Empty
 ===========
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/italomaia/flask-empty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
 use cookiecutter and create a new project in no time.
 
@@ -120,16 +123,19 @@ configure it and be happy!
 FAQ
 ===
 **Is flask-empty _boilerplate_ compatible with flask 0.x? Cuz' that's what my app uses.**
+
 Right now, flask-empty is a very simple project where many good practices and code examples were glued together.
 Until recently I was focused in keeping backward compatibility with flask 0.8. Well, that goal is no more.
  Flask-empty will be compatible with the latest version of Flask and, by chance, with previous versions in case
  there is no backward incompatibility from any supported plugin or flask itself. Things will be easier this way.
 
 **So, which is the oldest version where flask-empty works?**
+
 In my last test, version 0.8 but no guarantees here.
 
 **I think flask-empty should have _this_ and _that_ configured by default. Will you add support?**
-Right now, my goals are:
+
+My current goals are:
 
 * Make flask-empty real easy to start a project with
 * Keep things simple and robust
@@ -139,5 +145,6 @@ project. If you make the code and send a pull request, then I'll consider it rea
  rejected or advised in a different approach, don't ge sad (you're awesome ;).
 
 **I just made a cool example with flask-empty and want to add it to examples.**
+
 Pull request it for evaluation ;)
 Just keep in mind that good examples should be short (not really...) and focused in it's showcase.
