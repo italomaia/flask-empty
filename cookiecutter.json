@@ -1,4 +1,6 @@
 {
     "project_name": "Your Project Name",
-    "repo_name": "your-project-name"
+    "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
+    "version": "0.1",
+    "use_sql": "no"
 }
