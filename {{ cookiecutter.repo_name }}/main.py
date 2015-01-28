@@ -4,6 +4,9 @@ import os
 import sys
 from empty import Empty
 
+{%- if cookiecutter.create_index != 'no' %}
+from flask import render_template
+{% endif %}
 
 # apps is a special folder where you can place your blueprints
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -13,17 +16,23 @@ basestring = getattr(__builtins__, 'basestring', str)
 
 
 class App(Empty):
-    {%- if cookiecutter.use_sql == 'yes' %}
+    {% if cookiecutter.use_sql == 'yes' %}
     def configure_database(self):
         "Database configuration should be set here"
         from database import db
 
         db.app = self
         db.init_app(self)
-    {%- else %}
-    pass
-    {% endif %}
-
+    {%- endif %}
+    {% if cookiecutter.create_index != 'no' %}
+    def configure_views(self):
+        @self.route('/')
+        def index_view():
+            return render_template("index.html")
+    {% else %}
+    def configure_views(self):
+        pass
+    {%- endif %}
 
 def config_str_to_obj(cfg):
     if isinstance(cfg, basestring):
