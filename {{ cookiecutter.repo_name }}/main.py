@@ -51,3 +51,9 @@ def app_factory(config, app_name, blueprints=None):
     app.setup()
 
     return app
+
+
+def heroku():
+    from config import Config, project_name
+    # setup app through APP_CONFIG envvar
+    return app_factory(Config, project_name)
