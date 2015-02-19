@@ -58,6 +58,10 @@ uwsgi --ini your_project.ini
 **manage.py** and **commands.py** add to manage.py all the commands from commands.py that you want available using
  commandline. See available commands with **python manage.py**
 
+## Heroku
+
+Empty comes with a pre-configured procfile and heroku() wrapper for app_factory. No setup required.
+
 ## Observations
 
 Note that the Flask-Script option, -d (disable debug) does not work as expected in Flask-Empty. If you want
