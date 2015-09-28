@@ -5,18 +5,24 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    
-    <title></title>
 
+    <title>{{ cookiecutter.project_name }}</title>
+
+{% raw %}
     <!-- CSS IMPORTS
     <link rel="stylesheet" type="text/css" href="" />
     -->
+    {% block styles %}{% endblock %}
 </head>
 <body>
 
+    {% block content %}
+    {% endblock %}
 
     <!-- JS IMPORTS
     <script type="application/javascript" src=""></script>
     -->
+    {% block scripts %}{% endblock %}
 </body>
 </html>
+{% endraw %}

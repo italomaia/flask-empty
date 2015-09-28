@@ -1,5 +1,5 @@
 {# WTFORMS #}
-
+{% raw %}
 {% macro render_field(field) %}
     {{ field.label }}
 
@@ -22,3 +22,4 @@
         {{ render_field(field) }}
     {% endfor %}
 {% endmacro %}
+{% endraw %}

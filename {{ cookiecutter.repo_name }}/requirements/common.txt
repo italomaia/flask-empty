@@ -1,0 +1,6 @@
+Flask
+Flask-Script
+Nose
+{%- if cookiecutter.use_sql == 'yes' %}
+Flask-SQLAlchemy
+{% endif -%}

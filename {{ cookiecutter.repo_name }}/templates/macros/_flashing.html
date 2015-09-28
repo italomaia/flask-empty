@@ -1,3 +1,4 @@
+{% raw %}
 {% macro flash_messages() %}
     {% set messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -6,3 +7,4 @@
         {% endfor %}
     {% endif %}
 {% endmacro %}
+{% endraw %}
