@@ -16,14 +16,6 @@ basestring = getattr(__builtins__, 'basestring', str)
 
 
 class App(Empty):
-    {% if cookiecutter.use_sql == 'yes' %}
-    def configure_database(self):
-        "Database configuration should be set here"
-        from database import db
-
-        db.app = self
-        db.init_app(self)
-    {%- endif %}
     {% if cookiecutter.create_index != 'no' %}
     def configure_views(self):
         @self.route('/')
@@ -33,6 +25,7 @@ class App(Empty):
     def configure_views(self):
         pass
     {%- endif %}
+
 
 def config_str_to_obj(cfg):
     if isinstance(cfg, basestring):

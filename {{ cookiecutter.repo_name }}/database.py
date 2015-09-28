@@ -3,8 +3,7 @@
 {%- if cookiecutter.use_sql == 'yes' %}
 #--- SQLALCHEMY SUPPORT
 
-from flask.ext.sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+from extensions import db
 
 
 def drop_all():

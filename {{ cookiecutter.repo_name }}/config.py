@@ -43,6 +43,15 @@ class Config(object):
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
+    LOAD_MODULES_EXTENSIONS = ['views', 'models']
+
+    EXTENSIONS = [
+        {% if cookiecutter.use_sql == 'yes' %}
+        'extensions.db',
+        {%- endif %}
+        'extensions.toolbar',
+    ]
+
     # see example/ for reference
     # ex: BLUEPRINTS = ['blog']  # where app is a Blueprint instance
     # ex: BLUEPRINTS = [('blog', {'url_prefix': '/myblog'})]  # where app is a Blueprint instance
