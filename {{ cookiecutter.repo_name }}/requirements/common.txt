@@ -4,3 +4,9 @@ Nose
 {%- if cookiecutter.use_sql == 'yes' %}
 Flask-SQLAlchemy
 {% endif -%}
+{%- if cookiecutter.use_nosql == 'yes' %}
+Flask-Mongoengine
+{% endif -%}
+{%- if cookiecutter.use_forms == 'yes' %}
+Flask-WTF
+{% endif -%}
