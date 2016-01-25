@@ -15,7 +15,7 @@ class CreateDB(Command):
             from database import create_all
 
             create_all()
-        except ImportError, e:
+        except ImportError:
             print("Please, make sure database.create_all exists in order to create a db.")
 
 
@@ -29,8 +29,46 @@ class DropDB(Command):
             from database import drop_all
 
             drop_all()
-        except ImportError, e:
+        except ImportError:
             print("Please, make sure database.drop_all exists in order to drop a db.")
+
+
+class NewApp(Command):
+    """
+    Command to easily add a new app to your project
+    """
+    def get_options(self):
+        return [
+            Option('name', type=str),
+        ]
+
+    def run(self, name):
+        APPS_FOLDER = 'apps'
+        if os.path.exists(os.path.join(APPS_FOLDER, name)):
+            print('App name already exists at apps. Exiting.')
+
+        app_path = os.path.join(APPS_FOLDER, name)
+        os.mkdir(app_path)
+        os.mkdir(os.path.join(app_path, 'templates'))
+        os.mkdir(os.path.join(app_path, 'templates', 'name'))
+
+        # empty __init__.py
+        with open(os.path.join(app_path, '__init__.py'), 'w'):
+            pass
+
+        with open(os.path.join(app_path, 'models.py'), 'w'):
+            pass
+
+        with open(os.path.join(app_path, 'forms.py'), 'w'):
+            pass
+
+        with open(os.path.join(app_path, 'views.py'), 'w') as file:
+            file.write(""
+                "from flask import Blueprint\n"
+                "from flask import render_template, flash, redirect, url_for\n\n"
+                "app = Blueprint('%(name)s', __name__, template_folder='templates')"
+                % {'name': name}
+            )
 
 
 class Test(Command):

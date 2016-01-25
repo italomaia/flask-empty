@@ -150,8 +150,8 @@ class Empty(Flask):
             # only works in debug mode
             from flask_debugtoolbar import DebugToolbarExtension
             DebugToolbarExtension(self)
-        except ImportError, e:
-            print 'debugtoolbar extension not available.'
+        except ImportError:
+            print('debugtoolbar extension not available.')
 
     def configure_before_request(self):
         pass
