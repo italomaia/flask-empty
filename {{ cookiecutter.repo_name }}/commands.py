@@ -16,7 +16,7 @@ class CreateDB(Command):
 
             create_all()
         except ImportError, e:
-            print "Please, make sure database.create_all exists in order to create a db."
+            print("Please, make sure database.create_all exists in order to create a db.")
 
 
 class DropDB(Command):
@@ -30,7 +30,7 @@ class DropDB(Command):
 
             drop_all()
         except ImportError, e:
-            print "Please, make sure database.drop_all exists in order to drop a db."
+            print("Please, make sure database.drop_all exists in order to drop a db.")
 
 
 class Test(Command):
