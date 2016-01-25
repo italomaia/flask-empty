@@ -49,8 +49,8 @@ class Empty(Flask):
                 name = blueprint_config[0]
                 kw.update(blueprint_config[1])
             else:
-                print "Error in BLUEPRINTS setup in config.py"
-                print "Please, verify if each blueprint setup is either a string or a tuple."
+                print("Error in BLUEPRINTS setup in config.py")
+                print("Please, verify if each blueprint setup is either a string or a tuple.")
                 exit(1)
 
             self.add_blueprint(name, kw)
