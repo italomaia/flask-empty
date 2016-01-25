@@ -8,6 +8,13 @@ import logging
 basestring = getattr(__builtins__, 'basestring', str)
 
 
+def _import_module(blueprint_path, module):
+    try:
+        return __import__('.'.join(blueprint_path.split('.') + [module]))
+    except ImportError:
+        print("Module %s is not available for %s" % (module, blueprint_path))
+
+
 def _import_variable(blueprint_path, module, variable_name):
     path = '.'.join(blueprint_path.split('.') + [module])
     mod = __import__(path, fromlist=[variable_name])
@@ -28,6 +35,7 @@ class Empty(Flask):
 
     def add_blueprint(self, name, kw):
         blueprint = _import_variable(name, 'views', 'app')
+        _import_module(name, 'admin')  # if flask-admin is set
         self.register_blueprint(blueprint, **kw)
 
     def add_blueprint_list(self, bp_list):
@@ -36,6 +44,7 @@ class Empty(Flask):
 
             if isinstance(blueprint_config, basestring):
                 name = blueprint_config
+                kw.update({'url_prefix': '/' + name})
             elif isinstance(blueprint_config, (list, tuple)):
                 name = blueprint_config[0]
                 kw.update(blueprint_config[1])
