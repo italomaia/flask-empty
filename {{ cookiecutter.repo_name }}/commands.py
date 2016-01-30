@@ -81,13 +81,13 @@ class Test(Command):
 
     def get_options(self):
         return [
-            Option('--verbosity', '-v', dest='verbose',
+            Option('--verbosity', '-v', dest='verbosity',
                     type=int, default=self.verbosity),
             Option('--failfast', dest='failfast',
                     default=self.failfast, action='store_false')
         ]
 
-    def run(self, verbosity, failfast):
+    def run(self, **kwargs):
         import sys
         import glob
         import unittest
@@ -122,5 +122,4 @@ class Test(Command):
             all_tests.append(loader.discover('.', pattern='tests.py'))
 
         test_suite = unittest.TestSuite(all_tests)
-        unittest.TextTestRunner(
-            verbosity=verbosity, failfast=failfast).run(test_suite)
+        unittest.TextTestRunner(**kwargs).run(test_suite)
