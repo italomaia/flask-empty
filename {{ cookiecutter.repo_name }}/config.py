@@ -17,11 +17,16 @@ class Config(object):
     # use server x-sendfile?
     USE_X_SENDFILE = False
 
+    {%- if cookiecutter.use_sql == 'yes' %}
     # DATABASE CONFIGURATION
     # see http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
     SQLALCHEMY_DATABASE_URI = ""
-    SQLALCHEMY_ECHO = False
 
+    # DEBUG mode only!
+    SQLALCHEMY_ECHO = DEBUG
+    SQLALCHEMY_TRACK_MODIFICATIONS = DEBUG
+
+    {% endif %}
     WTF_CSRF_ENABLED = True
     SECRET_KEY = "secret"  # import os; os.urandom(24)
 
