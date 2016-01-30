@@ -44,6 +44,20 @@ class Apps(Command):
     def normalize_path(name):
         return os.path.normpath(name).replace(" ", "_").lower()
 
+    @property
+    def requirements(self):
+        if self._requirements is None:
+            try:
+                try:
+                    self._requirements = open('requirements/common.txt').read()
+                except FileNotFoundError:
+                    self._requirements = open('requirements.txt').read()
+            except FileNotFoundError:
+                self._requirements = ''
+            finally:
+                self._requirements = self._requirements.lower()
+        return self._requirements
+
     def get_options(self):
         return [
             Option('--new', '-n', dest='new_app', nargs='?',
@@ -72,17 +86,22 @@ class Apps(Command):
         with open(os.path.join(app_path, '__init__.py'), 'w'):
             pass
 
-        with open(os.path.join(app_path, 'models.py'), 'w'):
-            pass
+        with open(os.path.join(app_path, 'models.py'), 'w') as file:
+            if 'flask-sqlalchemy' in self.requirements:
+                file.write("from database import db\n\n")
 
-        with open(os.path.join(app_path, 'forms.py'), 'w'):
-            pass
+            if 'flask-mongoengine' in self.requirements:
+                file.write("from database import nosql\n\n")
+
+        if 'flask-wtf' in self.requirements:
+            with open(os.path.join(app_path, 'forms.py'), 'w') as file:
+                file.write('from from flask_wtf import Form\n\n')
 
         with open(os.path.join(app_path, 'views.py'), 'w') as file:
             file.write(""
                 "from flask import Blueprint\n"
                 "from flask import render_template, flash, redirect, url_for\n\n"
-                "app = Blueprint('%(name)s', __name__, template_folder='templates')"
+                "app = Blueprint('%(name)s', __name__, template_folder='templates')\n\n"
                 % {'name': name}
             )
 
