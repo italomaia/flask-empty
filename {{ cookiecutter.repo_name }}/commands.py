@@ -33,21 +33,31 @@ class DropDB(Command):
             print("Please, make sure database.drop_all exists in order to drop a db.")
 
 
-class NewApp(Command):
+class Apps(Command):
     """
-    Command to easily add a new app to your project
+    Command to handle blueprints within your project
     """
+    APPS_FOLDER = 'apps'
+    NEW_APP = False
+
     def get_options(self):
         return [
-            Option('name', type=str),
+            Option('--new', '-n', dest='new_app',
+                   default=self.NEW_APP, const='store_true'),
+            Option('--name', dest='name', dest='name',
+                   type=str, nargs='?'),
+            Option('--folder', '-f', dest='folder',
+                   default=self.APPS_FOLDER, type=str, nargs='?'),
         ]
 
-    def run(self, name):
-        APPS_FOLDER = 'apps'
-        if os.path.exists(os.path.join(APPS_FOLDER, name)):
-            print('App name already exists at apps. Exiting.')
+    def run(self, **kwargs):
+        apps_folder = os.path.abspath(kwargs['folder'])
+        name = kwargs.get('name', prompt('How will you call it?'))
+        app_path = os.path.join(apps_folder, name)
 
-        app_path = os.path.join(APPS_FOLDER, name)
+        if os.path.exists(app_path):
+            print('%s already exists. Exiting.' % app_path)
+
         os.mkdir(app_path)
         os.mkdir(os.path.join(app_path, 'templates'))
         os.mkdir(os.path.join(app_path, 'templates', 'name'))
