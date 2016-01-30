@@ -66,7 +66,7 @@ class Apps(Command):
 
         os.mkdir(app_path)
         os.mkdir(os.path.join(app_path, 'templates'))
-        os.mkdir(os.path.join(app_path, 'templates', 'name'))
+        os.mkdir(os.path.join(app_path, 'templates', path_name))
 
         # empty __init__.py
         with open(os.path.join(app_path, '__init__.py'), 'w'):
