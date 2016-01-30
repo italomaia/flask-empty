@@ -62,6 +62,7 @@ class Apps(Command):
 
         if os.path.exists(app_path):
             print('%s already exists. Exiting.' % app_path)
+            exit()
 
         os.mkdir(app_path)
         os.mkdir(os.path.join(app_path, 'templates'))
