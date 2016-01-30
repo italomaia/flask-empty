@@ -40,9 +40,13 @@ class Apps(Command):
     APPS_FOLDER = 'apps'
     NEW_APP = False
 
+    @staticmethod
+    def normalize_path(name):
+        return os.path.normpath(name).replace(" ", "_").lower()
+
     def get_options(self):
         return [
-            Option('--new', '-n', dest='new_app',
+            Option('--new', '-n', dest='new_app', nargs='?',
                    default=self.NEW_APP, const='store_true'),
             Option('--name', dest='name', dest='name',
                    type=str, nargs='?'),
@@ -52,8 +56,9 @@ class Apps(Command):
 
     def run(self, **kwargs):
         apps_folder = os.path.abspath(kwargs['folder'])
-        name = kwargs.get('name', prompt('How will you call it?'))
-        app_path = os.path.join(apps_folder, name)
+        name = kwargs['name'] or prompt('How will you call it?')
+        path_name = self.normalize_path(name)
+        app_path = os.path.join(apps_folder, path_name)
 
         if os.path.exists(app_path):
             print('%s already exists. Exiting.' % app_path)
