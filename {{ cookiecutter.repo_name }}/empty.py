@@ -1,24 +1,20 @@
-# coding:utf-8
-
-__all__ = ['Empty']
-
+# -*- coding:utf-8 -*-
 from flask import Flask, render_template
 import logging
+from werkzeug.utils import import_string
+
+
+__all__ = ['Empty']
 
 basestring = getattr(__builtins__, 'basestring', str)
 
 
-def _import_module(blueprint_path, module):
-    try:
-        return __import__('.'.join(blueprint_path.split('.') + [module]))
-    except ImportError:
-        print("Module %s is not available for %s" % (module, blueprint_path))
+class NoExtensionException(Exception):
+    pass
 
 
-def _import_variable(blueprint_path, module, variable_name):
-    path = '.'.join(blueprint_path.split('.') + [module])
-    mod = __import__(path, fromlist=[variable_name])
-    return getattr(mod, variable_name)
+class BlueprintException(Exception):
+    pass
 
 
 class Empty(Flask):
@@ -34,8 +30,16 @@ class Empty(Flask):
         self.config.from_envvar("APP_CONFIG", silent=True)
 
     def add_blueprint(self, name, kw):
-        blueprint = _import_variable(name, 'views', 'app')
-        _import_module(name, 'admin')  # if flask-admin is set
+        join_name = lambda n, s: '%s.%s' % (n, s)
+
+        for module in self.config['LOAD_MODULES_EXTENSIONS']:
+            try:
+                import_string(join_name(name, module))
+            except (ImportError, AttributeError):
+                # print 'No {e_module} found in {e_name}.'.format(e_module=module, e_name=name)
+                pass
+
+        blueprint = import_string(join_name(name, 'app'))
         self.register_blueprint(blueprint, **kw)
 
     def add_blueprint_list(self, bp_list):
@@ -49,21 +53,22 @@ class Empty(Flask):
                 name = blueprint_config[0]
                 kw.update(blueprint_config[1])
             else:
-                print("Error in BLUEPRINTS setup in config.py")
-                print("Please, verify if each blueprint setup is either a string or a tuple.")
-                exit(1)
+                raise BlueprintException(
+                    "Error in BLUEPRINTS setup in config.py"
+                    "Please, verify if each blueprint setup is either a string or a tuple."
+                )
 
             self.add_blueprint(name, kw)
 
     def setup(self):
         self.configure_logger()
         self.configure_error_handlers()
-        self.configure_database()
         self.configure_context_processors()
         self.configure_template_extensions()
         self.configure_template_filters()
         self.configure_extensions()
         self.configure_before_request()
+        self.configure_after_request()
         self.configure_views()
 
     def configure_logger(self):
@@ -117,12 +122,6 @@ class Empty(Flask):
         def server_error_page(error):
             return render_template("http/server_error.html"), 500
 
-    def configure_database(self):
-        """
-        Database configuration should be set here
-        """
-        pass
-
     def configure_context_processors(self):
         """
         Modify templates context here
@@ -146,14 +145,27 @@ class Empty(Flask):
         """
         Configure extensions like mail and login here
         """
-        try:
-            # only works in debug mode
-            from flask_debugtoolbar import DebugToolbarExtension
-            DebugToolbarExtension(self)
-        except ImportError:
-            print('debugtoolbar extension not available.')
+        for ext_path in self.config.get('EXTENSIONS', []):
+            try:
+                ext = import_string(ext_path)
+            except:
+                raise NoExtensionException('No {e_name} extension found'.format(e_name=ext_path))
+
+            if getattr(ext, 'init_app', False):
+                ext.init_app(self)
+            else:
+                ext(self)
 
     def configure_before_request(self):
+        """
+        Configure a functions to run before each request
+        """
+        pass
+
+    def configure_after_request(self):
+        """
+        Configure a functions to be run after each request
+        """
         pass
 
     def configure_views(self):
