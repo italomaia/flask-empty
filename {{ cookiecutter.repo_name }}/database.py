@@ -21,6 +21,6 @@ def remove_session():
 {% endif %}
 
 {%- if cookiecutter.use_nosql == 'yes' %}
-from flask.ext.mongoengine import MongoEngine
-nosql = MongoEngine()
+from extensions import nosql
+
 {% endif %}

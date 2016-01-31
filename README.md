@@ -40,31 +40,35 @@ Important files to be aware of
 
 ### project/config.py
 
-**config.py** has some pre-set configuration classes for you to meddle with. They're are all self explanatory
+**extensions.py** all extension instances that need initialization should be available 
+here in order for _Empty_ to see and initialize them for you.
+
+**config.py** is a pre-set configuration classes for you to meddle with. They're are all self explanatory
 and commented.
 
-**main.py** extend flask application behavior through Empty class, which inherit from Flask class. Need to setup
-extensions, index view, context processors? (see also **empty.py**)
+**main.py** the _Empty_ class inherits from the _Flask_ class. Override it if you need to setup 
+extensions, an index view, context processors, etc. It already has sensitive defaults for most
+ features. (see **empty.py** to better understand _Empty_)
 
 **database.py** setup your database library there. There is some commented code for sqlalchemy support out of the box.
 
-**rename_me.ini** rename it to your project name. It is the configuration file to use
-with [uwsgi](https://github.com/unbit/uwsgi). Use it like this:
+**PROJECT_NAME.ini** is the configuration file used with 
+[uwsgi](https://github.com/unbit/uwsgi). Use it like this:
 
 ```
 uwsgi --ini your_project.ini
 ```
 
-**manage.py** adds a few very useful commandlines to help you dev. See available commands
-typing **python manage.py**.
+**manage.py** adds few very useful commandline commands (...) to help your development productivity. Check 
+available commands by running **python manage.py**.
 
 ## Heroku
 
-Empty comes with a pre-configured procfile and heroku() wrapper for app_factory. No setup required.
+Empty comes with a pre-configured _procfile_ and _heroku()_ wrapper for _app_factory_. No setup required.
 
 ## Observations
 
-Note that the Flask-Script option, -d (disable debug) does not work as expected in Flask-Empty. If you want
+Note that the Flask-Script option "-d (disable debug)" does not work as expected with Flask-Empty. If you want
 to start a non-debug internal server instance, use the **config.Config** configuration or write your own. Example:
 
 ```python
@@ -119,6 +123,10 @@ and Flask-Mongoengine will be setup for you.
 
 Flask-WTF is the "the facto" extension for handling forms with Flask. It is simply great, and Flask-Empty
 supports it! Just say "yes" during project creation and Flask-WTF support will be on.
+
+## Other Extensions
+
+
 
 Examples
 ========
