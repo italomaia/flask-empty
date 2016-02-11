@@ -62,8 +62,7 @@ class Apps(Command):
         return [
             Option('--new', '-n', dest='new_app', nargs='?',
                    default=self.NEW_APP, const='store_true'),
-            Option('--name', dest='name', dest='name',
-                   type=str, nargs='?'),
+            Option('--name', dest='name', type=str, nargs='?'),
             Option('--folder', '-f', dest='folder',
                    default=self.APPS_FOLDER, type=str, nargs='?'),
         ]
