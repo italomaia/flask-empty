@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 
-from flask.ext.script import Command, Option, prompt_bool
+from flask_script import Command
+from flask_script import Option
+from flask_script import prompt
 
 import os
 
