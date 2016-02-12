@@ -159,3 +159,38 @@ class Test(Command):
 
         test_suite = unittest.TestSuite(all_tests)
         unittest.TextTestRunner(**kwargs).run(test_suite)
+
+
+class Routes(Command):
+    """
+    Lists all registered endpoints and routes
+    """
+
+    # ref: http://flask.pocoo.org/snippets/117/
+    @staticmethod
+    def list_routes():
+        from flask import url_for, current_app
+
+        try:
+            from urllib import unquote
+        except ImportError:
+            from urllib.parse import unquote
+
+        output = []
+        for rule in current_app.url_map.iter_rules():
+
+            options = {}
+            for arg in rule.arguments:
+                options[arg] = "[{0}]".format(arg)
+
+            methods = ','.join(rule.methods)
+            url = url_for(rule.endpoint, **options)
+            line = unquote("{:50s} {:20s} {}".format(rule.endpoint, methods, url))
+            output.append(line)
+
+        for line in sorted(output):
+            print(line)
+
+    def run(self, **kwargs):
+        # Yeah, I'm a rebel!
+        self.__class__.list_routes()
