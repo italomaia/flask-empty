@@ -6,6 +6,12 @@ from flask_script import prompt
 
 import os
 
+try:
+    FileNotFoundError  # only available with python3
+except NameError:
+    # workaround
+    FileNotFoundError = IOError
+
 
 class CreateDB(Command):
     """
