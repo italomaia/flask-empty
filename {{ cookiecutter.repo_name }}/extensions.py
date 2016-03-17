@@ -19,3 +19,9 @@ from flask.ext.mongoengine import MongoEngine
 nosql = MongoEngine()
 
 {% endif %}
+
+{%- if cookiecutter.use_socketio == 'yes' %}
+from flask_socketio import SocketIO
+socketio = SocketIO()
+
+{% endif %}

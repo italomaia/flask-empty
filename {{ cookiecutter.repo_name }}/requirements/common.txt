@@ -10,3 +10,6 @@ Flask-Mongoengine
 {%- if cookiecutter.use_forms == 'yes' %}
 Flask-WTF
 {% endif -%}
+{%- if cookiecutter.use_socketio == 'yes' %}
+Flask-SocketIO
+{% endif -%}

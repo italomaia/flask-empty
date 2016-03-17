@@ -5,5 +5,6 @@
     "create_index_view": "yes",
     "use_sql": "yes",
     "use_nosql": "no",
-    "use_forms": "yes"
+    "use_forms": "yes",
+    "use_socketio": "no"
 }
