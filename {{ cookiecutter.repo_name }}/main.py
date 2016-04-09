@@ -4,7 +4,7 @@ import os
 import sys
 from empty import Empty
 
-{%- if cookiecutter.create_index != 'no' %}
+{%- if cookiecutter.create_index_view != 'no' %}
 from flask import render_template
 {% endif %}
 
@@ -16,7 +16,7 @@ basestring = getattr(__builtins__, 'basestring', str)
 
 
 class App(Empty):
-    {% if cookiecutter.create_index != 'no' %}
+    {% if cookiecutter.create_index_view != 'no' %}
     def configure_views(self):
         @self.route('/')
         def index_view():
