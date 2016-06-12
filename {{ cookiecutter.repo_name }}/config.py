@@ -58,8 +58,8 @@ class Config(object):
     ]
 
     # see example/ for reference
-    # ex: BLUEPRINTS = ['blog']  # where app is a Blueprint instance
-    # ex: BLUEPRINTS = [('blog', {'url_prefix': '/myblog'})]  # where app is a Blueprint instance
+    # ex: BLUEPRINTS = ['blog']  # where `blog` is a Blueprint instance
+    # ex: BLUEPRINTS = [('blog', {'url_prefix': '/myblog'})]  # where `blog` is a Blueprint instance
     BLUEPRINTS = []
 
 
