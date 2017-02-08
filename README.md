@@ -40,26 +40,26 @@ Important files to be aware of
 
 ### project/config.py
 
-**extensions.py** all extension instances that need initialization should be available 
+**extensions.py** all extension instances that need initialization should be available
 here in order for _Empty_ to see and initialize them for you.
 
 **config.py** is a pre-set configuration classes for you to meddle with. They're are all self explanatory
 and commented.
 
-**main.py** the _Empty_ class inherits from the _Flask_ class. Override it if you need to setup 
+**main.py** the _Empty_ class inherits from the _Flask_ class. Override it if you need to setup
 extensions, an index view, context processors, etc. It already has sensitive defaults for most
  features. (see **empty.py** to better understand _Empty_)
 
 **database.py** setup your database library there. There is some commented code for sqlalchemy support out of the box.
 
-**PROJECT_NAME.ini** is the configuration file used with 
+**PROJECT_NAME.ini** is the configuration file used with
 [uwsgi](https://github.com/unbit/uwsgi). Use it like this:
 
 ```
 uwsgi --ini your_project.ini
 ```
 
-**manage.py** adds few very useful commandline commands (...) to help your development productivity. Check 
+**manage.py** adds few very useful commandline commands (...) to help your development productivity. Check
 available commands by running **python manage.py**.
 
 ## Heroku
@@ -123,6 +123,15 @@ and Flask-Mongoengine will be setup for you.
 
 Flask-WTF is the "the facto" extension for handling forms with Flask. It is simply great, and Flask-Empty
 supports it! Just say "yes" during project creation and Flask-WTF support will be on.
+
+## Flask-Admin
+
+Just create an admin.py file in your blueprint, define your admin models inside and change
+**LOAD_MODULES_EXTENSIONS** to also pre-load admin, like this:
+
+```
+LOAD_MODULES_EXTENSIONS = ['views', 'models', 'admin']
+```
 
 ## Other Extensions
 
