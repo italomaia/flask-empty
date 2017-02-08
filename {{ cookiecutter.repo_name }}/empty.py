@@ -30,16 +30,14 @@ class Empty(Flask):
         self.config.from_envvar("APP_CONFIG", silent=True)
 
     def add_blueprint(self, name, kw):
-        join_name = lambda n, s: '%s.%s' % (n, s)
-
         for module in self.config['LOAD_MODULES_EXTENSIONS']:
             try:
-                import_string(join_name(name, module))
+                __import__('%s.%s' % (name, module), fromlist=['*'])
             except (ImportError, AttributeError):
                 # print 'No {e_module} found in {e_name}.'.format(e_module=module, e_name=name)
                 pass
 
-        blueprint = import_string(join_name(name, 'app'))
+        blueprint = import_string('%s.%s' % (name, 'app'))
         self.register_blueprint(blueprint, **kw)
 
     def add_blueprint_list(self, bp_list):
@@ -82,8 +80,8 @@ class Empty(Flask):
         self.logger.addHandler(log_file)
         self.logger.info("Logger started")
 
-    def configure_error_handlers(app):
-        @app.errorhandler(403)
+    def configure_error_handlers(self):
+        @self.errorhandler(403)
         def forbidden_page(error):
             """
             The server understood the request, but is refusing to fulfill it.
@@ -96,7 +94,7 @@ class Empty(Flask):
             """
             return render_template("http/access_forbidden.html"), 403
 
-        @app.errorhandler(404)
+        @self.errorhandler(404)
         def page_not_found(error):
             """
             The server has not found anything matching the Request-URI. No indication
@@ -109,7 +107,7 @@ class Empty(Flask):
             """
             return render_template("http/page_not_found.html"), 404
 
-        @app.errorhandler(405)
+        @self.errorhandler(405)
         def method_not_allowed_page(error):
             """
             The method specified in the Request-Line is not allowed for the resource
@@ -118,7 +116,7 @@ class Empty(Flask):
             """
             return render_template("http/method_not_allowed.html"), 405
 
-        @app.errorhandler(500)
+        @self.errorhandler(500)
         def server_error_page(error):
             return render_template("http/server_error.html"), 500
 
