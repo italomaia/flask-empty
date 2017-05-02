@@ -1,4 +1,12 @@
 flask
+flask-security-fork
+flask-testing
+{%- if cookiecutter.use_async_tasks == 'yes' %}
+flask-rq2
+{% endif -%}
+{%- if cookiecutter.use_admin == 'yes' %}
+flask-admin
+{% endif -%}
 {%- if cookiecutter.use_sql == 'yes' %}
 flask-sqlalchemy
 flask-migrate
@@ -6,9 +14,16 @@ flask-migrate
 {%- if cookiecutter.use_nosql == 'yes' %}
 flask-mongoengine
 {% endif -%}
-{%- if cookiecutter.use_forms == 'yes' %}
+{%- if cookiecutter.http_app == 'yes' %}
 flask-wtf
 {% endif -%}
+{%- if cookiecutter.rest_app == 'yes' %}
+marshmallow
+flask-marshmallow
+flask-jsglue
+flask-limiter
+{% endif -%}
 {%- if cookiecutter.use_socketio == 'yes' %}
+eventlet
 flask-socketio
 {% endif -%}

@@ -34,7 +34,7 @@ class Config(object):
     LOGGER_NAME = "%s_log" % project_name
     LOG_FILENAME = "/var/tmp/app.%s.log" % project_name
     LOG_LEVEL = logging.INFO
-    LOG_FORMAT = "%(asctime)s %(levelname)s\t: %(message)s" # used by logging.Formatter
+    LOG_FORMAT = "%(asctime)s %(levelname)s\t: %(message)s"  # used by logging.Formatter
 
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
@@ -48,7 +48,7 @@ class Config(object):
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
-    LOAD_MODULES_EXTENSIONS = ['views', 'models']
+    LOAD_MODULES_EXTENSIONS = ['views', 'models', 'api', 'schemas']
 
     EXTENSIONS = [
         {% if cookiecutter.use_sql == 'yes' %}

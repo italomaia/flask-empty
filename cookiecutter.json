@@ -5,6 +5,9 @@
     "create_index_view": "yes",
     "use_sql": "yes",
     "use_nosql": "no",
-    "use_forms": "yes",
-    "use_socketio": "no"
+    "use_admin": "no",
+    "use_async_tasks": "no",
+    "http_app": "no",
+    "rest_app": "yes",
+    "use_socketio": "{{ cookiecutter.rest_app }}"
 }
