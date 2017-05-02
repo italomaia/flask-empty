@@ -1,15 +1,13 @@
-Flask
-Flask-Script
-Nose
+flask
 {%- if cookiecutter.use_sql == 'yes' %}
-Flask-SQLAlchemy
+flask-sqlalchemy
 {% endif -%}
 {%- if cookiecutter.use_nosql == 'yes' %}
-Flask-Mongoengine
+flask-mongoengine
 {% endif -%}
 {%- if cookiecutter.use_forms == 'yes' %}
-Flask-WTF
+flask-wtf
 {% endif -%}
 {%- if cookiecutter.use_socketio == 'yes' %}
-Flask-SocketIO
+flask-socketio
 {% endif -%}
