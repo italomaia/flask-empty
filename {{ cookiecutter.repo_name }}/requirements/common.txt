@@ -1,6 +1,7 @@
 flask
 {%- if cookiecutter.use_sql == 'yes' %}
 flask-sqlalchemy
+flask-migrate
 {% endif -%}
 {%- if cookiecutter.use_nosql == 'yes' %}
 flask-mongoengine
