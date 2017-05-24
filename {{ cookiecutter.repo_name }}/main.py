@@ -1,11 +1,17 @@
-# -*- coding:utf-8 -*-
+# coding:utf-8
 
 import os
 import sys
 from empty import Empty
 
-{%- if cookiecutter.create_index_view != 'no' %}
-from flask import render_template
+{%- if cookiecutter.http_app == 'yes' %}
+from empty import HttpMixin
+{% endif -%}
+
+base_cls_list = [Empty]
+
+{%- if cookiecutter.http_app == 'yes' %}
+base_cls_list = [HttpMixin] + base_cls_list
 {% endif %}
 
 # apps is a special folder where you can place your blueprints
@@ -15,16 +21,8 @@ sys.path.insert(0, os.path.join(PROJECT_PATH, "apps"))
 basestring = getattr(__builtins__, 'basestring', str)
 
 
-class App(Empty):
-    {% if cookiecutter.create_index_view != 'no' %}
-    def configure_views(self):
-        @self.route('/')
-        def index_view():
-            return render_template("index.html")
-    {% else %}
-    def configure_views(self):
-        pass
-    {%- endif %}
+class App(*base_cls_list):
+    pass
 
 
 def config_str_to_obj(cfg):

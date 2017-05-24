@@ -2,11 +2,12 @@
 from flask import Flask
 from werkzeug.utils import import_string
 import logging
-
+import six
 
 __all__ = ['Empty']
 
-basestring = getattr(__builtins__, 'basestring', str)
+# python3 friendly
+string_types = six.string_types
 
 
 class NoExtensionException(Exception):
@@ -18,6 +19,10 @@ class BlueprintException(Exception):
 
 
 class HttpMixin:
+    """
+    Configures jinja2, default http errors and a basic index view. 
+    Useful for traditional http applications.
+    """
 
     def configure_views(self):
         """
@@ -106,7 +111,7 @@ class Empty(Flask):
         for blueprint_config in bp_list:
             name, kw = None, {}
 
-            if isinstance(blueprint_config, basestring):
+            if isinstance(blueprint_config, string_types):
                 name = blueprint_config
                 kw.update({'url_prefix': '/' + name})
             elif isinstance(blueprint_config, (list, tuple)):
@@ -145,6 +150,31 @@ class Empty(Flask):
     def configure_error_handlers(self):
         pass
 
+    def configure_commands(self):
+        @self.cli.command()
+        def routes():
+            """
+            Lists each available route in the project.
+            """
+            from flask import url_for, current_app
+            from urllib.parse import unquote
+
+            output = []
+            for rule in current_app.url_map.iter_rules():
+
+                options = dict([
+                    (arg, "[{0}]".format(arg))
+                    for arg in rule.arguments
+                ])
+
+                url = url_for(rule.endpoint, **options)
+                methods = ','.join(rule.methods)
+                line = unquote("{:50s} {:20s} {}".format(rule.endpoint, methods, url))
+                output.append(line)
+
+            for line in sorted(output):
+                print(line)
+
     def configure_context_processors(self):
         """
         Modify templates context here
@@ -164,19 +194,23 @@ class Empty(Flask):
         pass
 
     def configure_extensions(self):
-        """
-        Configure extensions like mail and login here
-        """
+        """Configure extensions like mail and login here."""
         for ext_path in self.config.get('EXTENSIONS', []):
             try:
                 ext = import_string(ext_path)
-            except:
-                raise NoExtensionException('No {} extension found'.format(ext_path))
+            except ImportError:
+                raise NoExtensionException(ext_path)
 
-            if getattr(ext, 'init_app', False):
-                ext.init_app(self)
-            else:
-                ext(self)
+            try:
+                # do you need extra arguments to initialize
+                # your extension?
+                init_kwargs = import_string('%s_init_kwargs')()
+            except ImportError:
+                # maybe not
+                init_kwargs = dict()
+
+            init_fnc = getattr(ext, 'init_app', False) or ext
+            init_fnc(self, **init_kwargs)
 
     def configure_before_request(self):
         """

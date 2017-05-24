@@ -13,34 +13,6 @@ except NameError:
     FileNotFoundError = IOError
 
 
-class CreateDB(Command):
-    """
-    Creates database using SQLAlchemy
-    """
-
-    def run(self):
-        try:
-            from database import create_all
-
-            create_all()
-        except ImportError:
-            print("Please, make sure database.create_all exists in order to create a db.")
-
-
-class DropDB(Command):
-    """
-    Drops database using SQLAlchemy
-    """
-
-    def run(self):
-        try:
-            from database import drop_all
-
-            drop_all()
-        except ImportError:
-            print("Please, make sure database.drop_all exists in order to drop a db.")
-
-
 class Apps(Command):
     """
     Command to handle blueprints within your project
@@ -105,12 +77,11 @@ class Apps(Command):
                 file.write('from from flask_wtf import Form\n\n')
 
         with open(os.path.join(app_path, 'views.py'), 'w') as file:
-            file.write(""
+            file.write(
                 "from flask import Blueprint\n"
-                "from flask import render_template, flash, redirect, url_for\n\n"
-                "app = Blueprint('%(name)s', __name__, template_folder='templates')\n\n"
-                % {'name': name}
-            )
+                "from flask import render_template, flash, redirect, url_for\n\n"  # noqa
+                "app = Blueprint('%(name)s', __name__, template_folder='templates')\n\n"  # noqa
+                % {'name': name})
 
 
 class Test(Command):
@@ -123,10 +94,12 @@ class Test(Command):
 
     def get_options(self):
         return [
-            Option('--verbosity', '-v', dest='verbosity',
-                    type=int, default=self.verbosity),
-            Option('--failfast', dest='failfast',
-                    default=self.failfast, action='store_false')
+            Option(
+                '--verbosity', '-v',
+                dest='verbosity', type=int, default=self.verbosity),
+            Option(
+                '--failfast',
+                dest='failfast', default=self.failfast, action='store_false')
         ]
 
     def run(self, **kwargs):
@@ -156,7 +129,7 @@ class Test(Command):
                     if exists(join(path, 'tests.py')):
                         all_tests.append(loader.discover(path, 'tests.py'))
                     elif exists(tests_dir):
-                        all_tests.append(loader.discover(tests_dir, pattern='test*.py'))
+                        all_tests.append(loader.discover(tests_dir, pattern='test*.py'))  # noqa
 
         if exists('tests') and isdir('tests'):
             all_tests.append(loader.discover('tests', pattern='test*.py'))
@@ -191,7 +164,7 @@ class Routes(Command):
 
             methods = ','.join(rule.methods)
             url = url_for(rule.endpoint, **options)
-            line = unquote("{:50s} {:20s} {}".format(rule.endpoint, methods, url))
+            line = unquote("{:50s} {:20s} {}".format(rule.endpoint, methods, url))  # noqa
             output.append(line)
 
         for line in sorted(output):

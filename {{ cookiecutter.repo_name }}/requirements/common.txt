@@ -1,6 +1,8 @@
 flask
-flask-security-fork
 flask-testing
+{%- if cookiecutter.use_security == 'yes' %}
+flask-security-fork
+{% endif -%}
 {%- if cookiecutter.use_async_tasks == 'yes' %}
 flask-rq2
 {% endif -%}
@@ -21,7 +23,6 @@ flask-wtf
 marshmallow
 flask-marshmallow
 flask-jsglue
-flask-limiter
 {% endif -%}
 {%- if cookiecutter.use_socketio == 'yes' %}
 eventlet

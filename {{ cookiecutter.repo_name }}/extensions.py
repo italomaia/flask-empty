@@ -6,6 +6,15 @@ try:
 except ImportError:
     print('debugtoolbar extension not available.')
 
+{%- if cookiecutter.use_security == 'yes' %}
+from flask_security import Security
+
+security = Security()
+
+def security_extra():
+    pass
+{% endif %}
+
 
 {%- if cookiecutter.use_sql == 'yes' %}
 from flask_sqlalchemy import SQLAlchemy
@@ -24,6 +33,7 @@ admin = Admin()
 
 {%- if cookiecutter.use_nosql == 'yes' %}
 from flask.ext.mongoengine import MongoEngine
+
 nosql = MongoEngine()
 {% endif %}
 
@@ -33,14 +43,18 @@ from flask_marshmallow import Marshmallow
 ma = Marshmallow()
 
 from flask_jsglue import JSGlue
-glue = JSGlue()
 
-from flask_limiter import Limiter
-limiter = Limiter()
+glue = JSGlue()
 {% endif -%}
 
 {%- if cookiecutter.use_async_tasks == 'yes' %}
 from flask_socketio import SocketIO
-io = SocketIO()
 
+io = SocketIO()
 {% endif %}
+
+{%- if cookiecutter.use_async_tasks == 'yes' %}
+from flask_rq2 import RQ
+
+rq = RQ()
+{% endif -%}

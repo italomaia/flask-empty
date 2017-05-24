@@ -6,8 +6,9 @@
     "use_sql": "yes",
     "use_nosql": "no",
     "use_admin": "no",
-    "use_async_tasks": "no",
+    "use_security": "{{ cookiecutter.use_admin }}",
+    "use_socketio": "{{ cookiecutter.rest_app }}",
+    "use_async_tasks": "{{ cookiecutter.use_socketio }}",
     "http_app": "no",
-    "rest_app": "yes",
-    "use_socketio": "{{ cookiecutter.rest_app }}"
+    "rest_app": "yes"
 }

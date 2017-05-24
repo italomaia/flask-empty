@@ -48,11 +48,38 @@ class Config(object):
     MAIL_PASSWORD = None
     DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
 
-    LOAD_MODULES_EXTENSIONS = ['views', 'models', 'api', 'schemas']
+    # these are the modules preemptively
+    # loaded for each app 
+    LOAD_MODULES_EXTENSIONS = [
+        'views',
+        'models',
+        'admin',
+        'api',
+        'schemas'
+    ]
 
+    # add below the module path of extensions
+    # you wish to load
     EXTENSIONS = [
         {% if cookiecutter.use_sql == 'yes' %}
         'extensions.db',
+        'extensions.migrate',
+        {%- endif %}
+        {% if cookiecutter.use_nosql == 'yes' %}
+        'extensions.nosql',
+        {%- endif %}
+        {% if cookiecutter.use_security == 'yes' %}
+        'extensions.security',
+        {%- endif %}
+        {% if cookiecutter.use_admin == 'yes' %}
+        'extensions.admin',
+        {%- endif %}
+        {% if cookiecutter.rest_app == 'yes' %}
+        'extensions.ma',
+        'extensions.glue',
+        {%- endif %}
+        {% if cookiecutter.use_socketio == 'yes' %}
+        'extensions.io',
         {%- endif %}
         'extensions.toolbar',
     ]
