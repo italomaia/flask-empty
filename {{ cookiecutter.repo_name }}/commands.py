@@ -47,6 +47,7 @@ class Apps(Command):
     """
     APPS_FOLDER = 'apps'
     NEW_APP = False
+    _requirements = None
 
     @staticmethod
     def normalize_path(name):
