@@ -90,9 +90,9 @@ class Apps(Command):
         os.mkdir(os.path.join(app_path, 'templates'))
         os.mkdir(os.path.join(app_path, 'templates', path_name))
 
-        # empty __init__.py
-        with open(os.path.join(app_path, '__init__.py'), 'w'):
-            pass
+        # create a __init__.py file
+        with open(os.path.join(app_path, '__init__.py'), 'w') as file:
+            file.write("from .views import app\n\n")
 
         with open(os.path.join(app_path, 'models.py'), 'w') as file:
             if 'flask-sqlalchemy' in self.requirements:
