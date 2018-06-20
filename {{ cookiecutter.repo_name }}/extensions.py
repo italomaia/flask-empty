@@ -15,7 +15,7 @@ db = SQLAlchemy()
 
 
 {%- if cookiecutter.use_nosql == 'yes' %}
-from flask.ext.mongoengine import MongoEngine
+from flask_mongoengine import MongoEngine
 nosql = MongoEngine()
 
 {% endif %}
