@@ -8,7 +8,7 @@ use cookiecutter and create a new project in no time.
 
 ```shell
 # if cookiecutter is not installed
-sudo pip install cookiecutter
+sudo pip install cookiecutter # or pip install --user cookiecutter
 
 # using cookiecutter // linux/Mac
 cookiecutter https://github.com/italomaia/flask-empty
@@ -19,16 +19,17 @@ cookiecutter https://github.com/italomaia/flask-empty
 Setup
 =====
 
-You're advised to use virtualenvwrapper from here on. Install it like this:
+You're advised to use venv from here on. In your project folder,
+create and enable it like this:
 
-```
-pip install virtualenvwrapper
+```shell
+python3 -m venv venv
+. venv/bin/activate  # [.csh|.fish]
 ```
 
-Create a virtual environment for you project and install the adequate requirements.
+Install the adequate requirements.
 
-```
-mkvirtualenv my_project
+```shell
 pip install -r requirements/dev.txt  # dev environment if local
 pip install -r requirements/prod.txt  # prod environment if server
 ```
@@ -38,71 +39,44 @@ You're advised to change the requirements files according to your needs.
 Important files to be aware of
 ==============================
 
-### project/config.py
+**<project>/extensions.py** all extension instances that need initialization should be available
+here in order to have _Empty_ see and initialize them for you.
 
-**extensions.py** all extension instances that need initialization should be available
-here in order for _Empty_ to see and initialize them for you.
-
-**config.py** is a pre-set configuration classes for you to meddle with. They're are all self explanatory
+**<project>/config.py** is a pre-set configuration classes for you to meddle with. They're are all self explanatory
 and commented.
 
-**main.py** the _Empty_ class inherits from the _Flask_ class. Override it if you need to setup
-extensions, an index view, context processors, etc. It already has sensitive defaults for most
- features. (see **empty.py** to better understand _Empty_)
+**<project>/main.py** the _Empty_ class inherits from _empty.Empty_ which inherits from _flask.Flask_. Override it if you need to setup extensions, an index view, context processors, etc. It already has some sensitive defaults for most use cases. See https://github.com/italomaia/empty for all options.
 
-**database.py** setup your database library there. There is some commented code for sqlalchemy support out of the box.
-
-**PROJECT_NAME.ini** is the configuration file used with
+**<project>/<project>.ini** is the configuration file used with
 [uwsgi](https://github.com/unbit/uwsgi). Use it like this:
 
 ```
 uwsgi --ini your_project.ini
 ```
 
-**manage.py** adds few very useful commandline commands (...) to help your development productivity. Check
-available commands by running **python manage.py**.
+**commands.py** adds few very useful commandline commands (...) to help your development productivity. Check available commands by running **flask**.
 
 ## Heroku
 
 Empty comes with a pre-configured _procfile_ and _heroku()_ wrapper for _app_factory_. No setup required.
-
-## Observations
-
-Note that the Flask-Script option "-d (disable debug)" does not work as expected with Flask-Empty. If you want
-to start a non-debug internal server instance, use the **config.Config** configuration or write your own. Example:
-
-```python
-# loads config.Config configuration, which has DEBUG=False
-# -r is the Flask-Script option for internal server no-reload
-python manage.py -r -c Config
-```
-
-If [environment config named APP_CONFIG is set](http://flask.pocoo.org/docs/config/#configuring-from-files),
-it will be used, overwriting any other set configuration.
 
 Other topics
 ============
 
 ## Templates
 
-There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for
-your project.
+There are some error templates bundled with flask-empty by default. All empty right now. Just fill them up for your project.
 
 ## Macros
 
 You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with
-flask extensions like wtforms and commons tasks like showing flash messages. Available macros, **formhelpers**
-and **flashing** are very useful.
+flask extensions like wtforms and commons tasks like showing flash messages. Available macros, **formhelpers** and **flashing** are very useful.
 
 ## Blueprints
 
-Add your blueprints using **src/config.Config.BLUEPRINTS** as documented in the file itself. A blueprint can be add
-using the path to the Blueprint or a tuple. Make sure your blueprint has a views.py and
-it has a **app** Blueprint instance and you're ready to go. If unsure, check out **flask-empty/blueprint/**
-for an empty blueprint example. You can also copy **flask-empty/blueprint/** to create blueprints.
-
-With flask-empty, blueprints can live in the project root or in a special folder called **apps** in the project root.
-
+You can create blueprints easily with **flask new-app <name>**. The will live, by default
+at **apps** folder. Remember to configure your blueprints in **config.py** so that they
+can be properly loaded.
 
 # Supported Extensions
 
@@ -129,32 +103,34 @@ supports it! Just say "yes" during project creation and Flask-WTF support will b
 Just create an admin.py file in your blueprint, define your admin models inside and change
 **LOAD_MODULES_EXTENSIONS** to also pre-load admin, like this:
 
-```
-LOAD_MODULES_EXTENSIONS = ['views', 'models', 'admin']
-```
+## Flask-Marshmallow
 
-## Other Extensions
+Gives you, almost for free, model serialization, deserialization and validation. Also
+quite handy for fast development of rest applications.
 
+## Flask-Security
 
+Get user session and permissioning out-of-the-box with this great project.
 
 Examples
 ========
-If my explanation above is as crappy as I think it is, you're gonna want/need to take a look at **examples/**. They
-are a very nice starting point to learn how to configure your project. Wort-case-scenario, just copy it, rename it,
-configure it and be happy!
+
+The blog example in this project is probably outdated by now, so, just create a new project
+and mess around to your heart's content for quick learning.
 
 FAQ
 ===
 **Is flask-empty _boilerplate_ compatible with flask 0.x? Cuz' that's what my app uses.**
 
 Right now, flask-empty is a very simple project where many good practices and code examples were glued together.
+
 Until recently I was focused in keeping backward compatibility with flask 0.8. Well, **that goal is no more**.
- Flask-empty will be compatible with the latest version of Flask and, by chance, with previous versions.
- Things will be easier this way.
+Flask-empty will be compatible with the latest version of Flask and, by chance, with previous versions.
+Things will be easier (for me!) this way.
 
 **So, which is the oldest version where flask-empty works?**
 
-In my last test, version 0.9, but no guarantees here.
+In my last test, version 1.0.
 
 **I think flask-empty should have _this_ and _that_ configured by default. Will you add support?**
 
@@ -163,9 +139,8 @@ My current goals are:
 * Make flask-empty real easy to start a project with
 * Keep things simple and robust
 
-If your suggestion is simple, **VERY** useful and has little overhead, I'll probably consider adding it to the
-project. If you make the code and send a pull request, then I'll consider it real hard. Now, if your suggestion is
- rejected or advised in a different approach, don't get sad (you're awesome ;).
+If your suggestion is simple, **VERY** useful and has little overhead, I'll probably consider adding it to the project.
+If you make the code and send a pull request, then I'll consider it real hard. Now, if your suggestion is rejected or advised in a different approach, don't get sad (you're awesome ;).
 
 **I just made a cool example with flask-empty and want to add it to examples.**
 
