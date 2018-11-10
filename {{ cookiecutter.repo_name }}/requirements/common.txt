@@ -2,32 +2,32 @@ flask
 flask-testing
 {%- if cookiecutter.use_security == 'yes' %}
 flask-security-fork
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.use_async_tasks == 'yes' %}
 flask-rq2
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.use_admin == 'yes' %}
 flask-admin
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.use_sql == 'yes' %}
 flask-sqlalchemy
 flask-migrate
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.use_nosql == 'yes' %}
 flask-mongoengine
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.http_app == 'yes' %}
 flask-wtf
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.rest_app == 'yes' %}
 marshmallow
 flask-marshmallow
 flask-jsglue
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.use_socketio == 'yes' %}
 eventlet
 flask-socketio
-{% endif -%}
+{%- endif -%}
 {%- if cookiecutter.use_sql == 'yes' and cookiecutter.rest_app == 'yes' %}
 marshmallow-sqlalchemy
-{% endif -%}
+{%- endif -%}
