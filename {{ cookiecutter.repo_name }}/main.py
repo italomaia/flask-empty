@@ -5,9 +5,10 @@ import sys
 from empty import Empty
 
 {%- if cookiecutter.http_app == 'yes' %}
-from empty import HttpMixin
-{% endif -%}
+from mixins import HttpMixin
+{% endif %}
 
+# define base classes for our App class
 base_cls_list = [Empty]
 
 {%- if cookiecutter.http_app == 'yes' %}
@@ -21,8 +22,8 @@ sys.path.insert(0, os.path.join(PROJECT_PATH, "apps"))
 basestring = getattr(__builtins__, 'basestring', str)
 
 
-class App(*base_cls_list):
-    pass
+# dynamically create our class
+App = type('App', tuple(base_cls_list), {})
 
 
 def config_str_to_obj(cfg):
@@ -33,9 +34,14 @@ def config_str_to_obj(cfg):
 
 
 def app_factory(config, app_name, blueprints=None):
+    from commands import new_app, test_cmd
+
     # you can use Empty directly if you wish
     app = App(app_name, template_folder=os.path.join(PROJECT_PATH, 'templates'))
     config = config_str_to_obj(config)
+
+    app.cli.add_command(new_app)
+    app.cli.add_command(test_cmd)
 
     app.configure(config)
     app.add_blueprint_list(blueprints or config.BLUEPRINTS)
