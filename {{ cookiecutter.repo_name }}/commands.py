@@ -69,15 +69,20 @@ def new_app(name, with_templates):
             "app = Blueprint('%(name)s', __name__, template_folder='templates')\n\n"  # noqa
             % {'name': name})
 
+    print(
+        f'App created under {APPS_FOLDER}. '
+        f'Remember to add it to BLUEPRINTS in your configuration.'
+    )
+
 
 @click.command('test', context_settings=dict(
     ignore_unknown_options=True,
     allow_extra_args=True,
 ), help=TEST_CMD_HELP)
-@click.option('-f', '--failfast', default=False, is_flag=True)
-@click.option('-v', '--verbosity', type=int, default=2)
-@click.pass_context
-def test_cmd(ctx, failfast, verbosity):
+@click.option('-f', '--failfast', default=False, is_flag=True, help='test runner option')  # noqa
+@click.option('-v', '--verbosity', type=int, default=1, help='test runner option [0|1|2]')  # noqa
+@click.option('-w', '--warnings', default=None, help='test runner option [default|always]')  # noqa
+def test_cmd(failfast, verbosity, warnings):
     """
     Run tests
     """
@@ -100,6 +105,7 @@ def test_cmd(ctx, failfast, verbosity):
     loader = unittest.TestLoader()
     all_tests = []
 
+    # tests within apps folder
     if exists(APPS_FOLDER):
         for path in glob.glob('%s/*' % APPS_FOLDER):
             if isdir(path):
@@ -110,10 +116,15 @@ def test_cmd(ctx, failfast, verbosity):
                 elif exists(tests_dir):
                     all_tests.append(loader.discover(tests_dir, pattern='test*.py'))  # noqa
 
+    # project level tests
     if exists('tests') and isdir('tests'):
         all_tests.append(loader.discover('tests', pattern='test*.py'))
     elif exists('tests.py'):
         all_tests.append(loader.discover('.', pattern='tests.py'))
 
     test_suite = unittest.TestSuite(all_tests)
-    unittest.TextTestRunner(ctx.args).run(test_suite)
+    unittest.TextTestRunner(
+        warnings=warnings,
+        failfast=failfast,
+        verbosity=verbosity
+    ).run(test_suite)
