@@ -1,3 +1,4 @@
+empty
 flask
 flask-testing
 {%- if cookiecutter.use_security == 'yes' %}
