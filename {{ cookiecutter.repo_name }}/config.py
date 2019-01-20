@@ -1,5 +1,6 @@
 # -*- config:utf-8 -*-
 
+import os
 import logging
 from datetime import timedelta
 
@@ -8,8 +9,8 @@ project_name = "{{ cookiecutter.repo_name }}"
 
 # base config class; extend it to your needs.
 class Config(object):
-    # use DEBUG mode?
-    DEBUG = False
+    ENV = os.environ['FLASK_ENV']
+    DEBUG = os.environ['FLASK_DEBUG'] == '1'
 
     # use TESTING mode?
     TESTING = False
@@ -91,7 +92,6 @@ class Config(object):
 
 # config class for development environment
 class Dev(Config):
-    DEBUG = True  # we want debug level output
     MAIL_DEBUG = True
     SQLALCHEMY_ECHO = True  # we want to see sqlalchemy output
     SQLALCHEMY_DATABASE_URI = "sqlite:////var/tmp/%s_dev.sqlite" % project_name

@@ -31,4 +31,5 @@ flask-socketio
 {%- endif -%}
 {%- if cookiecutter.use_sql == 'yes' and cookiecutter.rest_app == 'yes' %}
 marshmallow-sqlalchemy
-{%- endif -%}
+{%- endif %}
+flask-debugtoolbar

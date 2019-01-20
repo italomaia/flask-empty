@@ -1,6 +1,8 @@
 # coding:utf-8
 
 from main import app_factory
-import config
+from config import project_name
+import os
 
-app = app_factory(config.Config, config.project_name)
+config_obj_path = os.environ['FLASK_CONFIG_DEFAULT']
+app = app_factory(config_obj_path, project_name)
