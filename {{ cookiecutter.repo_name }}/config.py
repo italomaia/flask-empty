@@ -61,27 +61,26 @@ class Config(object):
     # add below the module path of extensions
     # you wish to load
     EXTENSIONS = [
-        {% if cookiecutter.use_sql == 'yes' %}
+        {%- if cookiecutter.use_sql == 'yes' %}
         'extensions.db',
         'extensions.migrate',
         {%- endif %}
-        {% if cookiecutter.use_nosql == 'yes' %}
+        {%- if cookiecutter.use_nosql == 'yes' %}
         'extensions.nosql',
         {%- endif %}
-        {% if cookiecutter.use_security == 'yes' %}
+        {%- if cookiecutter.use_security == 'yes' %}
         'extensions.security',
         {%- endif %}
-        {% if cookiecutter.use_admin == 'yes' %}
+        {%- if cookiecutter.use_admin == 'yes' %}
         'extensions.admin',
         {%- endif %}
-        {% if cookiecutter.rest_app == 'yes' %}
+        {%- if cookiecutter.rest_app == 'yes' %}
         'extensions.ma',
         'extensions.glue',
         {%- endif %}
-        {% if cookiecutter.use_socketio == 'yes' %}
+        {%- if cookiecutter.use_socketio == 'yes' %}
         'extensions.io',
         {%- endif %}
-        'extensions.toolbar',
     ]
 
     # see example/ for reference
@@ -96,6 +95,9 @@ class Dev(Config):
     MAIL_DEBUG = True
     SQLALCHEMY_ECHO = True  # we want to see sqlalchemy output
     SQLALCHEMY_DATABASE_URI = "sqlite:////var/tmp/%s_dev.sqlite" % project_name
+    EXTENSIONS = Config.EXTENSIONS + [
+        'extensions.toolbar'
+    ]
 
 
 # config class used during tests
