@@ -1,4 +1,5 @@
 .vscode
 .idea
+settings.json
 *.pyc
 *~

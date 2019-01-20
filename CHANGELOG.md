@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.5.1
+
+- Added docker support
+- Updated configuration to use FLASK_ENV
+
 Version 0.5
 
 - Updated commands to use click (flask-script is no more)

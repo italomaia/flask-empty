@@ -1,6 +1,8 @@
 Flask Empty
 ===========
 
+**version 0.3.3**
+
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/italomaia/flask-empty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
@@ -16,8 +18,8 @@ cookiecutter https://github.com/italomaia/flask-empty
 # answer the prompt and you're done!
 ```
 
-Setup
-=====
+Getting Started
+===============
 
 You're advised to use venv from here on. In your project folder,
 create and enable it like this:
@@ -25,16 +27,33 @@ create and enable it like this:
 ```shell
 python3 -m venv venv
 . venv/bin/activate  # [.csh|.fish]
+
+# install required packages
+pip install -r requirements.txt
+
+# loads env variables and runs the project in development mode
+source .venv && flask run
 ```
 
-Install the adequate requirements.
+Getting Started With Docker
+===========================
+
+Given you have up-to-date docker installed in your machine,
+all you need to do is:
 
 ```shell
-pip install -r requirements/dev.txt  # dev environment if local
-pip install -r requirements/prod.txt  # prod environment if server
+# build container image
+docker build . -t my-project-name
+# run container in development mode
+docker run --rm -v $(pwd):/home/nonroot/code/ my-project-name
 ```
 
-You're advised to change the requirements files according to your needs.
+Environment Variables
+=====================
+
+Be aware you might need to tweak the environment variables for production
+mode. The are available at **.env** and **Dockerfile**. If using Docker,
+you can even provide them inline.
 
 Important files to be aware of
 ==============================

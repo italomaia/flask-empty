@@ -1,5 +1,6 @@
 # -*- config:utf-8 -*-
 
+import os
 import logging
 from datetime import timedelta
 
@@ -8,8 +9,8 @@ project_name = "{{ cookiecutter.repo_name }}"
 
 # base config class; extend it to your needs.
 class Config(object):
-    # use DEBUG mode?
-    DEBUG = False
+    ENV = os.environ['FLASK_ENV']
+    DEBUG = os.environ['FLASK_DEBUG'] == '1'
 
     # use TESTING mode?
     TESTING = False
@@ -61,27 +62,26 @@ class Config(object):
     # add below the module path of extensions
     # you wish to load
     EXTENSIONS = [
-        {% if cookiecutter.use_sql == 'yes' %}
+        {%- if cookiecutter.use_sql == 'yes' %}
         'extensions.db',
         'extensions.migrate',
         {%- endif %}
-        {% if cookiecutter.use_nosql == 'yes' %}
+        {%- if cookiecutter.use_nosql == 'yes' %}
         'extensions.nosql',
         {%- endif %}
-        {% if cookiecutter.use_security == 'yes' %}
+        {%- if cookiecutter.use_security == 'yes' %}
         'extensions.security',
         {%- endif %}
-        {% if cookiecutter.use_admin == 'yes' %}
+        {%- if cookiecutter.use_admin == 'yes' %}
         'extensions.admin',
         {%- endif %}
-        {% if cookiecutter.rest_app == 'yes' %}
+        {%- if cookiecutter.rest_app == 'yes' %}
         'extensions.ma',
         'extensions.glue',
         {%- endif %}
-        {% if cookiecutter.use_socketio == 'yes' %}
+        {%- if cookiecutter.use_socketio == 'yes' %}
         'extensions.io',
         {%- endif %}
-        'extensions.toolbar',
     ]
 
     # see example/ for reference
@@ -92,10 +92,12 @@ class Config(object):
 
 # config class for development environment
 class Dev(Config):
-    DEBUG = True  # we want debug level output
     MAIL_DEBUG = True
     SQLALCHEMY_ECHO = True  # we want to see sqlalchemy output
     SQLALCHEMY_DATABASE_URI = "sqlite:////var/tmp/%s_dev.sqlite" % project_name
+    EXTENSIONS = Config.EXTENSIONS + [
+        'extensions.toolbar'
+    ]
 
 
 # config class used during tests

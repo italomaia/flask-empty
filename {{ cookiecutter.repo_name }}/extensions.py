@@ -1,10 +1,12 @@
-try:
+import os
+
+toolbar = None
+
+if os.environ['FLASK_CONFIG_DEFAULT'] == 'Dev':
     # only works in debug mode
     from flask_debugtoolbar import DebugToolbarExtension
-
     toolbar = DebugToolbarExtension()
-except ImportError:
-    print('debugtoolbar extension not available.')
+
 
 {% if cookiecutter.use_sql == 'yes' %}
 from flask_sqlalchemy import SQLAlchemy
