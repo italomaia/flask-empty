@@ -8,7 +8,7 @@ if os.environ['FLASK_CONFIG_DEFAULT'] == 'Dev':
     toolbar = DebugToolbarExtension()
 
 
-{% if cookiecutter.use_sql == 'yes' %}
+{%- if cookiecutter.use_sql == 'yes' %}
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 {%- endif -%}
@@ -17,7 +17,7 @@ from flask_migrate import Migrate
 from flask_security import Security
 {%- endif -%}
 
-{%- if cookiecutter.use_admin %}
+{%- if cookiecutter.use_admin == 'yes' %}
 from flask_admin import Admin
 {%- endif -%}
 
@@ -25,7 +25,7 @@ from flask_admin import Admin
 from flask_mongoengine import MongoEngine
 {%- endif -%}
 
-{%- if cookiecutter.rest_app == 'yes' %}
+{%- if cookiecutter.use_rest == 'yes' %}
 from flask_marshmallow import Marshmallow
 from flask_jsglue import JSGlue
 {%- endif -%}
@@ -44,7 +44,7 @@ db = SQLAlchemy()
 migrate = Migrate(db=db)
 {% endif -%}
 
-{%- if cookiecutter.use_admin %}
+{%- if cookiecutter.use_admin == 'yes' %}
 admin = Admin()
 {% endif -%}
 
@@ -52,7 +52,7 @@ admin = Admin()
 nosql = MongoEngine()
 {% endif -%}
 
-{%- if cookiecutter.rest_app == 'yes' %}
+{%- if cookiecutter.use_rest == 'yes' %}
 ma = Marshmallow()
 glue = JSGlue()
 {% endif -%}

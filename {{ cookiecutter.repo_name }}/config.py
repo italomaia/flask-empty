@@ -9,8 +9,9 @@ project_name = "{{ cookiecutter.repo_name }}"
 
 # base config class; extend it to your needs.
 class Config(object):
-    ENV = os.environ['FLASK_ENV']
-    DEBUG = os.environ['FLASK_DEBUG'] == '1'
+    # see http://flask.pocoo.org/docs/1.0/config/#environment-and-debug-features
+    ENV = os.getenv('FLASK_ENV', 'production')
+    DEBUG = os.getenv('FLASK_DEBUG', '0') == '1'
 
     # use TESTING mode?
     TESTING = False
@@ -18,36 +19,67 @@ class Config(object):
     # use server x-sendfile?
     USE_X_SENDFILE = False
 
+    # Make sure SERVER_NAME contains the access port for
+    # the http server if it is not a default port like 80 or 443
+    # Ex dev SERVER_NAME: dv.local:8080
+    SERVER_NAME = (os.getenv('SERVER_NAME', '') + os.getenv('SERVER_NAME_EXTRA', '')) or None
+
     {%- if cookiecutter.use_sql == 'yes' %}
     # DATABASE CONFIGURATION
-    # see http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
+
+    # Postgres: psycopg2 and pg8000
+    # - f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+    # - f"postgresql+pg8000://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+    # MySQL: mysqlclient and PyMySQL
+    # - f"mysql+mysqldb://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+    # - f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+    # Oracle: cx_oracle (not advised)
+    # - DB_NAME here is sidname
+    # - f"oracle://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+    # - DB_NAME here is tnsname
+    # - f"oracle+cx_oracle://{DB_USER}:{DB_PASS}@{DB_NAME}"
+    # Mysql Server: pyodbc and pymssql
+    # - DB_NAME here is mydsn
+    # - f"mssql+pyodbc://{DB_USER}:{DB_PASS}@{DB_NAME}"
+    # - f"mssql+pymssql://{DB_USER}:{DB_PASS}@{DB_HOST}/{DB_NAME}"
+
+    DB_USER = os.getenv('DB_USER', '')
+    DB_PASS = os.getenv('DB_PASS', '')
+    DB_HOST = os.getenv('DB_HOST', '')
+    DB_NAME = os.getenv('DB_NAME', '')
+
     SQLALCHEMY_DATABASE_URI = ""
 
     # DEBUG mode only!
     SQLALCHEMY_ECHO = DEBUG
     SQLALCHEMY_TRACK_MODIFICATIONS = DEBUG
 
-    {% endif %}
+    {%- endif %}
     WTF_CSRF_ENABLED = True
-    SECRET_KEY = "secret"  # import os; os.urandom(24)
+    # import os; os.urandom(24)
+    SECRET_KEY = os.getenv("FLASK_SECRET_KEY", "secret")
 
     # LOGGING
     LOGGER_NAME = "%s_log" % project_name
     LOG_FILENAME = "/var/tmp/app.%s.log" % project_name
     LOG_LEVEL = logging.INFO
-    LOG_FORMAT = "%(asctime)s %(levelname)s\t: %(message)s"  # used by logging.Formatter
+    # used by logging.Formatter
+    LOG_FORMAT = "%(asctime)s %(levelname)s\t: %(message)s"
 
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
     # EMAIL CONFIGURATION
-    MAIL_SERVER = "localhost"
-    MAIL_PORT = 25
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = False
+    MAIL_SERVER = os.getenv("FLASK_MAIL_SERVER", "localhost")
+    MAIL_PORT = int(os.getenv("FLASK_MAIL_PORT", "25"))
+    MAIL_USE_TLS = os.getenv("FLASK_MAIL_USE_TLS", "") == "1"
+    MAIL_USE_SSL = os.getenv("FLASK_MAIL_USE_SSL", "") == "1"
     MAIL_DEBUG = False
-    MAIL_USERNAME = None
-    MAIL_PASSWORD = None
-    DEFAULT_MAIL_SENDER = "example@%s.com" % project_name
+    MAIL_USERNAME = os.getenv("FLASK_MAIL_USERNAME", None)
+    MAIL_PASSWORD = os.getenv("FLASK_MAIL_PASSWORD", None)
+    DEFAULT_MAIL_SENDER = os.getenv(
+        "FLASK_DEFAULT_MAIL_SENDER",
+        "example@%s.com" % project_name
+    )
 
     # these are the modules preemptively
     # loaded for each app 
@@ -75,7 +107,7 @@ class Config(object):
         {%- if cookiecutter.use_admin == 'yes' %}
         'extensions.admin',
         {%- endif %}
-        {%- if cookiecutter.rest_app == 'yes' %}
+        {%- if cookiecutter.use_rest == 'yes' %}
         'extensions.ma',
         'extensions.glue',
         {%- endif %}

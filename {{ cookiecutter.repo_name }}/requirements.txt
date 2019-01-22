@@ -17,10 +17,10 @@ flask-migrate
 {%- if cookiecutter.use_nosql == 'yes' %}
 flask-mongoengine
 {%- endif -%}
-{%- if cookiecutter.http_app == 'yes' %}
+{%- if cookiecutter.use_http_mixin == 'yes' %}
 flask-wtf
 {%- endif -%}
-{%- if cookiecutter.rest_app == 'yes' %}
+{%- if cookiecutter.use_rest == 'yes' %}
 marshmallow
 flask-marshmallow
 flask-jsglue
@@ -29,7 +29,7 @@ flask-jsglue
 eventlet
 flask-socketio
 {%- endif -%}
-{%- if cookiecutter.use_sql == 'yes' and cookiecutter.rest_app == 'yes' %}
+{%- if cookiecutter.use_sql == 'yes' and cookiecutter.use_rest == 'yes' %}
 marshmallow-sqlalchemy
 {%- endif %}
 flask-debugtoolbar
