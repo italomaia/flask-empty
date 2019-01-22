@@ -7,6 +7,7 @@ class HttpMixin:
     Useful for traditional http applications.
     """
 
+    {%- if cookiecutter.create_index_view %}
     def configure_views(self):
         """
         You can add some simple views here for fast prototyping
@@ -16,6 +17,7 @@ class HttpMixin:
         @self.route('/')
         def index():
             return render_template('index.html')
+    {%- endif %}
 
     def configure_template_extensions(self):
         """
