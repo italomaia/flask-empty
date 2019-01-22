@@ -2,13 +2,13 @@
     "project_name": "Your Project Name",
     "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
     "version": "0.1",
-    "create_index_view": "yes",
     "use_sql": "yes",
     "use_nosql": "no",
     "use_admin": "no",
-    "rest_app": "yes",
-    "use_security": "{{ cookiecutter.use_admin }}",
-    "use_socketio": "{{ cookiecutter.rest_app }}",
+    "use_security": "yes",
+    "use_rest": "yes",
+    "use_socketio": "{{ cookiecutter.use_rest }}",
     "use_async_tasks": "{{ cookiecutter.use_socketio }}",
-    "http_app": "no"
+    "use_http_mixin": "yes",
+    "create_index_view": "{{ cookiecutter.use_http_mixin }}"
 }
