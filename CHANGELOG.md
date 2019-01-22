@@ -1,6 +1,14 @@
 Changelog
 =========
 
+Version 0.5.2
+
+- Updated cookiecutter variable names
+- `use_admin` no longer breaks project
+- Removed .env
+- **config.py** now uses environment variables for most options
+- Added instructions for database uri
+
 Version 0.5.1
 
 - Added docker support
