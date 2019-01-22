@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 
-**version 0.5.1**
+**version 0.5.2**
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/italomaia/flask-empty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -45,7 +45,7 @@ all you need to do is:
 # build container image
 docker build . -t my-project-name
 # run container in development mode
-docker run --rm -v $(pwd):/home/nonroot/code/ my-project-name
+docker run --rm -p 5000:5000 my-project-name
 ```
 
 Environment Variables
