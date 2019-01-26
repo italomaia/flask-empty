@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 0.5.3
+
+- Fixed support for flask-socketio (support for flask run was dropped)
+
 Version 0.5.2
 
 - Updated cookiecutter variable names
