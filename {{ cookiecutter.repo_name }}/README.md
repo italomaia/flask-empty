@@ -33,8 +33,11 @@ for vanilla web projects. Not so much if you're building a web service.
 
 ```
   # run your flask application
+  {%- if cookiecutter.use_socketio %}
+  python wsgi.py
+  {% else %}
   flask run
-
+  {% endif %}
   # create a new blueprint
   flask new-app name
 
