@@ -32,4 +32,4 @@ RUN apk add --no-cache --update --virtual build-dep \
 # we make sure to run the project as a regular user
 USER ${USR}
 WORKDIR ${PROJECT_DIR}
-CMD ["flask", "run", "-h", "0.0.0.0"]
+CMD ["python", "wsgi.py"]
