@@ -60,7 +60,7 @@ def new_app(name, with_templates):
 
     if 'flask-wtf' in requirements:
         with open(os.path.join(app_path, 'forms.py'), 'w') as file:
-            file.write('from from flask_wtf import Form\n\n')
+            file.write('from flask_wtf import Form\n\n')
 
     with open(os.path.join(app_path, 'views.py'), 'w') as file:
         file.write(
