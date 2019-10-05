@@ -4,7 +4,12 @@ from main import app_factory
 from config import project_name
 import os
 
-config_obj_path = os.environ['FLASK_CONFIG_DEFAULT']
+try:
+    config_obj_path = os.environ['FLASK_CONFIG_DEFAULT']
+except KeyError as e:
+    print("Please, provide the environment variable FLASK_CONFIG_DEFAULT. It is required.")
+    exit()
+
 app = app_factory(config_obj_path, project_name)
 
 
