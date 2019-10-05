@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.5.3.1
+
+- Fixed WTF integration (kudos to ivopanjos)
+- Added warning when FLASK_CONFIG_DEFAULT is not provided
+
 Version 0.5.3
 
 - Fixed support for flask-socketio (support for flask run was dropped)
