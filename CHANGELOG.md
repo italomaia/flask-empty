@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.5.5
+
+- Fixed options for wsgi when running with socketio
+- Added SERVER_OPTIONS to config
+
 Version 0.5.4
 
 - Fixed create_index_view check
