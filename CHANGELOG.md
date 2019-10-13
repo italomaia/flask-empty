@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.5.4
+
+- Fixed create_index_view check
+- Fixed use_socketio check
+
 Version 0.5.3.1
 
 - Fixed WTF integration (kudos to ivopanjos)
