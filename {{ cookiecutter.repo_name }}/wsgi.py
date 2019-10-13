@@ -22,7 +22,7 @@ if __name__ == '__main__':
         'use_reloader': os.getenv('FLASK_DEBUG', '0') == '1',
     }
 
-    {% if cookiecutter.use_socketio -%}
+    {% if cookiecutter.use_socketio == 'yes' -%}
     from extensions import io
     io.run(*args, **kwargs)
     {% else %}
