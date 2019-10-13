@@ -19,10 +19,18 @@ class Config(object):
     # use server x-sendfile?
     USE_X_SENDFILE = False
 
-    # Make sure SERVER_NAME contains the access port for
-    # the http server if it is not a default port like 80 or 443
-    # Ex dev SERVER_NAME: dv.local:8080
-    SERVER_NAME = (os.getenv('SERVER_NAME', '') + os.getenv('SERVER_NAME_EXTRA', '')) or None
+    # should be the hostname of your project
+    HOST = os.getenv('HOST', 'dv')  # 'dv' for development
+    # useful for development/testing mode
+    # necessary if non-standard port is being used
+    HOST_PORT = os.getenv('HOST_PORT', '')
+    # we need to append the host port to the server_name if it is non-standard
+    SERVER_NAME_EXTRA = len(HOST_PORT) and '' or (":" + HOST_PORT)
+    # SERVER_NAME contains the hostname and port (if non-default)
+    SERVER_NAME = HOST + SERVER_NAME_EXTRA
+
+    # use to set werkzeug / socketio options, if needed
+    # SERVER_OPTIONS = {}
 
     {%- if cookiecutter.use_sql == 'yes' %}
     # DATABASE CONFIGURATION
@@ -82,7 +90,7 @@ class Config(object):
     )
 
     # these are the modules preemptively
-    # loaded for each app 
+    # loaded for each app
     LOAD_MODULES_EXTENSIONS = [
         'views',
         'models',

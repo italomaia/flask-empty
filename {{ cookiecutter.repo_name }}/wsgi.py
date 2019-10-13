@@ -14,17 +14,20 @@ app = app_factory(config_obj_path, project_name)
 
 
 if __name__ == '__main__':
-    args = (app,)
+    _debug = app.config.get('DEBUG', False)
+
     kwargs = {
-        'host': '0.0.0.0',
-        'port': 5000,
-        'debug': os.getenv('FLASK_DEBUG', '0') == '1',
-        'use_reloader': os.getenv('FLASK_DEBUG', '0') == '1',
+        'host': os.getenv('FLASK_HOST', '0.0.0.0'),
+        'port': int(os.getenv('FLASK_PORT', 5000)),
+        'debug': _debug,
+        'use_reloader': app.config.get('USE_RELOADER', _debug),
+        **app.config.get('SERVER_OPTIONS', {})
     }
 
     {% if cookiecutter.use_socketio == 'yes' -%}
     from extensions import io
-    io.run(*args, **kwargs)
+
+    io.run(app, **kwargs)
     {% else %}
-    app.run(*args, **kwargs)
+    app.run(**kwargs)
     {% endif %}
