@@ -51,29 +51,29 @@ docker run --rm -p 5000:5000 my-project-name
 Environment Variables
 =====================
 
-Be aware you might need to tweak the environment variables for production
-mode. The are available at **.env** and **Dockerfile**. If using Docker,
+Be aware that you might need to tweak the environment variables for production
+mode. The are available at `.env` and `Dockerfile`. If using Docker,
 you can even provide them inline.
 
 Important files to be aware of
 ==============================
 
-**<project>/extensions.py** all extension instances that need initialization should be available
+`<project>/extensions.py` all extension instances that need initialization should be available
 here in order to have _Empty_ see and initialize them for you.
 
-**<project>/config.py** is a pre-set configuration classes for you to meddle with. They're are all self explanatory
+`<project>/config.py` is a pre-set configuration classes for you to meddle with. They're are all self explanatory
 and commented.
 
-**<project>/main.py** the _Empty_ class inherits from _empty.Empty_ which inherits from _flask.Flask_. Override it if you need to setup extensions, an index view, context processors, etc. It already has some sensitive defaults for most use cases. See https://github.com/italomaia/empty for all options.
+`<project>/main.py` the _Empty_ class inherits from _empty.Empty_ which inherits from _flask.Flask_. Override it if you need to setup extensions, an index view, context processors, etc. It already has some sensitive defaults for most use cases. See https://github.com/italomaia/empty for all options.
 
-**<project>/<project>.ini** is the configuration file used with
+`<project>/<project>.ini` is the configuration file used with
 [uwsgi](https://github.com/unbit/uwsgi). Use it like this:
 
 ```
 uwsgi --ini your_project.ini
 ```
 
-**commands.py** adds few very useful commandline commands (...) to help your development productivity. Check available commands by running **flask**.
+`commands.py` adds few very useful commandline commands (...) to help your development productivity. Check available commands by running **flask**.
 
 ## Heroku
 
@@ -88,13 +88,13 @@ There are some error templates bundled with flask-empty by default. All empty ri
 
 ## Macros
 
-You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with
+You can use the jinja2 macros available in `templates/macros` to easily integrate your jinja2 templates with
 flask extensions like wtforms and commons tasks like showing flash messages. Available macros, **formhelpers** and **flashing** are very useful.
 
 ## Blueprints
 
-You can create blueprints easily with **flask new-app <name>**. The will live, by default
-at **apps** folder. Remember to configure your blueprints in **config.py** so that they
+You can create blueprints easily with `flask new-app <name>`. The will live, by default
+at `apps` folder. Remember to configure your blueprints in `config.py` so that they
 can be properly loaded.
 
 # Supported Extensions
@@ -102,7 +102,7 @@ can be properly loaded.
 ## Flask-SQLAlchemy
 
 While creating your project, Flask-Empty will ask you if you wish to enable SQL support. Confirm if you do so
-and Flask-SQLAlchemy will be available and configured through **database.py**.
+and Flask-SQLAlchemy will be available and configured through `database.py`.
 
 _ps: currently, db-create will only create your models if they are imported somewhere in your application.
 By **somewhere**, try the *same module where your Blueprint instance is defined*.
