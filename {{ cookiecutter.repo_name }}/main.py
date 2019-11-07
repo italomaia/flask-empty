@@ -4,14 +4,14 @@ import os
 import sys
 from empty import Empty
 
-{%- if cookiecutter.use_http_mixin == 'yes' %}
+{%- if cookiecutter.use_http_mixin in ('yes', 'y') %}
 from mixins import HttpMixin
 {% endif %}
 
 # define base classes for our App class
 base_cls_list = [Empty]
 
-{%- if cookiecutter.use_http_mixin == 'yes' %}
+{%- if cookiecutter.use_http_mixin in ('yes', 'y') %}
 base_cls_list = [HttpMixin] + base_cls_list
 {% endif %}
 
