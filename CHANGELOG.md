@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 0.5.6
+
+- Fixed flask-security initialization function
+- Changed flask-security-fork requirement by flask-security
+- Refactored extensions module
+- Added "y" as an cookiecutter option for "yes"
+
 Version 0.5.5
 
 - Fixed options for wsgi when running with socketio
