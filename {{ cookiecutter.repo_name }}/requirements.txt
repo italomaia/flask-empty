@@ -1,35 +1,35 @@
 empty
 flask
 flask-testing
-{%- if cookiecutter.use_security == 'yes' %}
-flask-security-fork
+{%- if cookiecutter.use_security in ('yes', 'y') %}
+flask-security
 {%- endif -%}
-{%- if cookiecutter.use_async_tasks == 'yes' %}
+{%- if cookiecutter.use_async_tasks in ('yes', 'y') %}
 flask-rq2
 {%- endif -%}
-{%- if cookiecutter.use_admin == 'yes' %}
+{%- if cookiecutter.use_admin in ('yes', 'y') %}
 flask-admin
 {%- endif -%}
-{%- if cookiecutter.use_sql == 'yes' %}
+{%- if cookiecutter.use_sql in ('yes', 'y') %}
 flask-sqlalchemy
 flask-migrate
 {%- endif -%}
-{%- if cookiecutter.use_nosql == 'yes' %}
+{%- if cookiecutter.use_nosql in ('yes', 'y') %}
 flask-mongoengine
 {%- endif -%}
-{%- if cookiecutter.use_http_mixin == 'yes' %}
+{%- if cookiecutter.use_http_mixin in ('yes', 'y') %}
 flask-wtf
 {%- endif -%}
-{%- if cookiecutter.use_rest == 'yes' %}
+{%- if cookiecutter.use_rest in ('yes', 'y') %}
 marshmallow
 flask-marshmallow
 flask-jsglue
 {%- endif -%}
-{%- if cookiecutter.use_socketio == 'yes' %}
+{%- if cookiecutter.use_socketio in ('yes', 'y') %}
 eventlet
 flask-socketio
 {%- endif -%}
-{%- if cookiecutter.use_sql == 'yes' and cookiecutter.use_rest == 'yes' %}
+{%- if cookiecutter.use_sql == 'yes' and cookiecutter.use_rest in ('yes', 'y') %}
 marshmallow-sqlalchemy
 {%- endif %}
 flask-debugtoolbar

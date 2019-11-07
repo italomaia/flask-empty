@@ -7,7 +7,7 @@ class HttpMixin:
     Useful for traditional http applications.
     """
 
-    {%- if cookiecutter.create_index_view == 'yes' %}
+    {%- if cookiecutter.create_index_view in ('yes', 'y') %}
     def configure_views(self):
         """
         You can add some simple views here for fast prototyping

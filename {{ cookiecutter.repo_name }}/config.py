@@ -32,7 +32,7 @@ class Config(object):
     # use to set werkzeug / socketio options, if needed
     # SERVER_OPTIONS = {}
 
-    {%- if cookiecutter.use_sql == 'yes' %}
+    {%- if cookiecutter.use_sql in ('yes', 'y') %}
     # DATABASE CONFIGURATION
 
     # Postgres: psycopg2 and pg8000
@@ -102,24 +102,24 @@ class Config(object):
     # add below the module path of extensions
     # you wish to load
     EXTENSIONS = [
-        {%- if cookiecutter.use_sql == 'yes' %}
+        {%- if cookiecutter.use_sql in ('yes', 'y') %}
         'extensions.db',
         'extensions.migrate',
         {%- endif %}
-        {%- if cookiecutter.use_nosql == 'yes' %}
+        {%- if cookiecutter.use_nosql in ('yes', 'y') %}
         'extensions.nosql',
         {%- endif %}
-        {%- if cookiecutter.use_security == 'yes' %}
+        {%- if cookiecutter.use_security in ('yes', 'y') %}
         'extensions.security',
         {%- endif %}
-        {%- if cookiecutter.use_admin == 'yes' %}
+        {%- if cookiecutter.use_admin in ('yes', 'y') %}
         'extensions.admin',
         {%- endif %}
-        {%- if cookiecutter.use_rest == 'yes' %}
+        {%- if cookiecutter.use_rest in ('yes', 'y') %}
         'extensions.ma',
         'extensions.glue',
         {%- endif %}
-        {%- if cookiecutter.use_socketio == 'yes' %}
+        {%- if cookiecutter.use_socketio in ('yes', 'y') %}
         'extensions.io',
         {%- endif %}
     ]
