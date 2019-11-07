@@ -2,7 +2,7 @@ empty
 flask
 flask-testing
 {%- if cookiecutter.use_security == 'yes' %}
-flask-security-fork
+flask-security
 {%- endif -%}
 {%- if cookiecutter.use_async_tasks == 'yes' %}
 flask-rq2
