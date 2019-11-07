@@ -1,14 +1,14 @@
 {
-    "project_name": "Your Project Name",
-    "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
-    "version": "0.1",
-    "use_sql": "yes",
-    "use_nosql": "no",
-    "use_admin": "no",
-    "use_security": "yes",
-    "use_rest": "yes",
-    "use_socketio": "{{ cookiecutter.use_rest }}",
-    "use_async_tasks": "{{ cookiecutter.use_socketio }}",
-    "use_http_mixin": "yes",
-    "create_index_view": "{{ cookiecutter.use_http_mixin }}"
+  "project_name": "Your Project Name",
+  "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
+  "version": "0.1",
+  "use_sql": "yes",
+  "use_nosql": "no",
+  "use_admin": "no",
+  "use_security": "yes",
+  "use_rest": "yes",
+  "use_socketio": "{{ cookiecutter.use_rest }}",
+  "use_async_tasks": "{{ cookiecutter.use_socketio }}",
+  "use_http_mixin": "yes",
+  "create_index_view": "{{ cookiecutter.use_http_mixin }}"
 }
