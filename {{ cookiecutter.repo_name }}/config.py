@@ -65,6 +65,13 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     {%- endif %}
+    {%- if cookiecutter.use_nosql in ('yes', 'y') %}
+    # mongodb connection configuration;
+    # be sure to use username and password in production
+    MONGODB_HOST = "localhost"
+    MONGODB_DB = project_name
+
+    {%- endif %}
     WTF_CSRF_ENABLED = True
     # import os; os.urandom(24)
     SECRET_KEY = os.getenv("FLASK_SECRET_KEY", "secret")
@@ -148,4 +155,11 @@ class Test(Config):
     {%- if cookiecutter.use_sql in ('yes', 'y') %}
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = f""
+    {%- endif %}
+
+    {%- if cookiecutter.use_nosql in ('yes', 'y') %}
+    # mongodb connection configuration;
+    # be sure to use username and password in production
+    MONGODB_HOST = "localhost"
+    MONGODB_DB = "%s-test" % project_name
     {%- endif %}
