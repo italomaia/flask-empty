@@ -56,11 +56,20 @@ class Config(object):
     DB_HOST = os.getenv('DB_HOST', '')
     DB_NAME = os.getenv('DB_NAME', '')
 
-    SQLALCHEMY_DATABASE_URI = ""
+    # default database
+    SQLALCHEMY_DATABASE_URI = f""
 
-    # DEBUG mode only!
+    # log all the statements issued to stderr?
     SQLALCHEMY_ECHO = DEBUG
-    SQLALCHEMY_TRACK_MODIFICATIONS = DEBUG
+    # track and emit signals on object modification?
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    {%- endif %}
+    {%- if cookiecutter.use_nosql in ('yes', 'y') %}
+    # mongodb connection configuration;
+    # be sure to use username and password in production
+    MONGODB_HOST = "localhost"
+    MONGODB_DB = project_name
 
     {%- endif %}
     WTF_CSRF_ENABLED = True
@@ -77,11 +86,11 @@ class Config(object):
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
     # EMAIL CONFIGURATION
+    MAIL_DEBUG = DEBUG
     MAIL_SERVER = os.getenv("FLASK_MAIL_SERVER", "localhost")
     MAIL_PORT = int(os.getenv("FLASK_MAIL_PORT", "25"))
     MAIL_USE_TLS = os.getenv("FLASK_MAIL_USE_TLS", "") == "1"
     MAIL_USE_SSL = os.getenv("FLASK_MAIL_USE_SSL", "") == "1"
-    MAIL_DEBUG = False
     MAIL_USERNAME = os.getenv("FLASK_MAIL_USERNAME", None)
     MAIL_PASSWORD = os.getenv("FLASK_MAIL_PASSWORD", None)
     DEFAULT_MAIL_SENDER = os.getenv(
@@ -133,8 +142,6 @@ class Config(object):
 # config class for development environment
 class Dev(Config):
     MAIL_DEBUG = True
-    SQLALCHEMY_ECHO = True  # we want to see sqlalchemy output
-    SQLALCHEMY_DATABASE_URI = "sqlite:////var/tmp/%s_dev.sqlite" % project_name
     EXTENSIONS = Config.EXTENSIONS + [
         'extensions.toolbar'
     ]
@@ -144,5 +151,15 @@ class Dev(Config):
 class Test(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
+
+    {%- if cookiecutter.use_sql in ('yes', 'y') %}
     SQLALCHEMY_ECHO = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/%s_test.sqlite" % project_name
+    SQLALCHEMY_DATABASE_URI = f""
+    {%- endif %}
+
+    {%- if cookiecutter.use_nosql in ('yes', 'y') %}
+    # mongodb connection configuration;
+    # be sure to use username and password in production
+    MONGODB_HOST = "localhost"
+    MONGODB_DB = "%s-test" % project_name
+    {%- endif %}
