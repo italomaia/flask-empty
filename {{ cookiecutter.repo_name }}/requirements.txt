@@ -1,3 +1,9 @@
+{%- set uses_cockroachdb = cookiecutter.use_sql_cockroachdb in ('y', 'yes') -%}
+{%- set uses_postgres = cookiecutter.use_sql_postgres in ('y', 'yes') -%}
+{%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
+{%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql -%}
+{%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
+
 empty
 flask
 flask-testing
@@ -10,11 +16,17 @@ flask-rq2
 {%- if cookiecutter.use_admin in ('yes', 'y') %}
 flask-admin
 {%- endif -%}
-{%- if cookiecutter.use_sql in ('yes', 'y') %}
+{%- if uses_sql %}
 flask-sqlalchemy
 flask-migrate
 {%- endif -%}
-{%- if cookiecutter.use_nosql in ('yes', 'y') %}
+{%- if uses_postgres or uses_cockroachdb %}
+psycopg
+{%- endif -%}
+{%- if uses_mysql %}
+mysqlclient
+{%- endif -%}
+{%- if uses_mongodb %}
 flask-mongoengine
 {%- endif -%}
 {%- if cookiecutter.use_http_mixin in ('yes', 'y') %}
@@ -29,7 +41,7 @@ flask-jsglue
 eventlet
 flask-socketio
 {%- endif -%}
-{%- if cookiecutter.use_sql == 'yes' and cookiecutter.use_rest in ('yes', 'y') %}
+{%- if uses_sql and cookiecutter.use_rest in ('yes', 'y') %}
 marshmallow-sqlalchemy
 {%- endif %}
 flask-debugtoolbar
