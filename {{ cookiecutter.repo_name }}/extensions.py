@@ -1,5 +1,11 @@
+{%- set uses_cockroachdb = cookiecutter.use_sql_cockroachdb in ('y', 'yes') -%}
+{%- set uses_postgres = cookiecutter.use_sql_postgres in ('y', 'yes') -%}
+{%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
+{%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql -%}
+{%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
+
 import os
-{% if cookiecutter.use_sql in ('yes', 'y') %}
+{% if uses_sql %}
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 {%- endif -%}
@@ -9,7 +15,7 @@ from flask_security import Security
 {%- if cookiecutter.use_admin in ('yes', 'y') %}
 from flask_admin import Admin
 {%- endif -%}
-{%- if cookiecutter.use_nosql in ('yes', 'y') %}
+{%- if uses_mongodb %}
 from flask_mongoengine import MongoEngine
 {%- endif -%}
 {%- if cookiecutter.use_rest in ('yes', 'y') %}
@@ -30,14 +36,14 @@ if os.environ['FLASK_CONFIG_DEFAULT'] == 'Dev':
     from flask_debugtoolbar import DebugToolbarExtension
     toolbar = DebugToolbarExtension()
 
-{% if cookiecutter.use_sql in ('yes', 'y') %}
+{% if uses_sql %}
 db = SQLAlchemy()
 migrate = Migrate(db=db)
 {% endif -%}
 {%- if cookiecutter.use_admin in ('yes', 'y') -%}
 admin = Admin()
 {% endif -%}
-{%- if cookiecutter.use_nosql in ('yes', 'y') -%}
+{%- if uses_mongodb -%}
 nosql = MongoEngine()
 {% endif -%}
 {%- if cookiecutter.use_rest in ('yes', 'y') -%}

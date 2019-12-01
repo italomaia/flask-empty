@@ -2,8 +2,11 @@
   "project_name": "Your Project Name",
   "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
   "version": "0.1",
-  "use_sql": "yes",
-  "use_nosql": "no",
+
+  "use_sql_postgres": "no",
+  "use_sql_mysql": "no",
+  "use_sql_cockroachdb": "no",
+  "use_nosql_mongodb": "no",
   "use_admin": "no",
   "use_security": "yes",
   "use_rest": "yes",
