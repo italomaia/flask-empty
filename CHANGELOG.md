@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 0.5.7
+
+- Fixed socketio support
+- Added out-of-the-box support for postgres, mysql and cockroachdb configurations
+- Updated mongodb configuration
+
 Version 0.5.6
 
 - Fixed flask-security initialization function
