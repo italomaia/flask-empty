@@ -1,4 +1,4 @@
-# coding:utf-8
+{%- set uses_socketio = cookiecutter.use_socketio in ('yes', 'y') -%}
 
 from main import app_factory
 from config import project_name
@@ -24,7 +24,7 @@ if __name__ == '__main__':
         **app.config.get('SERVER_OPTIONS', {})
     }
 
-    {% if cookiecutter.use_socketio == 'yes' -%}
+    {% if uses_socketio -%}
     from extensions import io
 
     io.run(app, **kwargs)
