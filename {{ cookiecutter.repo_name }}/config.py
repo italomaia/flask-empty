@@ -3,6 +3,7 @@
 {%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
 {%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql -%}
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
+{%- set uses_socketio = cookiecutter.use_socketio in ('yes', 'y') -%}
 
 import os
 import logging
@@ -151,7 +152,7 @@ class Config(object):
         'extensions.ma',
         'extensions.glue',
         {%- endif %}
-        {%- if cookiecutter.use_socketio in ('yes', 'y') %}
+        {%- uses_socketio %}
         'extensions.io',
         {%- endif %}
     ]

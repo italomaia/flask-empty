@@ -3,6 +3,7 @@
 {%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
 {%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql -%}
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
+{%- set uses_socketio = cookiecutter.use_socketio in ('yes', 'y') -%}
 
 import os
 {% if uses_sql %}
@@ -22,7 +23,7 @@ from flask_mongoengine import MongoEngine
 from flask_marshmallow import Marshmallow
 from flask_jsglue import JSGlue
 {%- endif -%}
-{%- if cookiecutter.use_async_tasks in ('yes', 'y') %}
+{%- uses_socketio %}
 from flask_socketio import SocketIO
 {%- endif %}
 {%- if cookiecutter.use_async_tasks in ('yes', 'y') %}
