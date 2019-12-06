@@ -152,7 +152,7 @@ class Config(object):
         'extensions.ma',
         'extensions.glue',
         {%- endif %}
-        {%- uses_socketio %}
+        {%- if uses_socketio %}
         'extensions.io',
         {%- endif %}
     ]
