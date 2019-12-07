@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 0.5.7.1
+
+- Fixed typo in cookiecutter template; kudos to **plars**
+
 Version 0.5.7
 
 - Fixed socketio support

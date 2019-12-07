@@ -23,7 +23,7 @@ from flask_mongoengine import MongoEngine
 from flask_marshmallow import Marshmallow
 from flask_jsglue import JSGlue
 {%- endif -%}
-{%- uses_socketio %}
+{%- if uses_socketio %}
 from flask_socketio import SocketIO
 {%- endif %}
 {%- if cookiecutter.use_async_tasks in ('yes', 'y') %}
