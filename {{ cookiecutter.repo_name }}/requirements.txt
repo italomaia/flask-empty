@@ -8,7 +8,7 @@ empty
 flask
 flask-testing
 {%- if cookiecutter.use_security in ('yes', 'y') %}
-flask-security
+flask-security-too
 {%- endif -%}
 {%- if cookiecutter.use_async_tasks in ('yes', 'y') %}
 flask-rq2
