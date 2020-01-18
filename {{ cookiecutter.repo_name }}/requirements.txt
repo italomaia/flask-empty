@@ -21,7 +21,7 @@ flask-sqlalchemy
 flask-migrate
 {%- endif -%}
 {%- if uses_postgres or uses_cockroachdb %}
-psycopg
+psycopg2
 {%- endif -%}
 {%- if uses_mysql %}
 mysqlclient
