@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 0.5.8
+
+- Support for postgres AND mysql configuration out of the box
+- Replaced flask-security package with flask-security-too given the former no longer has support
+- Updated Dockerfile, so all libs can be built out of the box
+
 Version 0.5.7.1
 
 - Fixed typo in cookiecutter template; kudos to **plars**
