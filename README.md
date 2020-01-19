@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 
-**version 0.5.7.1**
+**version 0.5.8**
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/italomaia/flask-empty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
