@@ -29,6 +29,10 @@ here (and load it through your configuration).
 Right now it only has a http mixin for some standard http behavior. Useful
 for vanilla web projects. Not so much if you're building a web service.
 
+## tests/
+
+Project wide non-server dependent tests go here.
+
 ## Some examples below
 
 ```
@@ -58,4 +62,16 @@ for vanilla web projects. Not so much if you're building a web service.
 
   # looks up users (see flask-security docs)
   flask users
+
+  # runs tests under tests/
+  pytest
 ```
+
+# Options
+
+Most flask-empty options are self-explanatory; below, we explain the ones
+that are not:
+
+* `json_friendly [yes]` monkey patches the environment so json snippets can
+be directly used in your code. Basically, we add `true`, `false` and `null`
+as aliases to True, False and None.
