@@ -1,3 +1,4 @@
+{%- set uses_cockroachdb = cookiecutter.use_sql_cockroachdb in ('y', 'yes') -%}
 {%- set uses_postgres = cookiecutter.use_sql_postgres in ('y', 'yes') -%}
 {%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
 ARG PYTHON_IMG=3-alpine
