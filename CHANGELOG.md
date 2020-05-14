@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 0.5.9
+
+- bugfix for missing uses_cocroachdb variable when building the Dockerfile
+- added json friendly globals true, false and null + docs + tests
+- pytest is now a dependency
+
 Version 0.5.8
 
 - Support for postgres AND mysql configuration out of the box

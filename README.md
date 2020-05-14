@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 
-**version 0.5.8**
+**version 0.5.9**
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/italomaia/flask-empty?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -96,6 +96,12 @@ flask extensions like wtforms and commons tasks like showing flash messages. Ava
 You can create blueprints easily with **flask new-app <name>**. The will live, by default
 at **apps** folder. Remember to configure your blueprints in **config.py** so that they
 can be properly loaded.
+
+## Json Friendly
+
+Variables `true`, `false` and `null` are now supported as aliases for `True`, `False` and `None`.
+This way, valid json can be copy-pasted directly into your code and will be interpreted
+as valid python. Ex: `data = {"x": true, "y": false, "z": null}`
 
 # Supported Extensions
 
