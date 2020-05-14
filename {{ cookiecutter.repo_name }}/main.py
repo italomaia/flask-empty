@@ -8,6 +8,18 @@ from empty import Empty
 from mixins import HttpMixin
 {% endif %}
 
+{%- if cookiecutter.json_friendly in ('yes', 'y') %}
+try:
+    import __builtin__
+except ImportError:
+    import builtins as __builtin__
+
+# allows you to copy json snippets directly into python
+__builtin__.true = True
+__builtin__.false = False
+__builtin__.null = None
+{% endif %}
+
 # define base classes for our App class
 base_cls_list = [Empty]
 

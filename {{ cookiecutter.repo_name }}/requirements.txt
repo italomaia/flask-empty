@@ -4,6 +4,7 @@
 {%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql -%}
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
 
+pytest
 empty
 flask
 flask-testing
