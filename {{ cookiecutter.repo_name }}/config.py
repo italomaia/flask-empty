@@ -70,10 +70,10 @@ class Config(object):
     {% endif %}
 
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI_TMPL % {
-        user: DB_USER,
-        passwd: DB_PASS,
-        host: DB_HOST,
-        name: DB_NAME
+        'user': DB_USER,
+        'passwd': DB_PASS,
+        'host': DB_HOST,
+        'name': DB_NAME
     }
 
     # set this up case you need multiple database connections
