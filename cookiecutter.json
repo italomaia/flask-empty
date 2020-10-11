@@ -3,6 +3,7 @@
   "repo_name": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
   "version": "0.1",
 
+  "use_sql_sqlite": "yes",
   "use_sql_postgres": "no",
   "use_sql_mysql": "no",
   "use_sql_cockroachdb": "no",

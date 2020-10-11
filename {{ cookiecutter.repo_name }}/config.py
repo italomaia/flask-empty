@@ -1,7 +1,11 @@
 {%- set uses_cockroachdb = cookiecutter.use_sql_cockroachdb in ('y', 'yes') -%}
 {%- set uses_postgres = cookiecutter.use_sql_postgres in ('y', 'yes') -%}
+{%- set uses_sqlite = cookiecutter.use_sql_sqlite in ('y', 'yes') -%}
 {%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
-{%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql -%}
+{%- set uses_sql = uses_cockroachdb
+    or uses_postgres
+    or uses_mysql
+    or uses_sqlite -%}
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
 {%- set uses_socketio = cookiecutter.use_socketio in ('yes', 'y') -%}
 
@@ -16,6 +20,8 @@ project_name = "{{ cookiecutter.repo_name }}"
 SQLALCHEMY_DATABASE_URI_TMPL = "postgresql+psycopg2://%(user)s:%(passwd)s@%(host)s/%(name)s"
 {%- elif uses_mysql %}
 SQLALCHEMY_DATABASE_URI_TMPL = "mysql+mysqldb://%(user)s:%(passwd)s@%(host)s/%(name)s"
+{%- elif uses_sqlite %}
+SQLALCHEMY_DATABASE_URI_TMPL = "sqlite:////tmp/%(name)s.sqlite"
 {% endif %}
 
 
