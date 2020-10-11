@@ -12,6 +12,13 @@ from datetime import timedelta
 project_name = "{{ cookiecutter.repo_name }}"
 
 
+{%- if uses_postgres or uses_cockroachdb %}
+SQLALCHEMY_DATABASE_URI_TMPL = "postgresql+psycopg2://%(user)s:%(passwd)s@%(host)s/%(name)s"
+{%- elif uses_mysql %}
+SQLALCHEMY_DATABASE_URI_TMPL = "mysql+mysqldb://%(user)s:%(passwd)s@%(host)s/%(name)s"
+{% endif %}
+
+
 # base config class; extend it to your needs.
 class Config(object):
     # see http://flask.pocoo.org/docs/1.0/config/#environment-and-debug-features
@@ -63,17 +70,11 @@ class Config(object):
     DB_NAME = os.getenv('DB_NAME', '')
 
     # default database connection
-    {%- if uses_postgres or uses_cockroachdb %}
-    SQLALCHEMY_DATABASE_URI_TMPL = "postgresql+psycopg2://%(user)s:%(passwd)s@%(host)s/%(name)s"
-    {%- elif uses_mysql %}
-    SQLALCHEMY_DATABASE_URI_TMPL = "mysql+mysqldb://%(user)s:%(passwd)s@%(host)s/%(name)s"
-    {% endif %}
-
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI_TMPL % {
-        user: DB_USER,
-        passwd: DB_PASS,
-        host: DB_HOST,
-        name: DB_NAME
+        'user': DB_USER,
+        'passwd': DB_PASS,
+        'host': DB_HOST,
+        'name': DB_NAME
     }
 
     # set this up case you need multiple database connections
@@ -179,10 +180,10 @@ class Test(Config):
     {%- if uses_sql %}
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI_TMPL % {
-        user: Config.DB_USER,
-        passwd: Config.DB_PASS,
-        host: Config.DB_HOST,
-        name: "%s-test" % Config.DB_NAME
+        'user': Config.DB_USER,
+        'passwd': Config.DB_PASS,
+        'host': Config.DB_HOST,
+        'name': "%s-test" % Config.DB_NAME
     }
     {%- endif %}
 
