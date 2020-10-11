@@ -24,7 +24,7 @@ RUN addgroup -g 1000 ${USR}\
 
 COPY --chown=nonroot:nonroot . ${PROJECT_DIR}
 RUN apk add --no-cache --update fish
-RUN apk add --no-cache --update --virtual build-dep \
+RUN apk add --no-cache --update --virtual \
   gcc\
   make\
   g++\
@@ -36,8 +36,7 @@ RUN apk add --no-cache --update --virtual build-dep \
   {%- if uses_mysql %}
   mariadb-dev\
   {% endif -%}
-  && pip --no-cache-dir install -r ${PROJECT_DIR}/requirements.txt\
-  && apk del build-dep
+  && pip --no-cache-dir install -r ${PROJECT_DIR}/requirements.txt
 
 # we make sure to run the project as a regular user
 USER ${USR}
