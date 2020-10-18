@@ -7,13 +7,14 @@ class BaseTestCase(TestCase):
     def setUp(self):
         import config
         from main import app_factory
-        from database import create_all
+        from extensions import db
 
-        self.app = app_factory(config.Testing, config.project_name)
+        self.app = app_factory(config.Test, config.project_name)
         self.client = self.app.test_client()
-        create_all()
+        db.create_all()
 
     def tearDown(self):
-        from database import drop_all, remove_session
-        drop_all()
-        remove_session()
+        from extensions import db
+        
+        db.drop_all()
+        db.remove_session()

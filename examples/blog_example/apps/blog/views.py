@@ -4,7 +4,7 @@ from flask import Blueprint
 from flask import render_template, flash, redirect, url_for
 from sqlalchemy.exc import IntegrityError
 
-from database import db
+from extensions import db
 
 from .forms import PostForm
 from .models import Post
@@ -29,7 +29,7 @@ def add_post_view():
             db.session.commit()
             flash('Post add successfully')
             return redirect(url_for('blog.list_posts_view'))
-        except IntegrityError, err:
+        except IntegrityError:
             flash('There is already a post with that title. Please, try another.')
 
     return render_template('blog/add_post.html', form=form)

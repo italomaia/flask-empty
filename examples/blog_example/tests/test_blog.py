@@ -6,7 +6,7 @@ from flask import url_for
 
 def build_post(commit=True):
     from blog.models import Post
-    from database import db
+    from extensions import db
 
     post = Post('some title', 'some content')
 
