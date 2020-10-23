@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from tests import BaseTestCase as TestCase
+from utils import BaseTestCase as TestCase
 from flask import url_for
 
 

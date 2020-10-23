@@ -1,6 +1,5 @@
 # collection of tests to assert flask-empty works properly
 
-from main import App
 
 def test_valid_json_():
     from json import dumps
