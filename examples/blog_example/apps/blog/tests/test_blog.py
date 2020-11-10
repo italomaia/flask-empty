@@ -2,6 +2,7 @@
 
 from utils import BaseTestCase as TestCase
 from flask import url_for
+from urllib.parse import urlparse
 
 
 def build_post(commit=True):
@@ -21,15 +22,23 @@ class TestUrlBuild(TestCase):
     app_prefix = ''
 
     def test_build_index_url(self):
-        self.assertEqual(url_for('blog.list_posts_view'), '/')
+        url = urlparse(url_for('blog.list_posts_view'))
+
+        self.assertEqual(url.path, '/blog/')
 
     def test_build_add_post_url(self):
-        self.assertEqual(url_for('blog.add_post_view'), '/add/')
+        url = urlparse(url_for('blog.add_post_view'))
+
+        self.assertEqual(url.path, '/blog/add/')
 
     def test_build_post_url(self):
         post = build_post()
-        self.assertEqual(url_for('blog.post_view', slug=post.slug), '/%s/' % post.slug)
+        url = urlparse(url_for('blog.post_view', slug=post.slug))
+
+        self.assertEqual(url.path, '/blog/%s/' % post.slug)
 
     def test_post_permalink_build(self):
         post = build_post()
-        self.assertEqual(post.absolute_url(), '/%s/' % post.slug)
+        url = urlparse(post.absolute_url())
+
+        self.assertEqual(url.path, '/blog/%s/' % post.slug)
