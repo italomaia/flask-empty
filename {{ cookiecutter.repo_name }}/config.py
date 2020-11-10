@@ -1,7 +1,11 @@
 {%- set uses_cockroachdb = cookiecutter.use_sql_cockroachdb in ('y', 'yes') -%}
 {%- set uses_postgres = cookiecutter.use_sql_postgres in ('y', 'yes') -%}
+{%- set uses_sqlite = cookiecutter.use_sql_sqlite in ('y', 'yes') -%}
 {%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
-{%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql -%}
+{%- set uses_sql = uses_cockroachdb
+    or uses_postgres
+    or uses_mysql
+    or uses_sqlite -%}
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
 {%- set uses_socketio = cookiecutter.use_socketio in ('yes', 'y') -%}
 
@@ -10,6 +14,15 @@ import logging
 from datetime import timedelta
 
 project_name = "{{ cookiecutter.repo_name }}"
+
+
+{%- if uses_postgres or uses_cockroachdb %}
+SQLALCHEMY_DATABASE_URI_TMPL = "postgresql+psycopg2://%(user)s:%(passwd)s@%(host)s/%(name)s"
+{%- elif uses_mysql %}
+SQLALCHEMY_DATABASE_URI_TMPL = "mysql+mysqldb://%(user)s:%(passwd)s@%(host)s/%(name)s"
+{%- elif uses_sqlite %}
+SQLALCHEMY_DATABASE_URI_TMPL = "sqlite:////tmp/%(name)s.sqlite"
+{% endif %}
 
 
 # base config class; extend it to your needs.
@@ -63,17 +76,11 @@ class Config(object):
     DB_NAME = os.getenv('DB_NAME', '')
 
     # default database connection
-    {%- if uses_postgres or uses_cockroachdb %}
-    SQLALCHEMY_DATABASE_URI_TMPL = "postgresql+psycopg2://%(user)s:%(passwd)s@%(host)s/%(name)s"
-    {%- elif uses_mysql %}
-    SQLALCHEMY_DATABASE_URI_TMPL = "mysql+mysqldb://%(user)s:%(passwd)s@%(host)s/%(name)s"
-    {% endif %}
-
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI_TMPL % {
-        user: DB_USER,
-        passwd: DB_PASS,
-        host: DB_HOST,
-        name: DB_NAME
+        'user': DB_USER,
+        'passwd': DB_PASS,
+        'host': DB_HOST,
+        'name': DB_NAME
     }
 
     # set this up case you need multiple database connections
@@ -179,10 +186,10 @@ class Test(Config):
     {%- if uses_sql %}
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI_TMPL % {
-        user: Config.DB_USER,
-        passwd: Config.DB_PASS,
-        host: Config.DB_HOST,
-        name: "%s-test" % Config.DB_NAME
+        'user': Config.DB_USER,
+        'passwd': Config.DB_PASS,
+        'host': Config.DB_HOST,
+        'name': "%s-test" % Config.DB_NAME
     }
     {%- endif %}
 

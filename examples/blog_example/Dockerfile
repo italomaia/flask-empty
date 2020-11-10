@@ -1,6 +1,3 @@
-{%- set uses_cockroachdb = cookiecutter.use_sql_cockroachdb in ('y', 'yes') -%}
-{%- set uses_postgres = cookiecutter.use_sql_postgres in ('y', 'yes') -%}
-{%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
 ARG PYTHON_IMG=3-alpine
 
 FROM python:${PYTHON_IMG}
@@ -30,12 +27,6 @@ RUN apk add --no-cache --update --virtual \
   g++\
   zlib-dev\
   libc-dev\
-  {%- if uses_postgres or uses_cockroachdb %}
-  postgresql-dev\
-  {% endif -%}
-  {%- if uses_mysql %}
-  mariadb-dev\
-  {% endif -%}
   && pip --no-cache-dir install -r ${PROJECT_DIR}/requirements.txt
 
 # we make sure to run the project as a regular user
