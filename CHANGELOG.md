@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 0.6.0
+
+- fixed/updated blog example
+- fixed cockroachdb support
+- fixed db configuration
+
 Version 0.5.9
 
 - bugfix for missing uses_cocroachdb variable when building the Dockerfile
