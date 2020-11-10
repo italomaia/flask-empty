@@ -1,6 +1,7 @@
 venv
 .vscode
 .idea
+.mypy_cache
 settings.json
 *.pyc
 *~

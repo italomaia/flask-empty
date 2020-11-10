@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from database import db
+from extensions import db
 from datetime import datetime
 from flask import url_for
 
