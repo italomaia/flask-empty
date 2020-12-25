@@ -11,7 +11,7 @@ indent_style = space
 [*.py]
 indent_size = 4
 
-[*.{js,ts,css,sass}]
+[*.{js,ts,css,sass,html}]
 indent_size = 2
 
 [{package.json,.travis.yml}]
