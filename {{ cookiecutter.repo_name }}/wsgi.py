@@ -6,8 +6,10 @@ import os
 
 try:
     config_obj_path = os.environ['FLASK_CONFIG_DEFAULT']
-except KeyError as e:
-    print("Please, provide the environment variable FLASK_CONFIG_DEFAULT. It is required.")
+except KeyError:
+    print(
+        "Please, provide the environment variable FLASK_CONFIG_DEFAULT. "
+        "It tells the application which configuration class to load.")
     exit()
 
 app = app_factory(config_obj_path, project_name)

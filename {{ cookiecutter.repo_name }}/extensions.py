@@ -6,6 +6,11 @@
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
 {%- set uses_socketio = cookiecutter.use_socketio in ('yes', 'y') -%}
 
+#
+# All extensions are defined here. They are initialized by Empty if
+# required in your project's configuration. Check EXTENSIONS.
+#
+
 import os
 {% if uses_sql %}
 from flask_sqlalchemy import SQLAlchemy
@@ -29,12 +34,15 @@ from flask_socketio import SocketIO
 {%- endif %}
 {%- if cookiecutter.use_async_tasks in ('yes', 'y') %}
 from flask_rq2 import RQ
+{%- endif %}
+{%- if cookiecutter.serve_static_files in ('yes', 'y') %}
+from flask_static_compress import FlaskStaticCompress
 {% endif %}
 
 toolbar = None
 
-if os.environ['FLASK_CONFIG_DEFAULT'] == 'Dev':
-    # only works in debug mode
+if os.environ['FLASK_ENV'] == 'development':
+    # only works in development mode
     from flask_debugtoolbar import DebugToolbarExtension
     toolbar = DebugToolbarExtension()
 
@@ -52,6 +60,9 @@ nosql = MongoEngine()
 ma = Marshmallow()
 glue = JSGlue()
 {% endif -%}
+{%- if cookiecutter.serve_static_files in ('yes', 'y') %}
+compress = FlaskStaticCompress(app)
+{%- endif %}
 {%- if cookiecutter.use_async_tasks in ('yes', 'y') -%}
 io = SocketIO()
 {% endif -%}
