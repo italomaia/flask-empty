@@ -11,7 +11,10 @@
 
 import os
 import logging
+
 from datetime import timedelta
+from typing import Dict
+from typing import List
 
 project_name = "{{ cookiecutter.repo_name }}"
 
@@ -38,7 +41,7 @@ class Config(object):
     USE_X_SENDFILE = False
 
     # should be the hostname of your project
-    HOST = os.getenv('HOST', 'dv')  # 'dv' for development
+    HOST = os.getenv('HOST', '')  # create an alias in /etc/hosts for dev
     # useful for development/testing mode
     # necessary if non-standard port is being used
     HOST_PORT = os.getenv('HOST_PORT', '')
@@ -84,7 +87,7 @@ class Config(object):
     }
 
     # set this up case you need multiple database connections
-    SQLALCHEMY_BINDS = {}
+    SQLALCHEMY_BINDS: Dict = {}
 
     # log all the statements issued to stderr?
     SQLALCHEMY_ECHO = DEBUG
@@ -167,7 +170,7 @@ class Config(object):
     # see example/ for reference
     # ex: BLUEPRINTS = ['blog']  # where `blog` is a Blueprint instance
     # ex: BLUEPRINTS = [('blog', {'url_prefix': '/myblog'})]  # where `blog` is a Blueprint instance
-    BLUEPRINTS = []
+    BLUEPRINTS: List = []
 
 
 # config class for development environment
@@ -176,6 +179,8 @@ class Dev(Config):
     EXTENSIONS = Config.EXTENSIONS + [
         'extensions.toolbar'
     ]
+    # uses sqlite by default
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/%s.db' % Config.DB_NAME
 
 
 # config class used during tests

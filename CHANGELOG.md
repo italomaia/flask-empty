@@ -1,6 +1,17 @@
 Changelog
 =========
 
+Version 0.6.1
+
+- added .gitignore
+- added .editorconfig
+- added sqlite as default db for dev
+- added Makefile to make things easier
+- added static files folder
+- added support for transpiling with flask-static-compress
+- changed some logs and comments
+- changed default host value
+
 Version 0.6.0
 
 - fixed/updated blog example

@@ -47,3 +47,6 @@ flask-socketio
 marshmallow-sqlalchemy
 {%- endif %}
 flask-debugtoolbar
+{%- if cookiecutter.serve_static_files in ('yes', 'y') %}
+flask-static-compress
+{%- endif %}
