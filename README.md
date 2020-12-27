@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 
-**version 0.6.0**
+**version 0.6.1**
 
 Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
 use cookiecutter and create a new project in no time.
@@ -30,7 +30,7 @@ python3 -m venv venv
 pip install -r requirements.txt
 
 # loads env variables and runs the project in development mode
-source .venv && flask run
+source .venv && make run-dev
 ```
 
 Getting Started With Docker
