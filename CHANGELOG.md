@@ -4,6 +4,7 @@ Changelog
 Version 0.6.2 WIP
 
 - fixed new-app command import
+- if sqlalchemy support is enabled, sqlalchemy-utils is added to requirements
 
 Version 0.6.1
 
