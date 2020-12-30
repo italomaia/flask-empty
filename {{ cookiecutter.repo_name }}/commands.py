@@ -27,6 +27,7 @@ def new_app(name, with_templates):
 
     try:
         try:
+            # supports split requirements
             requirements = open('requirements/common.txt').read().lower()
         except FileNotFoundError:
             requirements = open('requirements.txt').read().lower()
@@ -53,10 +54,10 @@ def new_app(name, with_templates):
 
     with open(os.path.join(app_path, 'models.py'), 'w') as file:
         if 'flask-sqlalchemy' in requirements:
-            file.write("from database import db\n\n")
+            file.write("from extensions import db\n\n")
 
         if 'flask-mongoengine' in requirements:
-            file.write("from database import nosql\n\n")
+            file.write("from extensions import nosql\n\n")
 
     if 'flask-wtf' in requirements:
         with open(os.path.join(app_path, 'forms.py'), 'w') as file:

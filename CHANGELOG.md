@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 0.6.2 WIP
+
+- fixed new-app command import
+
 Version 0.6.1
 
 - added .gitignore
