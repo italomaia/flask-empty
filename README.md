@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 
-**version 0.6.1**
+**version 0.6.2**
 
 Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
 use cookiecutter and create a new project in no time.
