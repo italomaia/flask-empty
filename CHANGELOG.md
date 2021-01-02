@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Version 0.6.2
+
+- fixed new-app command import
+- if sqlalchemy support is enabled, sqlalchemy-utils is added to requirements
+- added vscode to gitignore
+- "name" is now optional for the "new-app" command
+- added new-app to Makefile
+- added app import to \_\_init\_\_ blueprint files
+
 Version 0.6.1
 
 - added .gitignore

@@ -15,7 +15,7 @@ APPS_FOLDER = 'apps'
 
 
 @click.command('new-app', help='creates a new blueprint app')
-@click.argument('name', required=True)
+@click.argument('name', required=False)
 @click.option(
     '-t', '--with-templates',
     default=False, is_flag=True, show_default=True,
@@ -25,8 +25,17 @@ def new_app(name, with_templates):
     Command to handle blueprints within your project
     """
 
+    if name is None:
+        # useful with makefiles
+        name = input('provide new app name: ')
+
+        if len(name) == 0:
+            print("name is missing; nothing to do")
+            exit(1)
+
     try:
         try:
+            # supports split requirements
             requirements = open('requirements/common.txt').read().lower()
         except FileNotFoundError:
             requirements = open('requirements.txt').read().lower()
@@ -48,22 +57,24 @@ def new_app(name, with_templates):
         os.mkdir(os.path.join(app_path, 'templates', path_name))
 
     # empty __init__.py
-    with open(os.path.join(app_path, '__init__.py'), 'w'):
-        pass
+    with open(os.path.join(app_path, '__init__.py'), 'w') as fs:
+        fs.write("from .views import app")
 
-    with open(os.path.join(app_path, 'models.py'), 'w') as file:
+    with open(os.path.join(app_path, 'models.py'), 'w') as fs:
         if 'flask-sqlalchemy' in requirements:
-            file.write("from database import db\n\n")
+            fs.write("from extensions import db\n\n")
 
         if 'flask-mongoengine' in requirements:
-            file.write("from database import nosql\n\n")
+            fs.write("from extensions import nosql\n\n")
 
     if 'flask-wtf' in requirements:
-        with open(os.path.join(app_path, 'forms.py'), 'w') as file:
-            file.write('from flask_wtf import Form\n\n')
+        with open(os.path.join(app_path, 'forms.py'), 'w') as fs:
+            fs.write('from flask_wtf import Form\n\n')
 
-    with open(os.path.join(app_path, 'views.py'), 'w') as file:
-        file.write(
+    with open(os.path.join(app_path, 'views.py'), 'w') as fs:
+        fs.write(
+            "# keep this file even if you don't need traditional views\n"
+            "# as it holds the blueprint app instance\n"
             "from flask import Blueprint\n"
             "from flask import render_template, flash, redirect, url_for\n\n"  # noqa
             "app = Blueprint('%(name)s', __name__, template_folder='templates')\n\n"  # noqa

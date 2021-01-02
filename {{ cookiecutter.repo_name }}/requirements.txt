@@ -21,6 +21,7 @@ flask-admin
 {%- if uses_sql %}
 flask-sqlalchemy
 flask-migrate
+sqlalchemy-utils
 {%- endif -%}
 {%- if uses_postgres or uses_cockroachdb %}
 psycopg2
