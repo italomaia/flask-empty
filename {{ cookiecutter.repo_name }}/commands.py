@@ -73,6 +73,8 @@ def new_app(name, with_templates):
 
     with open(os.path.join(app_path, 'views.py'), 'w') as fs:
         fs.write(
+            "# keep this file even if you don't need traditional views\n"
+            "# as it holds the blueprint app instance\n"
             "from flask import Blueprint\n"
             "from flask import render_template, flash, redirect, url_for\n\n"  # noqa
             "app = Blueprint('%(name)s', __name__, template_folder='templates')\n\n"  # noqa
