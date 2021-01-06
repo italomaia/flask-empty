@@ -9,3 +9,22 @@ run-tests:
 # creates a new app under apps
 new-app:
 	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask new-app
+
+# flask-migrate commands shortcuts
+db-init:
+	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask db init
+
+db-migrate:
+	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask db migrate -m '$(msg)'
+
+db-upgrade:
+	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask db upgrade $(rev)
+
+db-downgrade:
+	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask db upgrade $(rev)
+
+db-history:
+	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask db history
+
+db-current:
+	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask db current
