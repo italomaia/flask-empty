@@ -1,6 +1,10 @@
 Changelog
 =========
 
+WIP Version 0.6.3
+
+- added some flask-migrate commands to makefile
+
 Version 0.6.2
 
 - fixed new-app command import
