@@ -8,4 +8,4 @@ run-tests:
 
 # creates a new app under apps
 new-app:
-	HOST=dv.local HOST_PORT=5000 FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask new-app
+	FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask new-app
