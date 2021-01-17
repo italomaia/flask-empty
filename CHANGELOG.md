@@ -4,6 +4,7 @@ Changelog
 WIP Version 0.6.3
 
 - added some flask-migrate commands to makefile
+- `new-app` command now uses FlaskForm in forms.py
 
 Version 0.6.2
 
