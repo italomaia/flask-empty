@@ -6,6 +6,8 @@ WIP Version 0.6.3
 - added `flask-migrate` commands to makefile
 - added `wtforms-sqlalchemy` as an optional dependecy
 - `new-app` command now uses FlaskForm in forms.py
+- added docs on makefile
+- updated old docs (.venv is not used anymore)
 
 Version 0.6.2
 
