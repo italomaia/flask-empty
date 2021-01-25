@@ -4,6 +4,7 @@
 {%- set uses_mysql = cookiecutter.use_sql_mysql in ('y', 'yes') -%}
 {%- set uses_sql = uses_cockroachdb or uses_postgres or uses_mysql or uses_sqlite -%}
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
+{%- set uses_http_mixin = cookiecutter.use_http_mixin in ('y', 'yes') -%}
 
 pytest
 empty
@@ -32,8 +33,11 @@ mysqlclient
 {%- if uses_mongodb %}
 flask-mongoengine
 {%- endif -%}
-{%- if cookiecutter.use_http_mixin in ('yes', 'y') %}
+{%- if uses_http_mixin %}
 flask-wtf
+{%- endif -%}
+{%- if uses_http_mixin and uses_sql %}
+wtforms-sqlalchemy
 {%- endif -%}
 {%- if cookiecutter.use_rest in ('yes', 'y') %}
 marshmallow

@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Version 0.6.3
+
+- added `flask-migrate` commands to makefile
+- added `wtforms-sqlalchemy` as an optional dependecy
+- `new-app` command now uses FlaskForm in forms.py
+- added docs on makefile
+- updated old docs (.venv is not used anymore)
+- `compress` should be working now
+
 Version 0.6.2
 
 - fixed new-app command import
