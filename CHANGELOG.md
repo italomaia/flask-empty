@@ -1,7 +1,7 @@
 Changelog
 =========
 
-WIP Version 0.6.3
+Version 0.6.3
 
 - added `flask-migrate` commands to makefile
 - added `wtforms-sqlalchemy` as an optional dependecy
