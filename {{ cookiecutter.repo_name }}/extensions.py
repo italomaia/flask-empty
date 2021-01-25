@@ -60,9 +60,9 @@ nosql = MongoEngine()
 ma = Marshmallow()
 glue = JSGlue()
 {% endif -%}
-{%- if cookiecutter.serve_static_files in ('yes', 'y') %}
-compress = FlaskStaticCompress(app)
-{%- endif %}
+{%- if cookiecutter.serve_static_files in ('yes', 'y') -%}
+compress = FlaskStaticCompress()
+{% endif -%}
 {%- if cookiecutter.use_async_tasks in ('yes', 'y') -%}
 io = SocketIO()
 {% endif -%}
