@@ -8,7 +8,7 @@ use cookiecutter and create a new project in no time.
 
 ```shell
 # if cookiecutter is not installed
-sudo pip install cookiecutter # or pip install --user cookiecutter
+pip3 install cookiecutter
 
 # using cookiecutter // linux/Mac
 cookiecutter https://github.com/italomaia/flask-empty
@@ -19,24 +19,24 @@ cookiecutter https://github.com/italomaia/flask-empty
 Getting Started
 ===============
 
-You're advised to use venv from here on. In your project folder,
-create and enable it like this:
+You're advised to use [venv](https://docs.python.org/3/library/venv.html) from here on. 
+In your project folder, create and enable it like this:
 
 ```shell
 python3 -m venv venv
 . venv/bin/activate  # [.csh|.fish]
 
 # install required packages
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 # loads env variables and runs the project in development mode
-source .venv && make run-dev
+make run-dev
 ```
 
 Getting Started With Docker
 ===========================
 
-Given you have up-to-date docker installed in your machine,
+Given you have up-to-date docker installed in your machine, 
 all you need to do is:
 
 ```shell
@@ -49,20 +49,18 @@ docker run --rm -p 5000:5000 my-project-name
 Environment Variables
 =====================
 
-Be aware you might need to tweak the environment variables for production
-mode. The are available at **.env** and **Dockerfile**. If using Docker,
-you can even provide them inline.
+For flask to run correctly, some environment variables need to be set. The ones **needed** by your project can be seen in the **Dockerfile** or **Makefile** files. 
+For a list of all other optional environment variables, [check this link](https://flask.palletsprojects.com/en/1.1.x/config/). When using **docker**, you can easely set them inline before each run. When using **docker-compose**, set them in the yaml configuration file for each environment.
 
 Important files to be aware of
 ==============================
 
 **<project>/extensions.py** all extension instances that need initialization should be available
-here in order to have _Empty_ see and initialize them for you.
+here, so [Empty](https://pypi.org/project/Empty/) can see and initialize them for you. If instantiated somewhere else, just import them here and you should be fine.
 
-**<project>/config.py** is a pre-set configuration classes for you to meddle with. They're are all self explanatory
-and commented.
+**<project>/config.py** has pre-set configuration classes for you to meddle with. They're are all self explanatory and commented.
 
-**<project>/main.py** the _Empty_ class inherits from _empty.Empty_ which inherits from _flask.Flask_. Override it if you need to setup extensions, an index view, context processors, etc. It already has some sensitive defaults for most use cases. See https://github.com/italomaia/empty for all options.
+**<project>/main.py** instantiates your project's main class. Override it to quickly add custom extension setups, simple views, context processors, etc. It already has some sensitive defaults for most use cases. See https://github.com/italomaia/empty for the available options.
 
 **<project>/<project>.ini** is the configuration file used with
 [uwsgi](https://github.com/unbit/uwsgi). Use it like this:
@@ -71,7 +69,7 @@ and commented.
 uwsgi --ini your_project.ini
 ```
 
-**commands.py** adds few very useful commandline commands (...) to help your development productivity. Check available commands by running **flask**.
+**commands.py** adds few very useful commandline commands (...) to help your development productivity. You can also add your own. Check available commands by running `FLASK_ENV=development FLASK_CONFIG_DEFAULT=Dev flask` in the terminal.
 
 ## Heroku
 
@@ -86,12 +84,13 @@ There are some error templates bundled with flask-empty by default. All empty ri
 
 ## Macros
 
-You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with
-flask extensions like wtforms and commons tasks like showing flash messages. Available macros, **formhelpers** and **flashing** are very useful.
+You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with flask extensions like wtforms and common tasks like showing flash messages. 
+
+Available macros, **formhelpers** and **flashing** are very useful.
 
 ## Blueprints
 
-You can create blueprints easily with **flask new-app <name>**. The will live, by default
+You can create blueprints easily with `make new-app`. The will live, by default
 at **apps** folder. Remember to configure your blueprints in **config.py** so that they
 can be properly loaded.
 
@@ -105,11 +104,11 @@ as valid python. Ex: `data = {"x": true, "y": false, "z": null}`
 
 ## Flask-SQLAlchemy
 
-While creating your project, Flask-Empty will ask you if you wish to enable SQL support. Confirm if you do so
-and Flask-SQLAlchemy will be available and configured through **database.py**.
+While creating your project, Flask-Empty will ask you if you wish to enable SQL support. Confirm if you do so and Flask-SQLAlchemy will be made available. See **config.py** for its default configuration.
 
-_ps: currently, db-create will only create your models if they are imported somewhere in your application.
-By **somewhere**, try the *same module where your Blueprint instance is defined*.
+_ps: currently, db-create will only create your models if they are imported somewhere in your application. 
+
+By **somewhere**, try the same module where your Blueprint instance is defined.
 
 ## Flask-Mongoengine
 
@@ -148,8 +147,8 @@ FAQ
 Right now, flask-empty is a very simple project where many good practices and code examples were glued together.
 
 Until recently I was focused in keeping backward compatibility with flask 0.8. Well, **that goal is no more**.
-Flask-empty will be compatible with the latest version of Flask and, by chance, with previous versions.
-Things will be easier (for me!) this way.
+
+Flask-empty will be compatible with the latest version of Flask and, by chance, with previous versions. Things will be easier (for me!) this way.
 
 **So, which is the oldest version where flask-empty works?**
 
@@ -163,6 +162,7 @@ My current goals are:
 * Keep things simple and robust
 
 If your suggestion is simple, **VERY** useful and has little overhead, I'll probably consider adding it to the project.
+
 If you make the code and send a pull request, then I'll consider it real hard. Now, if your suggestion is rejected or advised in a different approach, don't get sad (you're awesome ;).
 
 **I just made a cool example with flask-empty and want to add it to examples.**
