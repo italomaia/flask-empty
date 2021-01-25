@@ -8,6 +8,7 @@ WIP Version 0.6.3
 - `new-app` command now uses FlaskForm in forms.py
 - added docs on makefile
 - updated old docs (.venv is not used anymore)
+- `compress` should be working now
 
 Version 0.6.2
 

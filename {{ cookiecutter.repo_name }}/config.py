@@ -8,6 +8,7 @@
     or uses_sqlite -%}
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
 {%- set uses_socketio = cookiecutter.use_socketio in ('yes', 'y') -%}
+{%- set uses_static_files = cookiecutter.serve_static_files in ('yes', 'y') -%}
 
 import os
 import logging
@@ -164,6 +165,9 @@ class Config(object):
         {%- endif %}
         {%- if uses_socketio %}
         'extensions.io',
+        {%- endif %}
+        {%- if uses_static_files %}
+        'extensions.compress',
         {%- endif %}
     ]
 
