@@ -161,7 +161,6 @@ class Config(object):
         {%- endif %}
         {%- if cookiecutter.use_rest in ('yes', 'y') %}
         'extensions.ma',
-        'extensions.glue',
         {%- endif %}
         {%- if uses_socketio %}
         'extensions.io',

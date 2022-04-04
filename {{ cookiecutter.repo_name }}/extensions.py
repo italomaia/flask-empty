@@ -28,7 +28,6 @@ from flask_mongoengine import MongoEngine
 {%- endif -%}
 {%- if cookiecutter.use_rest in ('yes', 'y') %}
 from flask_marshmallow import Marshmallow
-from flask_jsglue import JSGlue
 {%- endif -%}
 {%- if uses_socketio %}
 from flask_socketio import SocketIO
@@ -59,7 +58,6 @@ nosql = MongoEngine()
 {% endif -%}
 {%- if cookiecutter.use_rest in ('yes', 'y') -%}
 ma = Marshmallow()
-glue = JSGlue()
 {% endif -%}
 {%- if cookiecutter.serve_static_files in ('yes', 'y') -%}
 compress = FlaskStaticCompress()

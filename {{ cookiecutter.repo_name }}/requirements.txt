@@ -42,7 +42,6 @@ wtforms-sqlalchemy
 {%- if cookiecutter.use_rest in ('yes', 'y') %}
 marshmallow
 flask-marshmallow
-flask-jsglue
 {%- endif -%}
 {%- if cookiecutter.use_socketio in ('yes', 'y') %}
 eventlet
