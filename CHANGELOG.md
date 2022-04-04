@@ -1,6 +1,10 @@
 Changelog
 =========
 
+WIP Version 0.6.4
+
+- fix flask-security integration
+
 Version 0.6.3
 
 - added `flask-migrate` commands to makefile
