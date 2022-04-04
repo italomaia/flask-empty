@@ -5,6 +5,7 @@ WIP Version 0.6.4
 
 - fix flask-security integration
 - flask-jsglue is broken; so, removing it until fixed
+- adding wheel to requirements to avoid some errors during build
 
 Version 0.6.3
 
