@@ -18,6 +18,7 @@ from flask_migrate import Migrate
 {%- endif -%}
 {%- if cookiecutter.use_security in ('yes', 'y') %}
 from flask_security import Security
+from flask_security import SQLAlchemyUserDatastore
 {%- endif -%}
 {%- if cookiecutter.use_admin in ('yes', 'y') %}
 from flask_admin import Admin
@@ -78,5 +79,8 @@ def security_init_kwargs():
     **kwargs arguments passed down during security extension initialization by
     "empty" package.
     """
-    return dict()
+    from auth.models import User, Role
+
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    return dict(datastore=user_datastore)
 {% endif -%}
