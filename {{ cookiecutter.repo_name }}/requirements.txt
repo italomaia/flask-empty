@@ -6,6 +6,7 @@
 {%- set uses_mongodb = cookiecutter.use_nosql_mongodb in ('y', 'yes') -%}
 {%- set uses_http_mixin = cookiecutter.use_http_mixin in ('y', 'yes') -%}
 
+wheel
 pytest
 empty
 flask
