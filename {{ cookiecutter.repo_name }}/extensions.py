@@ -18,6 +18,7 @@ from flask_migrate import Migrate
 {%- endif -%}
 {%- if cookiecutter.use_security in ('yes', 'y') %}
 from flask_security import Security
+from flask_security import SQLAlchemyUserDatastore
 {%- endif -%}
 {%- if cookiecutter.use_admin in ('yes', 'y') %}
 from flask_admin import Admin
@@ -27,7 +28,6 @@ from flask_mongoengine import MongoEngine
 {%- endif -%}
 {%- if cookiecutter.use_rest in ('yes', 'y') %}
 from flask_marshmallow import Marshmallow
-from flask_jsglue import JSGlue
 {%- endif -%}
 {%- if uses_socketio %}
 from flask_socketio import SocketIO
@@ -58,7 +58,6 @@ nosql = MongoEngine()
 {% endif -%}
 {%- if cookiecutter.use_rest in ('yes', 'y') -%}
 ma = Marshmallow()
-glue = JSGlue()
 {% endif -%}
 {%- if cookiecutter.serve_static_files in ('yes', 'y') -%}
 compress = FlaskStaticCompress()
@@ -78,5 +77,8 @@ def security_init_kwargs():
     **kwargs arguments passed down during security extension initialization by
     "empty" package.
     """
-    return dict()
+    from auth.models import User, Role
+
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    return dict(datastore=user_datastore)
 {% endif -%}
