@@ -1,6 +1,10 @@
 Changelog
 =========
 
+WIP Version 0.6.5
+
+- cookiecutter update dropped support for expressions usage with file/folder names; this breaks apps/auth creation. Fixed.
+
 Version 0.6.4
 
 - fix flask-security integration
