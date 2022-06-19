@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.6.5
+
+- cookiecutter update dropped support for expressions usage with file/folder names; this breaks apps/auth creation. Fixed.
+- fixed mongodb support (MONGODB_NAME->MONGODB_DB)
+
 Version 0.6.4
 
 - fix flask-security integration

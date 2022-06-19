@@ -1,7 +1,7 @@
 Flask Empty
 ===========
 
-**version 0.6.4**
+**version 0.6.5**
 
 Flask-Empty is a simple **flask boilerplate** for fast prototyping. Just
 use cookiecutter and create a new project in no time.
@@ -19,7 +19,7 @@ cookiecutter https://github.com/italomaia/flask-empty
 Getting Started
 ===============
 
-You're advised to use [venv](https://docs.python.org/3/library/venv.html) from here on. 
+You're advised to use [venv](https://docs.python.org/3/library/venv.html) from here on.
 In your project folder, create and enable it like this:
 
 ```shell
@@ -36,7 +36,7 @@ make run-dev
 Getting Started With Docker
 ===========================
 
-Given you have up-to-date docker installed in your machine, 
+Given you have up-to-date docker installed in your machine,
 all you need to do is:
 
 ```shell
@@ -49,7 +49,7 @@ docker run --rm -p 5000:5000 my-project-name
 Environment Variables
 =====================
 
-For flask to run correctly, some environment variables need to be set. The ones **needed** by your project can be seen in the **Dockerfile** or **Makefile** files. 
+For flask to run correctly, some environment variables need to be set. The ones **needed** by your project can be seen in the **Dockerfile** or **Makefile** files.
 For a list of all other optional environment variables, [check this link](https://flask.palletsprojects.com/en/1.1.x/config/). When using **docker**, you can easely set them inline before each run. When using **docker-compose**, set them in the yaml configuration file for each environment.
 
 Important files to be aware of
@@ -84,7 +84,7 @@ There are some error templates bundled with flask-empty by default. All empty ri
 
 ## Macros
 
-You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with flask extensions like wtforms and common tasks like showing flash messages. 
+You can use the jinja2 macros available in **templates/macros** to easily integrate your jinja2 templates with flask extensions like wtforms and common tasks like showing flash messages.
 
 Available macros, **formhelpers** and **flashing** are very useful.
 
@@ -106,7 +106,7 @@ as valid python. Ex: `data = {"x": true, "y": false, "z": null}`
 
 While creating your project, Flask-Empty will ask you if you wish to enable SQL support. Confirm if you do so and Flask-SQLAlchemy will be made available. See **config.py** for its default configuration.
 
-_ps: currently, db-create will only create your models if they are imported somewhere in your application. 
+_ps: currently, db-create will only create your models if they are imported somewhere in your application.
 
 By **somewhere**, try the same module where your Blueprint instance is defined.
 
