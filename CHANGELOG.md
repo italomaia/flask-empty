@@ -1,7 +1,7 @@
 Changelog
 =========
 
-WIP Version 0.6.5
+Version 0.6.5
 
 - cookiecutter update dropped support for expressions usage with file/folder names; this breaks apps/auth creation. Fixed.
 - fixed mongodb support (MONGODB_NAME->MONGODB_DB)
