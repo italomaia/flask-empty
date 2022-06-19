@@ -204,5 +204,5 @@ class Test(Config):
     {%- if uses_mongodb %}
     # mongodb connection configuration;
     # be sure to use username and password in production
-    MONGODB_DB = "%s-test" % Config.MONGODB_NAME
+    MONGODB_DB = "%s-test" % Config.MONGODB_DB
     {%- endif %}
