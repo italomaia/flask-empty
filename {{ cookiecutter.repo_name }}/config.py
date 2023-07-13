@@ -42,14 +42,13 @@ class Config(object):
     USE_X_SENDFILE = False
 
     # should be the hostname of your project
-    HOST = os.getenv('HOST', '')  # create an alias in /etc/hosts for dev
+    HOST = os.getenv('HOST', 'localhost')  # create an alias in /etc/hosts for dev
     # useful for development/testing mode
-    # necessary if non-standard port is being used
-    HOST_PORT = os.getenv('HOST_PORT', '')
+    HOST_PORT = os.getenv('HOST_PORT', '5000')
     # we need to append the host port to the server_name if it is non-standard
     SERVER_NAME_EXTRA = len(HOST_PORT) and '' or (":" + HOST_PORT)
     # SERVER_NAME contains the hostname and port (if non-default)
-    SERVER_NAME = HOST + SERVER_NAME_EXTRA
+    SERVER_NAME = os.getenv('SERVER_NAME', HOST + SERVER_NAME_EXTRA)
 
     # use to set werkzeug / socketio options, if needed
     # SERVER_OPTIONS = {}
