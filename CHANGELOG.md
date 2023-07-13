@@ -1,6 +1,11 @@
 Changelog
 =========
 
+WIP Version 0.6.6
+
+- adding sensible defaults to configuration (HOST, HOST_PORT)
+- config.SERVER_NAME is fetched from the local environment by default
+
 Version 0.6.5
 
 - cookiecutter update dropped support for expressions usage with file/folder names; this breaks apps/auth creation. Fixed.
